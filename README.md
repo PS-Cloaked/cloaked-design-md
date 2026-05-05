@@ -11,4 +11,3 @@
 
 ## Sync with Figma
 <!-- TODO: ... -->
-# cloaked-design-md
