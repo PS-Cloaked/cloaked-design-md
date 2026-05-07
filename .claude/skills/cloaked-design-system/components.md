@@ -816,7 +816,117 @@ faq           ┌─────────────────────
 - Link: https://www.figma.com/design/k0n0CNGfk4ie9Vb74byl9v/Playlist-%E2%80%94-Toolkit?node-id=17826-13511
 
 ### 10. Navigation
-_TBD_
+
+**Use.** Persistent screen chrome — the top bar that anchors a screen and the bottom bar that switches between top-level destinations. Three family members share the *Navigation* schema: `bottom_nav_item` (atomic), `bottom_bar` (composed strip), `top_bar` (page-level header).
+
+**Anatomy.**
+```
+bottom_nav_item   ╭──────╮
+                  │  ⌂   │     ← 24×24 icon in a 12px-padded square; no label
+                  ╰──────╯
+
+bottom_bar        ┌─────────────────────────────────────────────────┐
+                  │   ⌂      🔍      🔔      👤      ⚙              │   ← 5 items, justify-between
+                  └─────────────────────────────────────────────────┘
+                       ↑ one item full opacity (selected); others at --ct-opacity-disabled
+
+top_bar / page    ┌─────────────────────────────────────────────────┐
+                  │                                                 │   ← 96px top padding (safe-area)
+                  │  Activities                                     │   ← Simula H2 title, flex-1
+                  └─────────────────────────────────────────────────┘
+
+top_bar / home    ┌─────────────────────────────────────────────────┐
+                  │                                                 │   ← 96px top padding (safe-area)
+                  │                                         Profile │   ← Body sans, right-aligned
+                  └─────────────────────────────────────────────────┘
+```
+- **bottom_nav_item.** One slot — a 24×24 icon. No label, no badge, no trailing. Selection is encoded in opacity, not in the icon glyph.
+- **bottom_bar.** Strip of exactly five `bottom_nav_item`s, `justify-between`, exactly one in `selected` state.
+- **top_bar.** One row, two slots — a leading title (active in `page`) and a trailing label (active in `home`). The 96px top padding reserves the iOS safe area; the system draws the status bar at runtime (see Don't).
+
+**Variants.**
+
+| Variant | Visual | When |
+| --- | --- | --- |
+| `bottom_nav_item/selected` | 24×24 icon at full opacity | The active destination in the bottom bar — exactly one per strip |
+| `bottom_nav_item/inactive` | 24×24 icon at `--ct-opacity-disabled` | Every other destination in the same strip |
+| `bottom_bar` | White strip of five items, `justify-between`, one selected | Persistent destination switcher pinned to the bottom of every top-level screen |
+| `top_bar/page` | Simula H2 title left-aligned, no trailing | Sub-pages that own a name (Activities, Identity, Guard, Monitoring) |
+| `top_bar/home` | "Profile" body label right-aligned, no title | The Home screen — no page title, single trailing entry-point |
+
+**Sizing.**
+
+*`bottom_nav_item`*
+- Container: padding `--ct-spacing-12` (all sides); intrinsic width = 24 + 12 + 12 = 48px; intrinsic height = 48px.
+- Icon: 24×24 (matches the system's standard informational / feature icon size; no spacing token at 24 for icon dimensions, but `--ct-spacing-24` happens to match — reference the icon size as 24×24, not the spacing token).
+
+*`bottom_bar`*
+- Container: width 393px (matches the standard screen width used across the system; raw value retained until a screen-width token lands); padding-top `--ct-spacing-16`; padding-bottom `--ct-spacing-24`; padding-inline `--ct-spacing-24`; `flex-direction: column`; `align-items: center`; `justify-content: center`.
+- Inner row: width 345px (no matching `--ct-spacing-*`; raw value retained until a token lands — equals 393 − 24 − 24); `justify-content: space-between`; `align-items: center`; five `bottom_nav_item` children. The gap between items is implicit from `space-between`; do not hand-tune it.
+
+*`top_bar`*
+- Container: width 393px; padding-top `--ct-spacing-96`; padding-bottom `--ct-spacing-24`; padding-inline `--ct-spacing-16`; `align-items: center`; gap `--ct-spacing-16` (inert on `home`).
+- `page` title slot: width 289px (no matching `--ct-spacing-*`; raw value retained until a token lands); single-line.
+- `home` trailing slot: width 89px (no matching `--ct-spacing-*`; raw value retained until a token lands); `text-align: right`; container uses `justify-content: flex-end`.
+
+**Tokens.**
+
+*`bottom_nav_item`*
+
+| Slot | Property | Token |
+| --- | --- | --- |
+| Container (`/selected`) | opacity | `1` (default — no override) |
+| Container (`/inactive`) | opacity | `--ct-opacity-disabled` |
+| Container | padding | `--ct-spacing-12` |
+| Icon | color | inherits from parent text color |
+
+*`bottom_bar`*
+
+| Slot | Property | Token |
+| --- | --- | --- |
+| Container | background | `--ct-bkgd-02` |
+| Container | padding-top | `--ct-spacing-16` |
+| Container | padding-bottom | `--ct-spacing-24` |
+| Container | padding-inline | `--ct-spacing-24` |
+
+*`top_bar`*
+
+| Slot | Property | Token |
+| --- | --- | --- |
+| Container | background | `--ct-bkgd-02` |
+| Container | padding-top | `--ct-spacing-96` |
+| Container | padding-bottom | `--ct-spacing-24` |
+| Container | padding-inline | `--ct-spacing-16` |
+| Container | gap | `--ct-spacing-16` |
+| Title (`page`) | color | `--ct-text-primary` |
+| Title (`page`) | font (apply all 5 sub-tokens) | `--ct-text-h2-serif-family`, `--ct-text-h2-serif-weight`, `--ct-text-h2-serif-size`, `--ct-text-h2-serif-line-height`, `--ct-text-h2-serif-letter-spacing` |
+| Trailing (`home`) | color | `--ct-text-primary` |
+| Trailing (`home`) | font (apply all 5 sub-tokens) | `--ct-text-body-family`, `--ct-text-body-weight`, `--ct-text-body-size`, `--ct-text-body-line-height`, `--ct-text-body-letter-spacing` |
+
+> _Source the page title naturally (`"Activities"`) — `--ct-text-h2-serif-*` does not apply a `text-transform`; the title is rendered as-typed. This is the **page-title slot** sanctioned for Simula in SKILL.md §6.1; do not extend Simula to the `home` Profile label._
+>
+> _The Figma master exports the `home` Profile slot with a fallback hex of `#f3f1ed` (cream) on the `--global/text/primary` variable — this is a known export quirk; the resolved variable is `--ct-text-primary`, which is what should be referenced. Do not hand-paint Profile in cream._
+
+**Don't.**
+- Don't simulate the iOS status bar inside the 96px top padding (`9:41`, signal / wifi / battery glyphs). The padding reserves the safe area; the system draws the chrome at runtime (SKILL.md §9.4).
+- Don't add a chevron, arrow, or label under a `bottom_nav_item`. The icon plus opacity is the entire affordance — labels would re-introduce the chrome the bar deliberately omits (SKILL.md §9.3 spirit).
+- Don't differentiate `selected` from `inactive` by swapping to a filled icon variant, adding an underline, or bolding the glyph. Opacity is the only differentiator (SKILL.md §2.5).
+- Don't render more than one `selected` item in a single `bottom_bar`. The current-destination pointer is singular — two full-opacity icons break the read.
+- Don't use Simula on the `home` Profile label or on any `bottom_nav_item`. Simula is reserved for the `top_bar/page` title slot in this component (SKILL.md §2.4 / §6.1).
+- Don't title-case or upper-case the `page` title (`"ACTIVITIES"`, `"activities"`). The title is rendered as-typed at `--ct-text-h2-serif-*`; source it in the case it should display (`"Activities"`). The `capitalize` rule used by Section Header / Impact does **not** apply here.
+- Don't drop a shadow or add a border on either bar. Both sit on `--ct-bkgd-02` and separate from the page beneath via the cream gap above the bar, never via elevation (SKILL.md §9.2).
+- Don't tint either bar with `--ct-monitoring-*`, `--ct-guard-*`, or `--ct-identity-*`. Category tokens are reserved for feature surfaces; navigation chrome is neutral on every screen (SKILL.md §9.1).
+- Don't fewer-or-more than five `bottom_nav_item`s in a `bottom_bar`. The strip is fixed at five; if a destination needs to be added or removed, surface the request rather than improvising a 4-up or 6-up variant (SKILL.md §7.1, §2.3).
+- Don't introduce a fourth Navigation family member (e.g., `sidebar`, `drawer`, `tabstrip`). The three above are the closed set; `tabstrip` already lives in [Component 5 — Control](#5-control) as `tabs/*` (SKILL.md §7.1, §2.3).
+- Don't repurpose `top_bar/home` as a "trailing-only page" template for non-Home screens. The `home` variant is anchored to the Home screen specifically; other screens with a single trailing affordance use a `page` title plus a Section Header action row beneath, not a title-less top bar.
+
+**Figma.**
+- Page node: `16064:10186`
+- `bottom_nav_item` master: `16896:6372`
+- `bottom_bar` master: `16896:6679`
+- `top_bar` master: `16206:3431` (`page`), `16206:3443` (`home`)
+- File: Playlist — Toolkit
+- Link: https://www.figma.com/design/k0n0CNGfk4ie9Vb74byl9v/Playlist-%E2%80%94-Toolkit?node-id=16064-10186
 
 ### 11. Card / Feature
 _TBD_
