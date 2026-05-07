@@ -3,9 +3,9 @@
 > Bridge between the design system and real screens.
 > **What this file does**: shows how the main navigation tabs are assembled — how cards stack, how groups end, and how each feature's hero evolves across states.
 > **What this file does NOT do**:
-> - Define components → see `.claude/skills/cloaked-design-system/components.md`
+> - Define components → see `components.md`
 > - List token values → see `tokens/colors.css`, `tokens/numbers.css`, `tokens/themes.css`, `tokens/typography.css`
-> - State design rules → see `.claude/skills/cloaked-design-system/SKILL.md` §2.1
+> - State design rules → see `SKILL.md` §2.1
 
 If you're about to add a token or define a component here, stop. You're in the wrong file.
 

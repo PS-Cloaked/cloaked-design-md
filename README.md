@@ -11,13 +11,13 @@ This package is **not** a component library. It is a rule book + token export. Y
 ### Claude (chat / Project)
 
 1. Attach this folder (or upload as a zip) to a Claude Project.
-2. Claude picks up `cloaked.design.md` automatically as its rules.
+2. Claude picks up `cloaked-design-system/SKILL.md` automatically as its rules.
 3. Ask: *"Build a CTA card using Cloaked tokens, dark theme."*
 
 ### Cursor
 
 1. Place this folder anywhere in your workspace.
-2. Reference it in chat with `@cloaked-design-md` (or `@cloaked.design.md` for just the rules file).
+2. Reference it in chat with `@cloaked-design-md` (or `@cloaked-design-system/SKILL.md` for just the rules file).
 3. Cursor reads the tokens and rules together.
 
 ### Claude Code
@@ -27,7 +27,7 @@ This package is **not** a component library. It is a rule book + token export. Y
 
 ### Other LLMs / API
 
-Pass `cloaked.design.md` plus the four `tokens/*.css` files as system context. Skip the fonts unless you need to render previews.
+Pass `cloaked-design-system/SKILL.md` plus the four `cloaked-design-system/tokens/*.css` files as system context. Skip the fonts unless you need to render previews.
 
 ---
 
@@ -35,30 +35,31 @@ Pass `cloaked.design.md` plus the four `tokens/*.css` files as system context. S
 
 ```
 cloaked-design-md/
-├── README.md             # This file (humans)
-├── cloaked.design.md     # AI rules (read by LLMs)
-├── components.md         # Component specs — currently TBD
-├── examples.md           # BAD / GOOD usage — currently TBD
-├── tokens/
-│   ├── colors.css        # 16 color primitives
-│   ├── numbers.css       # Spacing scale + opacity
-│   ├── themes.css        # Light + Dark semantic tokens
-│   └── typography.css    # Text styles + @font-face
-└── fonts/
-    ├── Simula-Book.otf
-    └── Simula-Italic.otf
+├── README.md                     # This file (humans)
+└── cloaked-design-system/        # The skill (deployable unit)
+    ├── SKILL.md                  # AI rules (read by LLMs)
+    ├── components.md             # Component specs — currently TBD
+    ├── examples.md               # BAD / GOOD usage — currently TBD
+    ├── tokens/
+    │   ├── colors.css            # 16 color primitives
+    │   ├── numbers.css           # Spacing scale + opacity
+    │   ├── themes.css            # Light + Dark semantic tokens
+    │   └── typography.css        # Text styles + @font-face
+    └── fonts/
+        ├── Simula-Book.otf
+        └── Simula-Italic.otf
 ```
 
 ---
 
 ## How tokens work
 
-- **`tokens/*.css` is the source of truth** for the AI. Token names and values come from there, not from prose docs.
+- **`cloaked-design-system/tokens/*.css` is the source of truth** for the AI. Token names and values come from there, not from prose docs.
 - All token names are prefixed `--ct-*` (Cloaked Toolkit).
 - Components consume **semantic** tokens (`--ct-bkgd-02`, `--ct-text-primary`, `--ct-cta-primary-container`). Color primitives (`--ct-color-*`) are backstage and should not be referenced directly.
 - Themes activate via `data-theme="light"` or `data-theme="dark"` on the root element. There is no fallback.
 
-The full rule set, including what's forbidden and how the AI should behave when something is ambiguous, lives in `cloaked.design.md`.
+The full rule set, including what's forbidden and how the AI should behave when something is ambiguous, lives in `cloaked-design-system/SKILL.md`.
 
 ---
 
@@ -68,13 +69,13 @@ Token CSS is generated from Figma Variables, **not hand-edited**. To update:
 
 1. In Figma, open the relevant Variables collection (Colors / Numbers / Theme) or Text Styles.
 2. Export to W3C DTCG JSON.
-3. Regenerate the corresponding `tokens/*.css` from the export.
+3. Regenerate the corresponding `cloaked-design-system/tokens/*.css` from the export.
 4. Commit the regenerated CSS.
 
-Hand-edits to `tokens/*.css` will be overwritten on the next export. If a value needs to change, change it in Figma first.
+Hand-edits to `cloaked-design-system/tokens/*.css` will be overwritten on the next export. If a value needs to change, change it in Figma first.
 
 ---
 
 ## License
 
-Simula is a licensed typeface. The `.otf` files in `fonts/` are bundled for use within Cloaked products only. Do not redistribute the fonts as part of forks or external projects.
+Simula is a licensed typeface. The `.otf` files in `cloaked-design-system/fonts/` are bundled for use within Cloaked products only. Do not redistribute the fonts as part of forks or external projects.
