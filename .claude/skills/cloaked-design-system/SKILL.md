@@ -15,7 +15,7 @@ Before producing output, the agent must have access to:
 | `tokens/numbers.css` | Spacing + opacity | **Source of truth** for numeric tokens |
 | `tokens/themes.css` | Light + dark semantic tokens | **Source of truth** for theme mapping |
 | `tokens/typography.css` | Text styles + `@font-face` | **Source of truth** for type tokens |
-| `components.md` | Component specs | Currently empty — see §7 |
+| `components.md` | Component specs | Components rulebook (16 components, all TBD) |
 | `examples.md` | BAD / GOOD usage examples | Currently empty |
 
 **Conflict resolution.** If two sources disagree:
@@ -238,12 +238,19 @@ Section titles render in Title Case via CSS `text-transform: capitalize`. **Sour
 
 ### 7.1 Current state
 
-`components.md` is currently **empty** (placeholder). There is no per-component spec catalog yet.
+`components.md` is a **rulebook with 16 component slots — all bodies TBD**. The structure is fixed: 16 component names + a `Default visual properties` baseline + a per-component schema (Use / Anatomy / Variants / Sizing / Tokens / Don't / Figma).
 
-This means: when the user asks for a Cloaked component, you do **not** have a written spec to copy from. You have:
+What this means:
+
+- The **list of valid Cloaked components is closed** at those 16. Don't invent a 17th — if a request doesn't fit one of the 16, surface it to the user.
+- Each component's **body is still empty**. There is no written spec to copy from yet.
+- Default visual properties live in `components.md` and apply unless a component explicitly overrides them.
+
+When asked to build one of the 16, you have:
 
 - Tokens (`tokens/*.css`) — definitive.
 - This document (rules, namespace, theme).
+- The schema in `components.md` (slot names, expected sections).
 - Whatever the user tells you in chat.
 - Figma (only if the user provides a link and Figma MCP is connected).
 
