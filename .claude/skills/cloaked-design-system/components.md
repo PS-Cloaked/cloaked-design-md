@@ -687,7 +687,133 @@ action      ┌─────────────────────�
 - Link: https://www.figma.com/design/k0n0CNGfk4ie9Vb74byl9v/Playlist-%E2%80%94-Toolkit?node-id=17651-5332
 
 ### 9. Footer
-_TBD_
+
+**Use.** End-of-page closures — three distinct moments that wrap a screen: a card-level "see more" link, a global impact band, and a FAQ band. One Footer per closure; not stackable, not interchangeable across the three roles.
+
+**Anatomy.**
+```
+card-section  ┌─────────────────────────────────────────────────┐
+              │  ─────────────────────────────────────────────  │   ← top hairline (0.5px, --ct-divider)
+              │                  See details                    │   ← centered text-link, link size
+              └─────────────────────────────────────────────────┘
+
+impact        ┌─────────────────────────────────────────────────┐
+              │                                                 │
+              │              Together, Cloaked users            │   ← line 1, h3 sans
+              │           have removed 170 million              │   ← inline Simula on the number, --ct-brand
+              │           records from the internet.            │   ← line 3, h3 sans
+              │                                                 │
+              │             ╭──────────────────╮                │
+              │             │  Explore tools   │                │   ← tertiary CTA pill, body sans
+              │             ╰──────────────────╯                │
+              │                                                 │
+              └─────────────────────────────────────────────────┘
+
+faq           ┌─────────────────────────────────────────────────┐
+              │  Frequently asked questions                     │   ← Section Header (#7 default, overrides below)
+              │                                                 │
+              │  ╭───────╮ ╭───────╮ ╭───────╮ ╭───────╮        │   ← horizontal carousel
+              │  │Kicker │ │Kicker │ │Kicker │ │Kicker │        │   ← body-small, --ct-brand
+              │  │Headln │ │Headln │ │Headln │ │Headln │        │   ← Simula h2-serif, --ct-text-ai-primary
+              │  │   →   │ │   →   │ │   →   │ │   →   │        │   ← 48×48 circular icon button
+              │  ╰───────╯ ╰───────╯ ╰───────╯ ╰───────╯        │
+              │                                                 │   ← bottom padding 240px
+              └─────────────────────────────────────────────────┘
+```
+- `card-section`: one slot — a centered text-link. The top hairline is the only structural element; no leading or trailing slot.
+- `impact`: two slots stacked vertically — copy block (3 lines, mixed sans + inline Simula on a single phrase) and tertiary CTA pill. The slot count is fixed.
+- `faq`: two slots stacked vertically — Section Header ([Component 7](#7-section-header), `default` variant with overrides documented below) and a horizontally scrolling row of FAQ cards. Each FAQ card is a kit-voice atom: kicker label + Simula headline + circular trailing icon-button.
+
+**Variants.**
+
+| Variant | Visual | When |
+| --- | --- | --- |
+| `card-section` | 50px row, top hairline, centered text-link | Bottom of a card section, leads to a detail view |
+| `impact` | 393×550 hero band, centered editorial copy with inline Simula number + tertiary CTA pill | Global app moment ("users have removed N records") after main content |
+| `faq` | Fixed-dark AI band, Section Header + horizontal FAQ-card carousel | Bottom of screens with frequently asked questions |
+
+**Sizing.**
+
+*`card-section`*
+- Container: width 393px; height 50px (no matching `--ct-spacing-*`; raw value retained until a token lands); padding-inline `--ct-spacing-20`; gap `--ct-spacing-16` (inert with one slot); `align-items: center`; `justify-content: center`.
+- Top border: 0.5px (no matching `--ct-spacing-*`; raw value retained until a token lands); solid `--ct-divider`.
+
+*`impact`*
+- Container: width 393px; height 550px (no matching `--ct-spacing-*`; raw value retained until a token lands); `overflow: hidden`.
+- Inner stack: width 271px (no matching `--ct-spacing-*`; raw value retained until a token lands); horizontally + vertically centered in container; `flex-direction: column`; `align-items: center`; gap `--ct-spacing-32` between copy block and CTA.
+- Copy block: width 100% of inner stack; `flex-direction: column`; gap `--ct-spacing-4` between lines; `text-align: center`.
+- CTA: intrinsic width; padding-block `--ct-spacing-12`; padding-inline `--ct-spacing-24`; border-radius 100px (no matching `--ct-spacing-*`; pill — raw value retained until a token lands).
+
+*`faq`*
+- Container: width 393px; padding-bottom `--ct-spacing-240`; `flex-direction: column`; gap `--ct-spacing-20`; `overflow: hidden`.
+- Section Header slot: see [Component 7 — Section Header](#7-section-header) Sizing (padding-top `--ct-spacing-40`, padding-bottom `--ct-spacing-12`, padding-inline `--ct-spacing-16`).
+- Carousel row: padding-inline `--ct-spacing-20`; gap 10px (no matching `--ct-spacing-*`; raw value retained until a token lands) between cards; horizontal scroll.
+- FAQ card: width 233px (no matching `--ct-spacing-*`; raw value retained until a token lands); padding-top `--ct-spacing-24`; padding-bottom `--ct-spacing-16`; padding-inline `--ct-spacing-16`; `flex-direction: column`; gap `--ct-spacing-16` between kicker, headline, and icon-button; border-radius `--ct-spacing-20`.
+- FAQ card icon-button: 48×48 circular; padding `--ct-spacing-12` around a 24×24 icon (`action/arrow_right`).
+
+**Tokens.**
+
+*`card-section`*
+
+| Slot | Property | Token |
+| --- | --- | --- |
+| Container | top border | `--ct-divider` |
+| Text link | color | `--ct-text-primary` |
+| Text link | font (apply all 5 sub-tokens) | `--ct-text-link-family`, `--ct-text-link-weight`, `--ct-text-link-size`, `--ct-text-link-line-height`, `--ct-text-link-letter-spacing` |
+
+*`impact`*
+
+| Slot | Property | Token |
+| --- | --- | --- |
+| Container | background | `--ct-bkgd-01` |
+| Copy line 1 / line 3 (sans) | color | `--ct-text-primary` |
+| Copy line 1 / line 3 (sans) | text-transform | `capitalize` |
+| Copy line 1 / line 3 (sans) | font (apply all 5 sub-tokens) | `--ct-text-h3-family`, `--ct-text-h3-weight`, `--ct-text-h3-size`, `--ct-text-h3-line-height`, `--ct-text-h3-letter-spacing` |
+| Copy "have removed" (sans, inline on line 2) | color | `--ct-text-primary` |
+| Copy "have removed" (sans, inline on line 2) | font (apply all 5 sub-tokens) | `--ct-text-h3-family`, `--ct-text-h3-weight`, `--ct-text-h3-size`, `--ct-text-h3-line-height`, `--ct-text-h3-letter-spacing` |
+| Copy "170 million" (Simula, inline on line 2) | color | `--ct-brand` |
+| Copy "170 million" (Simula, inline on line 2) | font (apply all 5 sub-tokens) | `--ct-text-h2-serif-family`, `--ct-text-h2-serif-weight`, `--ct-text-h2-serif-size`, `--ct-text-h2-serif-line-height`, `--ct-text-h2-serif-letter-spacing` |
+| CTA container | background | `--ct-cta-secondary-container` |
+| CTA label | color | `--ct-cta-secondary-text` |
+| CTA label | font (apply all 5 sub-tokens) | `--ct-text-body-family`, `--ct-text-body-weight`, `--ct-text-body-size`, `--ct-text-body-line-height`, `--ct-text-body-letter-spacing` |
+
+> _The inline Simula on "170 million" is the **only** sanctioned editorial inline-Simula slot in the system. SKILL.md §2.4 / §6 limits Simula to page titles and FAQ headlines; this slot is an explicit exception ratified by the Figma master to render the impact band as designed. Don't extend the pattern to other inline phrases (see Don't)._
+
+*`faq`*
+
+| Slot | Property | Token |
+| --- | --- | --- |
+| Container | background | `--ct-bkgd-ai-input` |
+| Section Header container | background | `transparent` (override of [Component 7](#7-section-header) default `--ct-bkgd-02`) |
+| Section Header title | color | `--ct-text-ai-primary` (override of [Component 7](#7-section-header) default `--ct-text-primary`) |
+| FAQ card | background | fixed-dark surface — no token yet; raw `#1B1B18` (= `--ct-color-grey-04` value). The card sits on the fixed-dark band via `--ct-bkgd-ai-input`, so it cannot use `--ct-bkgd-02` (which flips). Add a `--ct-bkgd-ai-02` token in Figma and re-spec when it lands. |
+| FAQ card | border-radius | `--ct-spacing-20` |
+| FAQ card kicker | color | `--ct-brand` |
+| FAQ card kicker | font (apply all 5 sub-tokens) | `--ct-text-body-small-family`, `--ct-text-body-small-weight`, `--ct-text-body-small-size`, `--ct-text-body-small-line-height`, `--ct-text-body-small-letter-spacing` |
+| FAQ card headline | color | `--ct-text-ai-primary` |
+| FAQ card headline | font (apply all 5 sub-tokens) | `--ct-text-h2-serif-family`, `--ct-text-h2-serif-weight`, `--ct-text-h2-serif-size`, `--ct-text-h2-serif-line-height`, `--ct-text-h2-serif-letter-spacing` |
+
+> _FAQ headline renders at `--ct-text-h2-serif-*` (24px) per the Figma master, not `--ct-text-h1-serif-*` (32px) as SKILL.md §6.1 currently states — known SKILL.md drift; resolve in a follow-up edit to SKILL.md, not by changing this table or the Figma spec._
+>
+> _The `faq` band is **fixed dark** via `--ct-bkgd-ai-input` (SKILL.md §5.2). Every text and surface placed on it must also be fixed dark — that is why the Section Header overrides and the FAQ card raw-hex surface exist. Don't substitute `--ct-text-primary` or `--ct-bkgd-02` here; they will flip in light theme and break the band._
+
+**Don't.**
+- Don't stack two Footer variants on the same closure (e.g., `card-section` + `impact` back-to-back). The list is positional — one closure per slot. A page may carry an `impact` and a `faq` on different surfaces, but a single section never carries two Footers.
+- Don't extend the inline-Simula treatment from `impact` to other phrases ("170 thousand users", "join the waitlist", etc.). The slot is sanctioned for the one impact-number callout that ships with this band; new editorial Simula phrases require a Figma update first (SKILL.md §2.3, §2.4).
+- Don't substitute `--ct-bkgd-02` for the FAQ card surface or `--ct-text-primary` for the FAQ headline / Section Header title in the `faq` band. Those tokens flip with theme; the band does not. The result looks correct in dark theme and inverts to white-on-cream in light theme (SKILL.md §5.2).
+- Don't add a `chevron.right` to the `card-section` text-link or to the FAQ card. The link is the affordance on `card-section`; the trailing 48×48 icon-button on the FAQ card is the only sanctioned trailing affordance, and it carries an `arrow_right`, not a chevron (SKILL.md §9.3).
+- Don't bold the impact copy, the CTA label, the FAQ kicker, or the FAQ headline. All weights are 400 — emphasis on "170 million" comes from family change (sans → Simula) and color change (`--ct-text-primary` → `--ct-brand`), never from weight (SKILL.md §2.5).
+- Don't render the Section Header title in title case (`"Frequently Asked Questions"`) or upper case (`"FREQUENTLY ASKED QUESTIONS"`). Source the string naturally (`"frequently asked questions"`) and let the Section Header's `capitalize` rule do the work (SKILL.md §6.5).
+- Don't drop a shadow on the FAQ card or the impact CTA. Separation comes from the band background and inline padding — never from elevation (SKILL.md §9.2).
+- Don't tint the FAQ card surface with `--ct-monitoring-*`, `--ct-guard-*`, or `--ct-identity-*`. Category tokens are reserved for feature surfaces; the FAQ card sits on a neutral fixed-dark surface (SKILL.md §9.1).
+- Don't introduce a fourth Footer variant (e.g., `newsletter`, `legal`, `cta-only`). The three above are the closed set; surface the request rather than improvising (SKILL.md §7.1, §2.3).
+- Don't replace the `impact` CTA pill with a primary CTA, a text link, or an icon button. The variant ships with `--ct-cta-secondary-container` for a reason — the pill sits on `--ct-bkgd-01`, where a primary container (`--ct-cta-primary-container` = near-black) would over-weight the band against the editorial copy.
+
+**Figma.**
+- Page node: `17826:13511`
+- Variant nodes: `16053:8037` (`card-section`), `16196:2887` (`impact`), `17826:15487` (`faq`)
+- File: Playlist — Toolkit
+- Link: https://www.figma.com/design/k0n0CNGfk4ie9Vb74byl9v/Playlist-%E2%80%94-Toolkit?node-id=17826-13511
 
 ### 10. Navigation
 _TBD_
