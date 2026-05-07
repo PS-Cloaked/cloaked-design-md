@@ -929,7 +929,178 @@ top_bar / home    ┌───────────────────�
 - Link: https://www.figma.com/design/k0n0CNGfk4ie9Vb74byl9v/Playlist-%E2%80%94-Toolkit?node-id=16064-10186
 
 ### 11. Card / Feature
-_TBD_
+
+**Use.** A small, self-contained surface that snapshots one piece of feature state — a stat, a place, a question, or a long-form automation summary. Sits inside a feature page or band; not a full hero, not a list row.
+
+**Anatomy.**
+```
+default       ┌──────────────────┐
+(activity)    │  ▣                │   ← icon (24×24)
+              │                   │
+              │  342              │   ← number (h2 sans, capitalize)
+              │  Data removal     │   ← label (body-small)
+              └──────────────────┘
+
+location      ┌────────────────────┐
+              │  ◯ flag             │   ← flag (40×40, full round)
+              │  New York,          │   ← city (body)
+              │  Dedicated IP       │   ← descriptor (body-small @ 0.5)
+              └────────────────────┘
+
+faq           ┌──────────────────────────┐
+              │  Call Guard               │   ← kicker (body-small, --ct-brand)
+              │                           │
+              │  What if I miss           │   ← question (h2-serif, ai-primary)
+              │  an important call?       │
+              │                           │
+              │  ╭───╮                    │
+              │  │ → │                    │   ← icon CTA (48×48 secondary)
+              │  ╰───╯                    │
+              └──────────────────────────┘
+
+automation    ┌────────────────────────────────┐
+              │  Essential        3 automations │   ← header: kicker + counter
+              │                                 │
+              │  Remove from                    │   ← title (h2 sans, capitalize)
+              │  major brokers                  │
+              ├────────────────────────────────┤
+              │  ◯ avatar  Lexisnexis.com       │   ← contact row (avatar + label)
+              ├────────────────────────────────┤
+              │  ◯ avatar  The Real Yellowpages │
+              ├────────────────────────────────┤
+              │              See details        │   ← footer (Footer §9 `card-section`)
+              └────────────────────────────────┘
+```
+- **default / location** — one block: leading icon-or-flag + body block (label + value).
+- **faq** — three blocks stacked: kicker, question, CTA.
+- **automation** — composite of three sections: header (kicker row + title), N contact rows separated by 0.5px hairlines, footer that defers to Footer §9 `card-section`.
+
+**Variants.**
+
+| Variant | Visual | When |
+| --- | --- | --- |
+| `default` (activity) | White surface, 24×24 leading icon, large number + body-small label | Atomic single-stat snapshot — e.g. "342 / Data removal" |
+| `location` | Cream surface, 40×40 round flag + city + descriptor (descriptor at raw `opacity: 0.5`) | Locality / IP profile snippet — e.g. "New York / Dedicated IP" |
+| `faq` | Dark surface inside the FAQ band, brand-color kicker + Simula question + 48×48 secondary icon CTA (`action/arrow_right`) | FAQ card embedded in the dark FAQ band (SKILL.md §5.2) |
+| `automation` | Category-tinted dark surface (`--ct-monitoring-container-02`), composite header + contact rows + card-section footer | Long feature card listing sub-items — e.g. "Remove from major brokers" with broker rows |
+
+**Sizing.**
+
+*default (activity)*
+- Container: width 137px (raw — no matching `--ct-spacing-*`); padding `--ct-spacing-16`; border-radius `--ct-spacing-20`; `flex-direction: column`; outer gap **36px raw** (no `--ct-spacing-*` matches; spec'd raw until a token lands); `align-items: flex-start`.
+- Icon: 24×24.
+- Body block: `flex-direction: column`; gap `--ct-spacing-8`; full width.
+
+*location*
+- Container: width 160px (raw); padding `--ct-spacing-16`; border-radius `--ct-spacing-20`; `flex-direction: column`; outer gap `--ct-spacing-12`; `align-items: flex-start`.
+- Flag: 40×40, full-round (border-radius ≥ 20px clips to circle).
+- Body block: `flex-direction: column`; gap `--ct-spacing-4`; text width 128px (raw; constrained by container interior).
+
+*faq*
+- Container: width 233px (raw); padding-top `--ct-spacing-24`; padding-bottom `--ct-spacing-16`; padding-inline `--ct-spacing-16`; border-radius `--ct-spacing-20`; `flex-direction: column`; gap `--ct-spacing-16`; `overflow: clip`.
+- Question block: max-height 140px raw (4-line clamp at 24px Simula line-height 1); `text-overflow: ellipsis`.
+- CTA: 48×48 (Button_Icon / Secondary — 24×24 arrow inside `--ct-spacing-12` padding on each side).
+
+*automation*
+- Outer container: width 314px (raw); padding 0 (children own padding); border-radius `--ct-spacing-20`; `flex-direction: column`.
+- Header section: padding `--ct-spacing-16`; gap `--ct-spacing-24`; full width.
+  - Kicker row: gap **14px raw** (no `--ct-spacing-*` matches); label width 130px raw; counter width 137px raw, right-aligned; `align-items: center`.
+  - Title: full width.
+- Contact row: width 314px (raw); padding `--ct-spacing-20`; `justify-content: space-between`; `align-items: center`. Inner cluster (avatar + label) gap `--ct-spacing-12`; avatar 40×40 round; label `flex: 1`, single-line ellipsis. Bottom hairline 0.5px raw (no `--ct-spacing-*` matches), `--ct-divider`.
+- Footer section: defers to Footer §9 `card-section` (50px height, top hairline `--ct-divider`, centered link).
+
+**Tokens.**
+
+*default (activity)*
+
+| Slot | Property | Token |
+| --- | --- | --- |
+| Container | background | `--ct-bkgd-02` |
+| Container | padding | `--ct-spacing-16` |
+| Container | border-radius | `--ct-spacing-20` |
+| Number | color | `--ct-text-primary` |
+| Number | text-transform | `capitalize` |
+| Number | font (apply all 5 sub-tokens) | `--ct-text-h2-family`, `--ct-text-h2-weight`, `--ct-text-h2-size`, `--ct-text-h2-line-height`, `--ct-text-h2-letter-spacing` |
+| Label | color | `--ct-text-primary` |
+| Label | font (apply all 5 sub-tokens) | `--ct-text-body-small-family`, `--ct-text-body-small-weight`, `--ct-text-body-small-size`, `--ct-text-body-small-line-height`, `--ct-text-body-small-letter-spacing` |
+
+*location* — overrides
+
+| Slot | Property | Token |
+| --- | --- | --- |
+| Container | background | `--ct-bkgd-01` |
+| Container | gap (outer) | `--ct-spacing-12` |
+| Body block | gap | `--ct-spacing-4` |
+| City | color | `--ct-text-primary` |
+| City | font (apply all 5 sub-tokens) | `--ct-text-body-family`, `--ct-text-body-weight`, `--ct-text-body-size`, `--ct-text-body-line-height`, `--ct-text-body-letter-spacing` |
+| Descriptor | color | `--ct-text-primary` |
+| Descriptor | opacity | `0.5` (raw — only `--ct-opacity-disabled` = 0.3 exists; no match) |
+| Descriptor | font (apply all 5 sub-tokens) | `--ct-text-body-small-family`, `--ct-text-body-small-weight`, `--ct-text-body-small-size`, `--ct-text-body-small-line-height`, `--ct-text-body-small-letter-spacing` |
+
+*faq* — overrides
+
+| Slot | Property | Token |
+| --- | --- | --- |
+| Container | background | `--ct-bkgd-02` (resolves dark on the FAQ band — fixed-dark context per SKILL.md §5.2) |
+| Container | padding-top | `--ct-spacing-24` |
+| Container | padding-bottom | `--ct-spacing-16` |
+| Container | padding-inline | `--ct-spacing-16` |
+| Container | gap | `--ct-spacing-16` |
+| Kicker | color | `--ct-brand` |
+| Kicker | font (apply all 5 sub-tokens) | `--ct-text-body-small-family`, `--ct-text-body-small-weight`, `--ct-text-body-small-size`, `--ct-text-body-small-line-height`, `--ct-text-body-small-letter-spacing` |
+| Question | color | `--ct-text-ai-primary` |
+| Question | font (apply all 5 sub-tokens) | `--ct-text-h2-serif-family`, `--ct-text-h2-serif-weight`, `--ct-text-h2-serif-size`, `--ct-text-h2-serif-line-height`, `--ct-text-h2-serif-letter-spacing` |
+| CTA | container | `--ct-cta-secondary-container` |
+| CTA | icon color | `--ct-cta-secondary-text` |
+| CTA | padding | `--ct-spacing-12` |
+
+> _Question is 24px Simula (`--ct-text-h2-serif-*`), not 32px h1-serif. SKILL.md §6.1 lists the band-level FAQ headline at 32px h1-serif; the embedded card variant uses the smaller 24px (Figma is the source — §1)._
+
+*automation* — overrides
+
+| Slot | Property | Token |
+| --- | --- | --- |
+| Container | background | `--ct-monitoring-container-02` (Category_TBD §9.1) |
+| Container | padding | `0` (children own padding) |
+| Header | padding | `--ct-spacing-16` |
+| Header | gap (between kicker row and title) | `--ct-spacing-24` |
+| Kicker label | color | `--ct-text-primary` |
+| Kicker label | font (apply all 5 sub-tokens) | `--ct-text-body-family`, `--ct-text-body-weight`, `--ct-text-body-size`, `--ct-text-body-line-height`, `--ct-text-body-letter-spacing` |
+| Counter | color | `--ct-text-primary` |
+| Counter | text-align | `right` |
+| Counter | font (apply all 5 sub-tokens) | `--ct-text-body-small-family`, `--ct-text-body-small-weight`, `--ct-text-body-small-size`, `--ct-text-body-small-line-height`, `--ct-text-body-small-letter-spacing` |
+| Title | color | `--ct-text-primary` |
+| Title | text-transform | `capitalize` |
+| Title | font (apply all 5 sub-tokens) | `--ct-text-h2-family`, `--ct-text-h2-weight`, `--ct-text-h2-size`, `--ct-text-h2-line-height`, `--ct-text-h2-letter-spacing` |
+| Contact row | padding | `--ct-spacing-20` |
+| Contact row | gap (avatar ↔ label) | `--ct-spacing-12` |
+| Contact row | bottom hairline | `--ct-divider`, 0.5px (raw) |
+| Contact label | color | `--ct-text-primary` |
+| Contact label | font (apply all 5 sub-tokens) | `--ct-text-body-family`, `--ct-text-body-weight`, `--ct-text-body-size`, `--ct-text-body-line-height`, `--ct-text-body-letter-spacing` |
+| Footer | spec | defers to [Component 9 — Footer](#9-footer) `card-section` variant |
+
+> _On `automation`, `--ct-text-primary` resolves to the cream value because the card sits in a dark-themed context — the category container is fixed dark per §9.1, but text tokens still come from the active theme._
+
+**Don't.**
+- Don't reach for Simula on the Activity number, Location city, or Automation title. The 24px headline number/title is sans `--ct-text-h2-*`; Simula is reserved for the FAQ question slot only (SKILL.md §2.4 / §6).
+- Don't apply `--ct-text-h1-serif-*` (32px) to the FAQ card question. The card-scale FAQ is 24px `--ct-text-h2-serif-*`; the 32px h1-serif belongs to the band-level FAQ headline in Footer §9.
+- Don't bold any slot to differentiate variants. Variants differ by surface, anatomy, and token — never by weight (SKILL.md §2.5).
+- Don't tint Activity, Location, or FAQ with `--ct-monitoring-*`, `--ct-guard-*`, or `--ct-identity-*`. Category container tokens belong to the Automation variant; do not extend the pattern (SKILL.md §9.1).
+- Don't invent a `--ct-newcategory-container-*` token for a fifth feature. The closed Category_TBD set governs (SKILL.md §9.1) — surface the request.
+- Don't apply `--ct-text-ai-*` to Activity, Location, or Automation. AI tokens are fixed-dark and only belong on the FAQ card (the one variant that lives on the dark FAQ band — SKILL.md §5.2).
+- Don't drop a shadow on any variant or wrap the card in a border to separate it from neighbors. Separation comes from the `--ct-spacing-12` cream gap between cards (SKILL.md §9.2).
+- Don't replace the Automation avatar slot with a generic icon (e.g. `feature/identity/email`). The brand logo is the recognition anchor — generic icons collapse the identity (SKILL.md §9.5).
+- Don't add a `chevron.right` to Automation contact rows. The row is the affordance; the trailing slot stays empty (SKILL.md §9.3).
+- Don't pair the Automation footer with a custom "see more" link. Defer to Footer §9 `card-section`; do not duplicate or override its anatomy (SKILL.md §2.3).
+- Don't introduce a fifth variant (e.g. `kit-briefing`, `dashboard`, `hero`). The four above are the closed set; hero/dashboard variants live in §12–15 — surface the request (SKILL.md §7.1, §2.3).
+- Don't pad the Automation outer container directly. Padding lives on the three child sections; an outer padding adds a second inset that breaks the contact-row's full-width hairline.
+- Don't render the Activity gap as `--ct-spacing-32` (32) or `--ct-spacing-40` (40) "to use a token." The Figma value is 36px; spec it raw until a `--ct-spacing-36` lands.
+
+**Figma.**
+- Page node: `16953:9994`
+- Variant masters: `16061:8390` (default / activity), `16061:8391` (location), `16914:7835` (faq), `16061:8386` (automation)
+- File: Playlist — Toolkit
+- Link: https://www.figma.com/design/k0n0CNGfk4ie9Vb74byl9v/Playlist-%E2%80%94-Toolkit?node-id=16953-9994
 
 ### 12. Card / Dashboard
 _TBD_
