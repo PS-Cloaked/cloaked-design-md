@@ -254,38 +254,69 @@ States of the same feature are placed **together** so the evolution is visible.
 
 ### Monitoring (VPN) — day 1
 
-**Figma**: <!-- node-id -->
+**Figma**: https://www.figma.com/design/k0n0CNGfk4ie9Vb74byl9v/Playlist-%E2%80%94-Toolkit?node-id=17492-13488&m=dev
 
 **Composition (stack)**
 ```
-1. ...
+1. Navigation  `top_bar/page`                          ← title "Safety Monitoring"
+2. Tabs (sticky, undocumented — see Decisions)         ← VPN (selected) / Data Removal / Dark Web Monitoring
+3. Hero / Feature  `intro/vpn`                         ← cream surface + dotted world map + top-right ButtonIconPrimary expand + H1 title "Your Internet, / But More Private" + Primary CTA "Secure my connection"
+4. Footer / `faq`  (feature-tinted)                    ← 4 cards; band tinted with `--ct-monitoring-container-02`, cards `--ct-monitoring-container-01` (see Decisions)
 ```
 
 **Tokens**
-- _..._
+- Navigation `top_bar/page`: title "Safety Monitoring", `--ct-text-h2-serif-*` (Simula 24), `--ct-text-primary` (resolves dark on the cream `--ct-bkgd-01` outer surface).
+- Tabs: backdrop-blur 16px raw, bottom border `--ct-divider`, padding-top `--ct-spacing-48`, padding-inline `--ct-spacing-16`, gap 10px raw. Each Tap_item: `--ct-text-body-*` `--ct-text-primary`, padding-block `--ct-spacing-20`. Selected: bottom-border `--ct-cta-primary-container`. Inactive: `opacity: var(--ct-opacity-disabled)` (0.3).
+- Hero `intro/vpn` (defers to Hero / Feature §13): container `--ct-bkgd-01`. Top-right Button defers to `icon-primary/default`. Title `--ct-text-h1-*` capitalize `--ct-text-primary`. CTA: container `--ct-monitoring-container-02`, label `--ct-cta-primary-text`.
+- Footer / `faq` (feature-tinted): container `--ct-monitoring-container-02` (#291132). FAQ cards: surface `--ct-monitoring-container-01` (#411d50). Section title "Frequently Asked Questions": `--ct-text-h3-*` capitalize, `--ct-text-primary` cream via local `data-theme="dark"`. FAQ card kicker: `--ct-text-body-small-*` `--ct-text-ai-secondary` (#dcd8cf) — **not `--ct-brand`**. FAQ card headline: `--ct-text-h2-serif-*` `--ct-text-ai-primary`. Trailing icon button: `Button_Icon/Secondary` (48×48 round, `action/arrow_right`). Container padding-bottom `--ct-spacing-240`.
 
 **Decisions**
-- _Hero is the empty map + "Secure my connection" CTA._
-- _Tabs (VPN / Data Removal / Dark Web Monitoring) at top — VPN is selected._
-- _Why purple._
+- **Hero matches Hero / Feature §13 `intro/vpn` exactly.** The brand-purple Primary CTA (`--ct-monitoring-container-02`) is the visual signature of the VPN moment; per §13 it is the only sanctioned override of `--ct-cta-primary-container`. Cream surface + 11 dot markers on the world map + the expand `ButtonIconPrimary` are part of the variant — don't substitute a generic illustration.
+- **Page title is "Safety Monitoring", not "Monitoring" or "VPN".** "Monitoring" is the internal feature/tab name; "Safety Monitoring" is the user-facing page title. The three tabs (VPN / Data Removal / Dark Web Monitoring) live below the title and switch sub-screens (cross-cutting #8 navigational tabs).
+- **Tabs are an undocumented component.** Sticky horizontal strip, backdrop-blur 16px raw, three `Tap_item` rows; the selected tab carries a bottom border (`--ct-cta-primary-container`), inactive tabs use `--ct-opacity-disabled`. components.md has no Tabs spec yet — Control §5 covers Dropdown / Toggle but not this strip. _Question for the user: promote Tabs to a new component spec, or accept inline for now?_
+- **FAQ band is feature-tinted, not the default fixed-dark AI band.** Container `--ct-monitoring-container-02`, cards `--ct-monitoring-container-01`, kickers `--ct-text-ai-secondary` (cream-grey) — NOT `--ct-brand`. This realizes cross-cutting #2 ("color runs through FAQ accents") but **contradicts components.md §9 Footer / faq Don't #8** ("Don't tint the FAQ card surface with `--ct-monitoring-*` / `--ct-guard-*` / `--ct-identity-*`"). _Question for the user: §9 needs a feature-tinted variant documented (or the Don't #8 rule revised) — flag for follow-up?_
+- **No In Progress / Next Steps / history sections on VPN day 1.** The screen is pure: Nav → Tabs → Hero → FAQ. The hero is the day-1 promise; nothing else is needed before activation (cross-cutting #1).
 
 **Refs**: → `components.md`
 
 ### Monitoring (VPN) — 1 year
 
-**Figma**: <!-- node-id -->
+**Figma**: https://www.figma.com/design/k0n0CNGfk4ie9Vb74byl9v/Playlist-%E2%80%94-Toolkit?node-id=17676-8649&m=dev
 
 **Composition (stack)**
 ```
-1. ...
+1. Navigation  `top_bar/page`                          ← title "Safety Monitoring"
+2. Tabs (sticky)                                       ← VPN selected / Data Removal / Dark Web Monitoring
+3. Hero / Feature  `active/vpn`                        ← map + top-right ButtonIconPrimary; bottom detail card: Connected · 03:45:82 / Service · New York 🇺🇸 / Disconnect Primary CTA
+4. ┌─ Group: Locations ──────────────────────────────
+   │  Section Header  `default`
+   │  - Card / Feature  `location` ×3                  (United States · Fastest / New York · Dedicated IP / Brazil · Fastest — horizontal row, 160px each)
+5. ┌─ Group: Total Average ───────────────────────────
+   │  Section Header  `default`
+   │  Stat trio (undocumented — see Decisions): 12 · Locations | 124h · Hours | 332GB · Data used
+6. ┌─ Group: Recent session ──────────────────────────
+   │  Section Header  `dropdown`                       (title "Recent session" + Control `dropdown/collapsed` "All")
+   │  Divider "Today"  + List Item_VPN ×2              (New York / JFK Airport · 2h 14m · 1.2GB · Seattle / SEA Airport · 1h 14m · 1.2GB)
+   │  Divider "Yesterday" + List Item_VPN ×2           (Sao Paulo / GRU Airport · 2h 14m · 1.2GB · Hoboken / Starbucks Hoboken · 1h 14m · 1.2GB)
+   │  └ footer CTA: Footer `card-section`, "See all"
+7. Footer / `faq`  (feature-tinted)                    ← 4 cards; same monitoring tokens as VPN — day 1
 ```
 
 **Tokens**
-- _..._
+- Navigation, Tabs: same as Monitoring (VPN) — day 1.
+- Hero `active/vpn` (defers to Hero / Feature §13): container `--ct-bkgd-01`. Map illustration raw. Top-right Button defers to `icon-primary/default`. Detail card surface `--ct-bkgd-02`, padding-inline `--ct-spacing-20`, padding-bottom `--ct-spacing-40`. Connected row + Service row body 16 `--ct-text-primary`; hairline `--ct-divider`. Flag avatar 40×40 raw illustration. Disconnect CTA defers to Button `text/primary` — uses **default `--ct-cta-primary-container`** (dark), NOT `--ct-monitoring-container-02` (see Decisions).
+- Locations group: Section Header `default` (`--ct-bkgd-02`, H3 capitalize). Card / Feature `location` ×3: cream surface `--ct-bkgd-01`, padding `--ct-spacing-16`, gap `--ct-spacing-12`, radius `--ct-spacing-20`. Flag avatar 40×40. City: `--ct-text-body-*` `--ct-text-primary`. Descriptor at raw `opacity: 0.5` per §11.
+- Total Average stat trio: surface `--ct-bkgd-02`, 353px raw row width. Number `--ct-text-h1-*` (32px, letter-spacing 0.5 — note: §13 active heroes use Display-1, but this stat trio uses H1, smaller). Label `--ct-text-link-*` (12px) `--ct-text-primary`. Two vertical dividers 72px raw, `--ct-divider`.
+- Recent session: Section Header `dropdown` — Dropdown chip defers to Control §5 `dropdown/collapsed` (cream pill on `--ct-bkgd-01`, radius `--ct-spacing-24`). Date Dividers defer to Divider §2 (cream band, body-small label). List Item_VPN: surface `--ct-bkgd-02`, padding `--ct-spacing-20`. Leading 40×40 flag avatar. Title body `--ct-text-primary` + meta body-small `--ct-text-secondary`. Trailing 2-line text block per List Item §6 (duration body primary + data body-small secondary, right-aligned). Bottom hairline `--ct-divider`. Footer `card-section`: top hairline + body-link "See all".
+- Footer / `faq` (feature-tinted): same monitoring tokens as VPN — day 1 (`--ct-monitoring-container-02` band, `--ct-monitoring-container-01` cards, `--ct-text-ai-secondary` kicker, `--ct-text-ai-primary` Simula H2 headline). 4 cards.
 
 **Decisions**
-- _Map fills with location dots. "Connected" status row appears with timer + Disconnect button._
-- _New stacks: Locations group, Total Average stat trio (Locations / Hours / Data used), Recent Session list with time grouping ("Today" / "Yesterday")._
+- **Hero matches Hero / Feature §13 `active/vpn` exactly.** Per §13 the Disconnect CTA uses the default Button `text/primary` (`--ct-cta-primary-container` = near-black) — **NOT** `--ct-monitoring-container-02`. The monitoring-purple CTA is reserved for `intro/vpn` (the day-1 promise). Don't carry the purple over to the active state "for consistency."
+- **VPN's hero has no Display-* hero number, in either state.** Cross-cutting #6 ("Hero number = headline") does not apply here — the proof on day-1 is the promise CTA, on 1-year it's the live connection state ("Connected · 03:45:82"). The 12 / 124h / 332GB counts live in the Total Average section, not the hero.
+- **Locations row = Card / Feature `location` ×3 in a horizontal row.** Cream surfaces, 40×40 flag avatars, city + descriptor at raw 0.5 opacity (§11). The row is part of the stack — don't promote to a horizontal-scroll carousel; the 3 cards fit at 160px each on a 393px page.
+- **"Total Average" stat trio is undocumented.** Three H1 (32px) numbers separated by two vertical 72px dividers, on a white card. Doesn't match Card / Dashboard `kpi/*` (which uses Display-2 + a visualization slot) or any Card / Feature variant. _Question for the user: promote to a new spec (e.g. Card / Stat-trio) or accept inline?_
+- **Recent session = same composite pattern as Activities — 1 year Scan history.** Section Header `dropdown` + Divider date-band + List Item rows + `card-section` "See all" footer. Here the rows are the VPN-specific List Item_VPN variant (flag avatar + city/place + duration/data trailing).
+- **FAQ band feature-tinted, same as VPN — day 1.** Continues the contradiction with components.md §9 Don't #8 — already flagged at VPN day 1; not re-flagged here.
 
 **Refs**: → `components.md`
 
@@ -293,37 +324,82 @@ States of the same feature are placed **together** so the evolution is visible.
 
 ### Monitoring (Data Removal) — day 1
 
-**Figma**: <!-- node-id -->
+**Figma**: https://www.figma.com/design/k0n0CNGfk4ie9Vb74byl9v/Playlist-%E2%80%94-Toolkit?node-id=17651-5310&m=dev
 
 **Composition (stack)**
 ```
-1. ...
+1. Navigation  `top_bar/page`                          ← title "Safety Monitoring"
+2. Tabs (sticky)                                       ← VPN / Data Removal (selected) / Dark Web Monitoring
+   ⚠  No Hero on this screen — see Decisions
+3. ┌─ Group: Progress ───────────────────────────────
+   │  Section Header  `default`                        ("Progress")
+   │  - Timeline  `completed-first`                    (Scan complete · 33 sites)
+   │  - Timeline  `completed-middle`                   (Removal request sent)
+   │  - Timeline  `current-middle`                     (Waiting for response · Typically 7-14 days)
+   │  - Timeline  `upcoming-middle`                    (Broker response · 33 sites)
+   │  - Timeline  `upcoming-last`                      (Removal confirmed)
+4. ┌─ Group: what was found ──────────────────────────
+   │  Section Header  `default`
+   │  - Stat row ×5 with leading colored dot (see Decisions): Phone number · 19 sites / Name · 17 sites / Family members · 14 sites / Address · 13 sites / Email · 12 sites
+5. ┌─ Group: Your Info ───────────────────────────────
+   │  Section Header  `action`                         (title "Your Info" + "Edit")
+   │  - Stat row ×4: Full Name · Lucas Weiner / Date of birth · 02/12/1998 / Phone · (212)555-0101 / Email · Lucas@cloaked.com
+   │  └ footer CTA: Footer `card-section`, "See Details"
+6. Footer / `faq`  (feature-tinted)                    ← 4 cards; same monitoring tokens
 ```
 
 **Tokens**
-- _..._
+- Navigation, Tabs: same as Monitoring (VPN) — day 1.
+- Progress group: surface `--ct-bkgd-02`. Section Header `default`. Each row defers to Timeline §8 — shell + connector + title/meta. Completed shells `--ct-brand` (#ff550c) + check icon; current shell `--ct-graph-background` (rgba(11,11,10,0.05)) + timer + 40×40 halo overlay; upcoming shells `--ct-graph-background` + step-specific feature icon. Connectors: brand for past, graph-background for future, boundary at the bottom of the current step (per §8). Title `--ct-text-body-*` `--ct-text-primary`; meta `--ct-text-body-small-*` `--ct-text-secondary`.
+- "what was found" stat rows: surface `--ct-bkgd-02`, row width 360px raw (NOT the §6 Stat's 322px), padding-block `--ct-spacing-24`, gap `--ct-spacing-8` between dot + label. Leading 6.286px raw colored dot (5 distinct hexes, illustration — see Decisions). Label width 146px raw, value width 160px raw, both `--ct-text-body-*` `--ct-text-primary`. Row hairline `--ct-divider`.
+- "Your Info" stat rows: same shape as "what was found" minus the leading dot. Section Header `action` per §7 (title left, "Edit" plain text right, body sans, no container). Footer `card-section` "See Details" at the bottom.
+- Footer / `faq` (feature-tinted): same monitoring tokens as VPN — day 1.
 
 **Decisions**
-- _Different from VPN day 1 — Data Removal leads with a Progress checklist (scan complete / removal request sent / waiting for response / broker response / removal confirmed)._
-- _Same purple identity as VPN. Same tabs at top._
+- **No Hero / Feature on this screen.** Cross-cutting #1's "day 1 = hero promise + single CTA" does not apply to Data Removal — the user enters straight into the live Progress timeline. The Tabs strip is the only thing between the page title and the data. Don't insert a placeholder Hero "to fill the slot."
+- **Progress is a Timeline §8 stack, not a List Item / progress stack.** Five steps in a fixed sequence (Scan complete → Removal request sent → Waiting for response → Broker response → Removal confirmed) with exactly one `current-middle` step at a time. Connector colors encode progression (brand for past, graph-bg for future) per §8. Don't use List Item `progress` rows here — those are for parallel scans / monitoring tasks; this is one linear path.
+- **"what was found" rows are an undocumented stat-row shape.** Width 360px raw, padding-block `--ct-spacing-24`, leading 6.286px raw colored dot per category (5 distinct hexes — the same palette pattern as Hero / Feature §13 `active/data-removal` category bars, but rendered as dots, not bars). List Item §6 Stat is 322px / py-16 / no leading slot — close but different. _Question for the user: promote this to a List Item §6 variant (e.g. `stat/category-dot`), or accept inline?_
+- **"Your Info" uses Section Header `action` for the Edit affordance** (per §7). The same row-shape as "what was found", minus the dot, plus a `card-section` "See Details" footer — that combination is the formula for the read-only edit-able profile group on this screen.
+- **Tabs and FAQ band reuse the Monitoring identity** — purple feature color via `--ct-monitoring-container-02` / `_01` (FAQ tinting flagged at VPN — day 1; not re-flagged here).
 
 **Refs**: → `components.md`
 
 ### Monitoring (Data Removal) — 1 year
 
-**Figma**: <!-- node-id -->
+**Figma**: https://www.figma.com/design/k0n0CNGfk4ie9Vb74byl9v/Playlist-%E2%80%94-Toolkit?node-id=17676-9753&m=dev
 
 **Composition (stack)**
 ```
-1. ...
+1. Navigation  `top_bar/page`                          ← title "Safety Monitoring"
+2. Tabs (sticky)                                       ← VPN / Data Removal (selected) / Dark Web Monitoring
+3. Hero / Feature  `active/data-removal`               ← H3 label "Total Removed" + Display-1 "276" + Status pill "Next scan Oct 12" + 5-row category bar list + stacked-area chart
+4. ┌─ Group: Automation Packs ───────────────────────
+   │  Section Header  `default`
+   │  - Card / Feature  `automation` ×2                (Essential · Remove from major brokers — Lexisnexis.com + The Real Yellowpages — caption "3,232 users use this pack" below each card)
+   │  └ footer CTA: Footer `card-section`, "See all"
+5. ┌─ Group: Scan History ───────────────────────────
+   │  Section Header  `default`
+   │  Divider "In Progress" + List Item `progress` ×1  (HighSchool Alumni · 2 of 3 · brand-orange bar)
+   │  Divider "Yesterday"   + List Item `progress` ×3  (HighSchool Alumni · Completed ×2 / HighSchool Alumni · No record · Completed)
+   │  └ footer CTA: Footer `card-section`, "See all history"
+6. Footer / `faq`  (feature-tinted)                    ← 4 cards; same monitoring tokens
 ```
 
 **Tokens**
-- _..._
+- Navigation, Tabs: same as Monitoring (VPN) — day 1.
+- Hero `active/data-removal` (defers to Hero / Feature §13): container `--ct-bkgd-02`, padding-block `--ct-spacing-40`, gap `--ct-spacing-40`. Stats column 354px raw. Label `--ct-text-h3-*` capitalize. Number `--ct-text-display-1-*` (72px). Status pill defers to Label §3 `status/card`. Category bar list 5 rows: label `--ct-text-body-*`, bar 208×3px raw with raw category hexes (`#00c49a, #faa542, #719a03, #e1473f, #003ab8`) — no tokens (see Decisions / §13). Stacked-area chart h-233px raw, same 5 raw hexes.
+- Automation Packs (Card / Feature §11 `automation`): card surface `--ct-monitoring-container-02` (#291132), radius `--ct-spacing-20`, width 314px raw, horizontal scroll with `--ct-spacing-8` gap. Header: pack name `--ct-text-body-*` `--ct-text-primary` (cream via local `data-theme="dark"`); right-aligned counter "3 automations" `--ct-text-body-small-*`. Title `--ct-text-h2-serif-*`?? — wait, §11 automation says title is body 16px capitalized 2-line — verify against §11. Two `contact` rows with 40×40 Brand Logo avatars. Footer `card-section` "See Details". Caption below each card: `--ct-text-body-small-*` `--ct-text-secondary`, "3,232 users use this pack".
+- Scan History: Section Header `default`. Date Dividers (`In Progress`, `Yesterday`) defer to Divider §2 (`--ct-bkgd-01` band, body-small label). List Item `progress` rows defer to §6: surface `--ct-bkgd-02`, padding `--ct-spacing-20`, leading 40×40 brand-logo avatar (Hinge), title body + meta body-small `--ct-text-secondary`. Progress bar 8px raw, track `--ct-bkgd-01`, **fill `--ct-brand`** (#ff550c — the §6 spec; NOT `--ct-status-success-solid` like Activities).
+- Footer `card-section`: top hairline `--ct-divider`, body-link "See all" / "See all history".
+- Footer / `faq` (feature-tinted): same monitoring tokens as VPN — day 1.
 
 **Decisions**
-- _Hero shows "Total Removed 276" + next scan date + bar chart over time._
-- _New stacks: What Was Found list (Phone / Name / Family / Address / Email with site counts), Automation Packs ("Remove From Major Brokers" with brand logos), Scan History with progress per broker._
+- **Hero matches Hero / Feature §13 `active/data-removal` exactly.** Display-1 "276" + Status pill ("Next scan Oct 12") + 5-row category bar list + stacked-area time chart. Don't reach for Simula on the 276 — even very large numbers stay sans (§13 Don't #1).
+- **The 5 category hexes are illustration, not chrome.** `#00c49a` (Email) / `#faa542` (Family) / `#719a03` (Name) / `#e1473f` (Phone) / `#003ab8` (Address) — none of these resolve to existing `--ct-*` tokens. Per §13 / SKILL.md §2.1, don't approximate with the closest token; surface a request to add a category-color palette to Figma and re-export.
+- **The 5-category breakdown lives INSIDE the hero, not as a separate group.** Day-1 ("what was found") rendered the same five categories as a standalone stat-row group with leading dots; on 1-year, those rows are compressed into the hero's category-bar visualization slot. The two patterns are NOT both shown on the same screen.
+- **Automation Packs uses Card / Feature §11 `automation` ×2.** The category-tinted dark surface (`--ct-monitoring-container-02`) is the sanctioned use of monitoring tokens on a feature card per §11 — this is the one place Card / Feature is allowed to consume `--ct-monitoring-*`. The "3,232 users use this pack" caption sits below each card (not a §11 slot — verify if it should be promoted into the spec).
+- **Scan History progress fill = `--ct-brand` (orange), NOT `--ct-status-success-solid`.** This screen tracks the List Item §6 default; the green-fill rule is Activities-only. Don't unify.
+- **Closes with `Footer / faq` (feature-tinted), no `Footer / impact`.** Same closer choice as VPN — 1 year. Cross-cutting #3.
 
 **Refs**: → `components.md`
 
@@ -331,38 +407,62 @@ States of the same feature are placed **together** so the evolution is visible.
 
 ### Guard — day 1
 
-**Figma**: <!-- node-id -->
+**Figma**: https://www.figma.com/design/k0n0CNGfk4ie9Vb74byl9v/Playlist-%E2%80%94-Toolkit?node-id=17732-6162&m=dev
 
 **Composition (stack)**
 ```
-1. ...
+1. Navigation  `top_bar/page`                          ← title "Spam Guard"
+2. Tabs (sticky)                                       ← Call Guard (selected) / SMS Guard / Email Guard
+3. Hero / Feature  `intro/call-guard`                  ← banner-tinted illustration band + kicker "Set up · 2 minutes" + H1 title "Block suspicious calls / in real time" + Primary CTA "Get up Call Guard"
+4. Footer / `faq`  (feature-tinted)                    ← 4 cards; band `--ct-guard-container-02`, cards `--ct-guard-container-01`
 ```
 
 **Tokens**
-- _..._
+- Navigation `top_bar/page`: title "Spam Guard", `--ct-text-h2-serif-*` (Simula 24), `--ct-text-primary` on the page's banner-tinted outer surface (`--ct-banner-container` cream).
+- Tabs: same chrome as Monitoring (VPN) — day 1 — backdrop-blur 16px raw, bottom border `--ct-divider`, padding-top `--ct-spacing-48` / padding-inline `--ct-spacing-16` / gap 10px raw. Tap_item: `--ct-text-body-*` `--ct-text-primary`, padding-block `--ct-spacing-20`. Selected: bottom-border `--ct-cta-primary-container`. Inactive: `--ct-opacity-disabled`.
+- Hero `intro/call-guard` (defers to Hero / Feature §13): container + illustration band `--ct-banner-container` (#dcd8cf cream). Illustration height 333px raw, 225.5×220 raster (`asset/call guard`) per §13. Text block padding-block `--ct-spacing-24`, padding-inline `--ct-spacing-20`, gap `--ct-spacing-24`. Kicker row gap 10px raw, label `--ct-text-body-small-*` `--ct-text-primary`. Title `--ct-text-h1-*` capitalize `--ct-text-primary`. CTA: defers to Button `text/primary` — uses default `--ct-cta-primary-container` (dark), label `--ct-cta-primary-text`.
+- Footer / `faq` (feature-tinted): container `--ct-guard-container-02` (#5b3b0d). FAQ cards: surface `--ct-guard-container-01` (#996820). Section title cream via local `data-theme="dark"`. FAQ card kicker `--ct-text-body-small-*` `--ct-text-ai-secondary` (#dcd8cf — NOT `--ct-brand`). FAQ card headline `--ct-text-h2-serif-*` `--ct-text-ai-primary`. Trailing `Button_Icon/Secondary` (48×48, `action/arrow_right`). Container padding-bottom `--ct-spacing-240`.
 
 **Decisions**
-- _Hero shows a sculpted illustration + "Block Suspicious Calls In Real Time" headline + "Get up Call Guard" CTA + "Set up · 2 minutes" meta._
-- _Tabs (Call Guard / SMS Guard / Email Guard) at top._
-- _Why gold/ochre._
+- **Hero matches Hero / Feature §13 `intro/call-guard` exactly.** Banner-tinted illustration band on top, kicker row + 2-line H1 title + full-width Primary CTA below. Per §13, Guard's Primary CTA uses the default `--ct-cta-primary-container` (dark) — there is no `--ct-guard-container-*` CTA override (unlike `intro/vpn`, which uses `--ct-monitoring-container-02` for the CTA).
+- **Page title is "Spam Guard", not "Guard".** Mirrors the Monitoring screen's "Safety Monitoring" pattern — internal feature name vs user-facing page title. The 3 tabs (Call Guard / SMS Guard / Email Guard) live below and switch sub-screens.
+- **FAQ band feature-tinted with Guard tokens.** Container `--ct-guard-container-02`, cards `--ct-guard-container-01`, kickers `--ct-text-ai-secondary`. Same pattern as Monitoring's feature-tinted FAQ — already flagged at VPN — day 1 as conflicting with components.md §9 Don't #8.
+- **No In Progress / list / history sections on Guard day 1.** Same minimalism as VPN day 1: Nav → Tabs → Hero → FAQ. The hero is the day-1 promise (cross-cutting #1).
 
 **Refs**: → `components.md`
 
 ### Guard — 1 year
 
-**Figma**: <!-- node-id -->
+**Figma**: https://www.figma.com/design/k0n0CNGfk4ie9Vb74byl9v/Playlist-%E2%80%94-Toolkit?node-id=17732-6700&m=dev
 
 **Composition (stack)**
 ```
-1. ...
+1. Navigation  `top_bar/page`                          ← title "Spam Guard"
+2. Tabs (sticky)                                       ← Call Guard (selected) / SMS Guard / Email Guard
+3. Hero / Feature  `active/call-guard`                 ← H3 label "Calls Blocked" + Display-1 "324" + 9-bar bar chart card + Segment control (Week / Month / Year — Week selected)
+4. ┌─ Group: Recent History ─────────────────────────
+   │  Section Header  `default`
+   │  Divider "Today"        + List Item `event` ×1   (Cloaked Support · CS initial avatar · Label "Voicemail")
+   │  Divider "Feb 14, 2026" + List Item `event` ×1   (341-152-3523 · Unknown call · U initial avatar · Label "Missed Call")
+   │  Divider "Feb 14, 2026" + List Item `event` ×1   (341-152-3523 · Medical scam · M initial avatar · Label "Missed Call")
+   │  Divider "Feb 14, 2026" + List Item `event` ×2   (341-152-3523 · Medical scam · Hinge brand-logo avatar · Label "Missed Call")
+   │  └ footer CTA: Footer `card-section`, "See all"
+5. Footer / `faq`  (feature-tinted)                    ← 4 cards; same Guard tokens as day 1
 ```
 
 **Tokens**
-- _..._
+- Navigation, Tabs: same as Guard — day 1 (page title "Spam Guard").
+- Hero `active/call-guard` (defers to Hero / Feature §13): container `--ct-bkgd-02`, **width 394px raw — 1px wider than the rest, preserve per §13**. Label `--ct-text-h3-*` capitalize. Number `--ct-text-display-1-*` (72px sans). Chart card: padding `--ct-spacing-20`, gap `--ct-spacing-24`. Bar chart 354×238px raw, 9 bars at 16×{100..184}px raw (illustration), 8 hairlines `--ct-divider` 0.5px raw between bars. Day labels (M T W T F S S): `--ct-text-link-*` `--ct-text-primary` at raw `opacity: 0.6` (no `--ct-opacity-*` match). Segment control: gap `--ct-spacing-16`, three items at 107/108/107 px raw, padding 10px raw + `--ct-spacing-12` block/inline, radius `--ct-spacing-16`. Selected: `--ct-cta-primary-container` + `--ct-cta-primary-text`; unselected: `--ct-cta-secondary-container` border + `--ct-text-primary` label.
+- Recent History: Section Header `default` (`--ct-bkgd-02`, H3 capitalize). Date Dividers defer to Divider §2 (`--ct-bkgd-01` 28px band, body-small label). List Item `event` rows defer to §6: surface `--ct-bkgd-02`, padding `--ct-spacing-20`, gap `--ct-spacing-8`, leading 40×40 avatar (`Avatar_default_caller initicial` for Cloaked Support / U / M, `Brand Logo_Hinge` for the Hinge rows). Title body + meta body-small `--ct-text-secondary`. Trailing: Label badge per §6 ("Voicemail" / "Missed Call") — cream pill `--ct-bkgd-01`, h-32, padding `--ct-spacing-12`/`--ct-spacing-4`, radius `--ct-spacing-4`, body 16 `--ct-text-primary`. Bottom hairline `--ct-divider` between rows.
+- Footer `card-section` "See all": top hairline + body-link.
+- Footer / `faq` (feature-tinted): same Guard tokens as day 1 (`--ct-guard-container-02` band, `--ct-guard-container-01` cards, `--ct-text-ai-secondary` kicker).
 
 **Decisions**
-- _Hero becomes "Calls Blocked 324" + week heatmap with Week/Month/Year toggle._
-- _New stack: Recent History group (Cloaked Support / Unknown call / Medical scam ListItems with Voicemail/Missed Call labels) with "See all" footer._
+- **Hero matches Hero / Feature §13 `active/call-guard` exactly.** Don't reach for Simula on the 324 — Display-1 sans (§13 Don't #1). The 394px width (1px wider than other heroes) is the Figma master spec — preserve, don't normalize to 393.
+- **Day labels use raw `opacity: 0.6`** (per §13). Not a token — only `--ct-opacity-disabled` (0.3) exists; surface a request before tokenizing.
+- **Recent History trailing slot uses Label badge per List Item §6** ("Voicemail" / "Missed Call") — cream pill, NOT a Status pill (Label §3 status variants), because the value is a call-disposition tag, not a state. Don't substitute.
+- **Avatar mix in Recent History rows**: `Avatar_default_caller initicial` for unknown / one-off contacts (CS, U, M) and `Brand Logo_Hinge` for branded entries — same row component, different leading slot per §6's `image: boolean` rule. The CS/U/M initials are full opacity cream on a brand-color background (per §6 caller-initial avatar).
+- **Closes with `Footer / faq` (feature-tinted Guard), no `Footer / impact`.** Same closer choice as day 1. Cross-cutting #3.
 
 **Refs**: → `components.md`
 
@@ -370,20 +470,28 @@ States of the same feature are placed **together** so the evolution is visible.
 
 ### Identity — day 1
 
-**Figma**: <!-- node-id -->
+**Figma**: https://www.figma.com/design/k0n0CNGfk4ie9Vb74byl9v/Playlist-%E2%80%94-Toolkit?node-id=17794-10011&m=dev
 
 **Composition (stack)**
 ```
-1. ...
+1. Navigation  `top_bar/page`                          ← title "Hide My Identity"
+2. Tabs (sticky, 6 items)                              ← All (selected) / Phone / Email / Card / Password / Account — see Decisions
+3. Hero / Feature  `intro/identity`                    ← full-bleed dark gradient + photo overlay (mix-blend screen) + autoplay video (mix-blend lighten) + cream H1 title "Never give away your / real information again" + cream Primary CTA "Get Started"
+4. Footer / `faq`  (feature-tinted)                    ← 4 cards; band `--ct-identity-container-02`, cards `--ct-identity-container-01`
 ```
 
 **Tokens**
-- _..._
+- Navigation `top_bar/page`: title "Hide My Identity", `--ct-text-h2-serif-*` (Simula 24), `--ct-text-primary` resolved cream (the page outer surface inherits the hero's dark theme — see Decisions).
+- Tabs: same chrome as the other feature pages (backdrop-blur 16px raw, bottom border `--ct-divider`, padding-top `--ct-spacing-48`, padding-inline `--ct-spacing-16`, gap 10px raw). 6 Tap_items: `--ct-text-body-*` `--ct-text-primary` (cream over the dark hero). Selected: bottom-border `--ct-cta-primary-container` (resolves cream under `data-theme="dark"`). Inactive: `--ct-opacity-disabled`.
+- Hero `intro/identity` (defers to Hero / Feature §13): container 393×756 raw, `position: relative`, `overflow: clip`. Background = raw dual gradient illustration (`linear-gradient(180deg, #0a0a0a 8.69%, #353d45 50.30%, #ccced1 137.05%)` over `linear-gradient(90deg, #194945, #194945)`) — do not tokenize per §13. Photo overlay raw raster, `mix-blend: screen`, `opacity: 0.9` raw. Autoplay video `mix-blend: lighten`. Title `--ct-text-h1-*` capitalize `--ct-text-primary` (cream under `data-theme="dark"`). CTA: container `--ct-cta-primary-container` and label `--ct-cta-primary-text` — both invert under `data-theme="dark"` (cream container + dark label).
+- Footer / `faq` (feature-tinted): container `--ct-identity-container-02` (#0e1f31). FAQ cards: surface `--ct-identity-container-01` (#193047). Kickers `--ct-text-body-small-*` `--ct-text-ai-secondary` (#dcd8cf). Headlines `--ct-text-h2-serif-*` `--ct-text-ai-primary`. Trailing `Button_Icon/Secondary`. Container padding-bottom `--ct-spacing-240`.
 
 **Decisions**
-- _Hero shows a silhouetted figure + "Never Give Away Your Real Information Again" headline + "Get Started" CTA + sample fake email "crayon@cloaked.id"._
-- _Filter chips at top (All / Phone / Email / Card / Password / Account) — Segmented Control, not Tabs (filtering, not navigation)._
-- _Why dark blue._
+- **Hero matches Hero / Feature §13 `intro/identity` exactly** — including the requirement that the hero (and the Nav + Tabs that overlay it) sits in `data-theme="dark"`. Under light theme the inverted CTA values flip wrong; the cream background of the page outer surface (`bg-bkgd_02`) is hidden under the absolutely-positioned hero on day 1 anyway.
+- **Page title is "Hide My Identity", not "Identity".** Mirrors the Monitoring → "Safety Monitoring" / Guard → "Spam Guard" pattern: internal feature name vs user-facing page title. Use the user-facing string.
+- **The 6-item filter strip is rendered as Tabs in the Figma master, but cross-cutting #8 calls for Segmented Control here.** All / Phone / Email / Card / Password / Account is a list filter (one list shown, narrowed by category), not a navigation switch between sub-screens — so cross-cutting #8 says Segmented Control. The Figma master uses the same Tabs strip as Monitoring / Guard (selected = bottom border, inactive = opacity-disabled). _Question for the user: is the Figma intentional (Tabs supersede Segmented Control on Identity for visual continuity), or should this be migrated to a Segmented Control / Control §5 instance per cross-cutting #8?_
+- **No In Progress / list / history sections on Identity day 1.** Same minimalist day-1 structure as VPN day 1 / Guard day 1: Nav → Tabs → Hero → FAQ. Identity's "first item" surfaces in the *activated* state below.
+- **FAQ band feature-tinted with Identity tokens** (`--ct-identity-container-02` / `_01`). Already-flagged conflict with components.md §9 Don't #8 — not re-flagged here.
 
 **Refs**: → `components.md`
 
@@ -391,37 +499,110 @@ States of the same feature are placed **together** so the evolution is visible.
 
 > Bridge state. User has just created their first identity item.
 
-**Figma**: <!-- node-id -->
+**Figma**: https://www.figma.com/design/k0n0CNGfk4ie9Vb74byl9v/Playlist-%E2%80%94-Toolkit?node-id=17794-9584&m=dev
 
 **Composition (stack)**
 ```
-1. ...
+1. Navigation  `top_bar/page`                          ← title "Hide My Identity"
+2. Tabs (sticky, 6 items)                              ← All (selected) / Phone / Email / Card / Password / Account
+   ⚠  Hero is REMOVED on activated state — does NOT match cross-cutting #1 — see Decisions
+3. ┌─ Group: phone numbers ──────────────────────────
+   │  Section Header  `default`
+   │  - List Item  `contact`                           (Doordash · Restaurant · Hinge brand-logo avatar · 342-231-1234 trailing)
+   │  └ footer CTA: Button `text/secondary`, "+ Create new number"
+4. ┌─ Group: Emails ─────────────────────────────────
+   │  Section Header  `default`
+   │  (no rows)
+   │  └ footer CTA: Button `text/secondary`, "+ Create new email"
+5. ┌─ Group: Cards ──────────────────────────────────
+   │  Section Header  `default`
+   │  (no rows)
+   │  └ footer CTA: Button `text/secondary`, "+ Create new card"
+6. ┌─ Group: Passwords ──────────────────────────────
+   │  Section Header  `default`
+   │  (no rows)
+   │  └ footer CTA: Button `text/secondary`, "+ Create new password"
+7. ┌─ Group: Accounts ───────────────────────────────
+   │  Section Header  `default`
+   │  (no rows)
+   │  └ footer CTA: Button `text/secondary`, "+ Create new account"
+8. Footer / `faq`  (feature-tinted)                    ← 4 cards (same as Identity — day 1)
 ```
 
 **Tokens**
-- _..._
+- Navigation, Tabs: same chrome as Identity — day 1, but Tabs now sit on the cream `--ct-bkgd-01` page surface (no dark hero behind them) — title and tab labels resolve `--ct-text-primary` dark in light theme.
+- Outer page surface: `--ct-bkgd-01` (cream). Section groups separated by `--ct-spacing-12` cream gaps.
+- Section Header `default` (×5): surface `--ct-bkgd-02`, title `--ct-text-h3-*` capitalize, padding-top `--ct-spacing-40`, padding-bottom `--ct-spacing-12`, padding-inline `--ct-spacing-16`.
+- List Item `contact` (Phone Numbers row): surface `--ct-bkgd-02`, padding `--ct-spacing-20`, gap `--ct-spacing-12`, leading 40×40 `Brand Logo_Hinge` avatar, title body + meta body-small `--ct-text-secondary`, trailing plain-text 172px raw right-aligned ("342-231-1234"), bottom hairline `--ct-divider`.
+- "+ Create new X" Button `text/secondary` (×5): width 353px raw, height 56px raw, padding 10px raw, radius `--ct-spacing-16`, border `--ct-cta-secondary-container`, label `--ct-cta-secondary-text` body sans. Container surface `--ct-bkgd-02`, padding-block `--ct-spacing-16`.
+- Footer / `faq` (feature-tinted Identity): same tokens as Identity — day 1 — `--ct-identity-container-02` band, `--ct-identity-container-01` cards, `--ct-text-ai-secondary` kicker.
 
 **Decisions**
-- _Hero is **unchanged** from day 1. The only change is below: one category section appears (e.g. "Phone Numbers") with one ListItem (e.g. "Doordash · Restaurant · 342-231-1234") + "+ Create new number" button._
-- _All other categories (Email / Card / Password / Account) are still hidden — only the activated category is shown._
+- **Activated state DROPS the hero entirely** — contradicts cross-cutting #1 ("Activated: hero is unchanged from day 1; the change is below"). For Identity, the moment the user creates their first item, the hero disappears and the page becomes the category list directly. _Question for the user: add an Identity exception to cross-cutting #1, or should the Figma master add the hero back to match #1 across all features?_
+- **All 5 categories appear in activated state, not just the activated one** — also contradicts the existing block placeholder ("only the activated category is shown"). Each category renders its own Section Header + (optional rows) + Secondary "+ Create new X" footer button. Empty categories show only the button — that button doubles as the per-category empty-state nudge.
+- **The "+ Create new X" Secondary button is the per-group footer CTA** (cross-cutting #4). When the category has rows, it remains as the last item in the group (create-another). When empty, it IS the only thing in the group.
+- **The single populated row uses List Item §6 `contact` variant** — Brand Logo avatar + title (entity name) + meta (category descriptor) + plain-text trailing (the actual phone number). Not `progress` (Activities / Monitoring) or `event` (Guard).
+- **Identity — activated is structurally a sparse Identity — 1 year** — same 5-category spine, same per-group "+ Create" footer, no hero in either. The difference between activated and 1-year is row density, not structure.
+- **Section title casing is inconsistent in the Figma master** ("phone numbers" lowercase vs "Emails" / "Cards" / "Passwords" / "Accounts" title case). Section Header §7 applies CSS `capitalize`, so all should be sourced lowercase per SKILL.md §6.5 — flag the Figma drift on the title-case entries.
 
 **Refs**: → `components.md`
 
 ### Identity — 1 year
 
-**Figma**: <!-- node-id -->
+**Figma**: https://www.figma.com/design/k0n0CNGfk4ie9Vb74byl9v/Playlist-%E2%80%94-Toolkit?node-id=17794-8810&m=dev
 
 **Composition (stack)**
 ```
-1. ...
+1. Navigation  `top_bar/page`                          ← title "Hide My Identity"
+2. Tabs (sticky, 6 items)                              ← All (selected) / Phone / Email / Card / Password / Account
+   ⚠  No hero (same as activated state)
+3. ┌─ Group: Inbox  (NEW vs activated) ───────────────
+   │  Section Header  `default`
+   │  - List Item  `inbox` ×3                          (Shopping · "Your Lululemon order is placed" · sms icon trailing / Dr.Kim's office · "confirming your appointment Weds.." · email icon / Redfin · "We helped a marketing firm…" · email icon)
+   │  └ footer CTA: Footer `card-section`, "See all"
+4. ┌─ Group: phone numbers ──────────────────────────
+   │  Section Header  `default`
+   │  - List Item  `contact` ×3                        (Hinge · Social · 425-352-6234 / Craigslist · Shopping · 521-352-6234 / Doordash · Restaurant · 342-231-1234) — Brand Logo avatars
+   │  - Button  `text/secondary`  "+ Create new number"
+   │  └ footer CTA: Footer `card-section`, "See all"
+5. ┌─ Group: Emails ─────────────────────────────────
+   │  Section Header  `default`
+   │  - List Item  `contact` ×3                        (Newsletter · Subscription · night.trip@cloak.id / Free Wifi · Wifi Service · wish.fish.dish@cloak.id / DHL Delivery · Shopping · Juie@cloak.id) — `Default_Identity/Authenticator` icon avatar
+   │  - Button  `text/secondary`  "+ Create new email"
+   │  └ footer CTA: Footer `card-section`, "See all"
+6. ┌─ Group: Cards ──────────────────────────────────
+   │  Section Header  `default`
+   │  (no rows)
+   │  └ footer CTA: Button `text/secondary`, "+ Create new card"     ← no "See all" footer (empty)
+7. ┌─ Group: Passwords ──────────────────────────────
+   │  Section Header  `default`
+   │  (no rows)
+   │  └ footer CTA: Button `text/secondary`, "+ Create new password" ← no "See all" footer (empty)
+8. ┌─ Group: Accounts ───────────────────────────────
+   │  Section Header  `default`
+   │  - List Item  `contact` ×3                        (Target · Shopping / Twitch · Entertainment / Amazon · Shopping) — single-line entries (no meta), trailing category text
+   │  - Button  `text/secondary`  "+ Create new account"
+   │  └ footer CTA: Footer `card-section`, "See all"
+9. Footer / `faq`  (feature-tinted)                    ← 4 cards (different copy from day 1)
 ```
 
 **Tokens**
-- _..._
+- Navigation, Tabs: same chrome as Identity — activated. Outer page surface `--ct-bkgd-01` (cream); section group surfaces `--ct-bkgd-02`.
+- Section Header `default` ×6: surface `--ct-bkgd-02`, title `--ct-text-h3-*` capitalize.
+- List Item `inbox` (Inbox group, ×3): surface `--ct-bkgd-02`, padding `--ct-spacing-20`. Leading 40×40 `Avatar_Category` SVG. Title body + meta body-small `--ct-text-secondary`. Trailing 24×24 type icon (`feature/identity/sms` or `feature/identity/email`) per List Item §6 trailing-icon slot.
+- List Item `contact` (Phone Numbers / Emails / Accounts): surface `--ct-bkgd-02`, padding `--ct-spacing-20`. Leading 40×40 — Brand Logo avatar (Phone Numbers, Accounts) or `Default_Identity/Authenticator` icon avatar (Emails). Title body + meta body-small `--ct-text-secondary` (or single-line for Accounts). Trailing plain-text right-aligned per §6.
+- Button `text/secondary` (×5 "+ Create new X"): width 353px raw, height 56px raw, padding 10px raw, radius `--ct-spacing-16`, border `--ct-cta-secondary-container`, label `--ct-cta-secondary-text` body sans. Wrapper padding-block `--ct-spacing-16`.
+- Footer `card-section` "See all" (×4: Inbox / Phone Numbers / Emails / Accounts): top hairline `--ct-divider`, body-link 12px `--ct-text-primary`, height 50px raw.
+- Footer / `faq` (feature-tinted): same Identity tokens as day 1 / activated (`--ct-identity-container-02` band, `--ct-identity-container-01` cards, `--ct-text-ai-secondary` kicker, `--ct-text-ai-primary` Simula H2 headline). Container padding-bottom `--ct-spacing-240`.
 
 **Decisions**
-- _Hero is gone — replaced by the full category list. No hero number; Identity is list-dominant._
-- _All 5 categories appear, each with the same group structure: Section Header → ListItems → "+ Create new {category}" button → "See all" link._
+- **No hero on Identity — 1 year, same as activated state.** Cross-cutting #1's hero-evolution rule (day 1 → activated → 1 year, slot preserved) does not apply to Identity — the hero is dropped at activation and never returns. Already flagged at activated; same exception applies here.
+- **A 6th group — Inbox — appears at 1-year that didn't exist on activated.** It surfaces messages received against the user's created identities (Lululemon order to a fake email, Dr.Kim's appointment to a fake phone, etc.). Inbox is the only read-only category — no "+ Create new" button, just rows + `card-section` "See all" footer.
+- **Per-group structure varies by row count.** Populated groups: rows → "+ Create new X" Secondary button → Footer `card-section` "See all". Empty groups (Cards, Passwords): just "+ Create new X" with no `card-section` footer (cross-cutting #4 — nothing to navigate to). The "+ Create new" button doubles as group footer when empty and as create-another row when populated.
+- **The `contact` List Item variant adapts per category** — Brand Logo avatars for branded entities (Hinge, Doordash, Target, Twitch, Amazon, Craigslist), `Default_Identity/Authenticator` icon avatar for non-branded fake emails (Newsletter, Free Wifi, DHL Delivery). Same component, leading-slot type swap per §6's `image: boolean` toggle.
+- **Accounts rows are single-line (no meta) with trailing category text** — different from Phone Numbers / Emails (which have a category meta line). The trailing slot here is content-driven plain text per §6, rendering "Shopping" / "Entertainment" / "Shopping" instead of the URL/handle.
+- **Section title casing remains inconsistent in the Figma master** ("Inbox" / "phone numbers" / "Emails" / "Cards" / "Passwords" / "Accounts"). Section Header §7 applies CSS `capitalize` — source naturally lowercase per SKILL.md §6.5.
+- **Closes with `Footer / faq` (feature-tinted Identity), no `Footer / impact`.** Same closer choice as day 1 / activated.
 
 **Refs**: → `components.md`
 
