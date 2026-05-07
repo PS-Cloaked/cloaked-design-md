@@ -506,7 +506,88 @@ Activities answers *what happened*. Detail answers *who/where*. Meta fills in th
 **Figma.** 6 pages — Activity / Monitoring Data / Guard / Identity / Identity-Inbox / Global (Stat-Empty).
 
 ### 7. Section Header
-_TBD_
+
+**Use.** First row of a section inside a list — names what's below and, when needed, exposes a single right-aligned affordance (filter or action). Sits flush on the section's white surface; not a page title, not a card header.
+
+**Anatomy.**
+```
+default     ┌─────────────────────────────────────────────────┐
+            │  Scan history                                   │   ← title only, capitalized
+            └─────────────────────────────────────────────────┘
+
+dropdown    ┌─────────────────────────────────────────────────┐
+            │  Scan history                       ╭ All  ⌄ ╮  │   ← title + Dropdown chip
+            │                                     ╰────────╯  │
+            └─────────────────────────────────────────────────┘
+
+action      ┌─────────────────────────────────────────────────┐
+            │  Scan history                              Edit │   ← title + plain-text action
+            └─────────────────────────────────────────────────┘
+```
+- One row, two slots: a leading title (flex 1) and a variant-specific trailing slot.
+- No leading icon, no chevron, no divider — the row sits on the same `--ct-bkgd-02` surface as the rows beneath it.
+
+**Variants.**
+
+| Variant | Visual | When |
+| --- | --- | --- |
+| `default` | Title only, no trailing slot | Section name with no affordance (most common) |
+| `dropdown` | Title + Dropdown chip ([Component 5 — Control / `dropdown/collapsed`](#5-control)) on the right | Section is filterable (e.g. "Scan history" filtered by "All / Phone / Email") |
+| `action` | Title + plain-text label (e.g. "Edit") on the right, body size, primary color, no container | Section has a single text affordance — bulk action, edit, manage |
+
+**Sizing.**
+- Container: width 393px; padding-top `--ct-spacing-40`; padding-bottom `--ct-spacing-12`; padding-inline `--ct-spacing-16`; gap `--ct-spacing-12` between title and trailing (inert on `default`); `align-items: center`.
+- Title: `flex: 1`; height `--ct-spacing-32`; single-line.
+- Trailing (`dropdown`): full Dropdown chip — see [Component 5 — Control](#5-control) Sizing for chip dimensions (32px height, radius `--ct-spacing-24`, cream pill, 16×16 chevron).
+- Trailing (`action`): intrinsic body-text height; no container, no padding.
+
+**Tokens.**
+
+*Container*
+
+| Slot | Property | Token |
+| --- | --- | --- |
+| Container | background | `--ct-bkgd-02` |
+| Container | padding-top | `--ct-spacing-40` |
+| Container | padding-bottom | `--ct-spacing-12` |
+| Container | padding-inline | `--ct-spacing-16` |
+| Container | gap | `--ct-spacing-12` |
+
+*Title (all variants)*
+
+| Slot | Property | Token |
+| --- | --- | --- |
+| Title | color | `--ct-text-primary` |
+| Title | text-transform | `capitalize` |
+| Title | font (apply all 5 sub-tokens) | `--ct-text-h3-family`, `--ct-text-h3-weight`, `--ct-text-h3-size`, `--ct-text-h3-line-height`, `--ct-text-h3-letter-spacing` |
+
+> _Source the title string in natural case (`"scan history"`); CSS handles the capitalization (SKILL.md §6.5). Figma renders the title at line-height 1 / letter-spacing 0.1px, while `--ct-text-h3-*` is line-height 1.15 / letter-spacing -0.003em — known token-export drift; reference the H3 token as the only 20px sans token, and resolve the drift in Figma._
+
+*Trailing (`dropdown`)* — see [Component 5 — Control](#5-control) Tokens / Dropdown.
+
+*Trailing (`action`)*
+
+| Slot | Property | Token |
+| --- | --- | --- |
+| Action label | color | `--ct-text-primary` |
+| Action label | font (apply all 5 sub-tokens) | `--ct-text-body-family`, `--ct-text-body-weight`, `--ct-text-body-size`, `--ct-text-body-line-height`, `--ct-text-body-letter-spacing` |
+
+**Don't.**
+- Don't add a leading icon, avatar, or chevron to the title slot. Section Header has one leading slot — title only (SKILL.md §9.3 spirit).
+- Don't add a `chevron.right` or arrow after the title or trailing. The section below is the affordance; the header is not a navigation row (SKILL.md §9.3).
+- Don't reach for Simula on the title. Title is 20px H3 — sans, outside Simula scope (SKILL.md §2.4 / §6).
+- Don't bold the title or action label to differentiate variants. Variants differ by **trailing slot**, never by weight (SKILL.md §2.5).
+- Don't hand-type the title in Title Case (`"Scan History"`) or upper case (`"SCAN HISTORY"`). Source naturally and let CSS `capitalize` do the work (SKILL.md §6.5).
+- Don't put an icon in the `action` trailing slot. Action is text-only — if a chevron is needed, the variant is `dropdown`, not `action`.
+- Don't introduce a fourth variant (e.g., `action+icon`, `link`, `more`). The three above are the closed set; surface the request rather than improvising (SKILL.md §7.1, §2.3).
+- Don't draw a hairline (`--ct-divider`) above or below the header. The row sits on the same `--ct-bkgd-02` surface as the section beneath it; separation comes from the cream gap above the section, not from a line on the header (SKILL.md §9.2).
+- Don't substitute `--ct-bkgd-01` for the container background. The header shares the white sheet with the rows it labels — a cream container would re-introduce the band-style separation the system avoids.
+
+**Figma.**
+- Master component node: `16206:3359`
+- Variants: `17492:13415` (default), `17826:13427` (dropdown — chip `17826:13429`), `17826:13433` (action — label `17826:13450`)
+- File: Playlist — Toolkit
+- Link: https://www.figma.com/design/k0n0CNGfk4ie9Vb74byl9v/Playlist-%E2%80%94-Toolkit?node-id=16206-3359
 
 ### 8. Timeline
 _TBD_
