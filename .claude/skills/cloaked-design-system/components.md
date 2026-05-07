@@ -1103,7 +1103,324 @@ automation    ┌─────────────────────
 - Link: https://www.figma.com/design/k0n0CNGfk4ie9Vb74byl9v/Playlist-%E2%80%94-Toolkit?node-id=16953-9994
 
 ### 12. Card / Dashboard
-_TBD_
+
+**Use.** Atomic dashboard tile that snapshots one feature's state on the home dashboard — a KPI, a status, a scan in progress, an inbox preview, or a wide composite list. One step smaller than a Hero (§13–15), one step larger than a List Item (§6).
+
+**Anatomy.**
+```
+default                ┌─────────────────┐
+(kpi/avators)          │  Created numbers │   ← title (body)
+                       │                  │
+                       │  5               │   ← number (display-2 sans, 48px)
+                       │                  │
+                       │  ◯ ◯ ◯           │   ← visualization slot
+                       └─────────────────┘
+
+intro                  ┌─────────────────┐
+                       │  Authenticator   │   ← title (body)
+                       │                  │
+                       │  Create a login  │   ← caption (body)
+                       │  code that...    │
+                       │                  │
+                       │  ╭───╮           │   ← Primary icon CTA (16×16 inside spacing-4)
+                       │  │ → │           │
+                       │  ╰───╯           │
+                       └─────────────────┘
+
+scanning               ┌──┬──────────────────────────┐
+                       │░░│ Exposure                  │
+                       │░░│ Scanning                  │   ← title (body, 2 lines)
+                       │░░│                           │
+                       │░░│ 28%             20mins    │   ← Display-2 + ETA right
+                       └──┴──────────────────────────┘
+                         ↑ brand stripe (73×200, --ct-brand)
+
+vpn                    ┌────────────┬───────────────┐
+                       │ VPN        │  ◯ ◯ ◯         │
+                       │            │   ◯ ◯          │   ← title + Display-2 + Toggle
+                       │ On         │ ◯ ◯ ◯ ◯       │     paired with map illustration
+                       │ ●─○        │               │
+                       └────────────┴───────────────┘
+
+list/digital-risk      ┌────────────────────────────────┐
+                       │  Digital risk             High │   ← title (body) + risk word
+                       │  ▰▰▰▰▰▰▰▱▱▱▱▱▱▱▱▱             │   ← exposure bar (320×16 SVG)
+                       ├────────────────────────────────┤
+                       │           See details          │   ← Footer §9 card-section
+                       └────────────────────────────────┘
+
+list/recent-activity   ┌────────────────────────────────┐
+                       │  Recent activity                │   ← title (body)
+                       │░░░Today░░░░░░░░░░░░░░░░░░░░░░░░│   ← Divider §2
+                       │  ◯ Lexisnexis              ▓▓░ │   ← Progress row (List Item §6)
+                       │░░░Yesterday░░░░░░░░░░░░░░░░░░░░│   ← Divider §2
+                       │  ◯ Spokeo            ↑ 4   ▓▓▓│
+                       ├────────────────────────────────┤
+                       │           See details          │
+                       └────────────────────────────────┘
+
+list/actions-taken     ┌────────────────────────────────┐
+                       │  Actions taken to protect you   │   ← title (body)
+                       │  47       ↑ 4 Today             │   ← Display-2 + Stat (Label §3)
+                       │ ────────────────────────────── │
+                       │  Removed exposures      342     │   ← stat row (List Item §6)
+                       │ ────────────────────────────── │
+                       │  Spam blocks            13      │
+                       ├────────────────────────────────┤
+                       │           See details          │
+                       └────────────────────────────────┘
+
+list/inbox             ┌────────────────────────────────┐
+                       │  Inbox                       12 │   ← header (body title + count)
+                       │  ◯ Lexisnexis           Today  │   ← inbox row (List Item §6)
+                       │  ◯ Spokeo               Mon    │
+                       │  ◯ Boards.ie            Sun    │
+                       └────────────────────────────────┘
+```
+- **`kpi/*`** — five sub-variants. All share `default` chrome: header (title + Display-2 number) over a visualization slot. Sub-variants differ only in what fills the visualization slot.
+  - `kpi/avators` — 3 avatars in a row.
+  - `kpi/bars` — 7-bar bar chart (3px bar width, 19px gap — raw, illustration).
+  - `kpi/line` — 96px-tall line chart.
+  - `kpi/pay` — 3-stack credit-card illustration.
+  - `kpi/status` — Display-2 number + body suffix word + Status `/card` pill (Label §3) replaces the visualization slot.
+- **`intro`** — banner-tinted tile; title + caption (body) + Primary icon CTA bottom-center.
+- **`scanning`** — paired columns inside the tile: a `--ct-brand` stripe column on the left + content (title block + Display-2 + ETA) on the right.
+- **`vpn`** — paired columns: title + Display-2 ("On"/"Off") + Toggle (Control §5) on the left; 160×168 map illustration on the right.
+- **`list/digital-risk`** — wide composite. Single block: title row + horizontal exposure bar + card-section footer (Footer §9).
+- **`list/recent-activity`** — wide composite. Header (title only) + alternating Divider §2 (date band) and Progress row (List Item §6) + card-section footer (Footer §9).
+- **`list/actions-taken`** — wide composite. Header (title + Display-2 hero + ↑ Stat pill from Label §3 `stat/up`) + 3 stat-row List Items (List Item §6) + card-section footer (Footer §9).
+- **`list/inbox`** — wide composite. Header bar (label + count) + N inbox rows (List Item §6 inbox variant). No card-section footer.
+
+**Variants.**
+
+| Variant | Visual | When |
+| --- | --- | --- |
+| `kpi/avators` | 173×200 white tile, title + Display-2 number + 3-avatar row in the visualization slot | Created-numbers / login / avatar count KPI (e.g. "Created numbers / 5") |
+| `kpi/bars` | …visualization slot is a 7-bar bar chart | Time-series KPI with discrete buckets (e.g. "Block spam calls / 13") |
+| `kpi/line` | …visualization slot is a 96px line chart | Time-series KPI with continuous trend (e.g. "Exposure removed / 314") |
+| `kpi/pay` | …visualization slot is a 3-stack credit-card illustration | Payment-card count KPI (e.g. "Cloaked Pay / 3") |
+| `kpi/status` | Display-2 + body suffix word + Status `/card` pill — no visualization slot | KPI paired with a state label (e.g. "Dark web monitoring / 13 events / Active") |
+| `intro` | 173×200 banner-tinted tile, title + caption + Primary icon CTA at bottom | Onboarding lure for an unconfigured feature (e.g. "Authenticator") |
+| `scanning` | ~354×200 white tile with `--ct-brand` stripe (73×200) on the left edge; 2-line title + Display-2 percentage + right-aligned ETA | Live scan-in-progress indicator (e.g. "Exposure Scanning / 28%") |
+| `vpn` | ~340×200 white tile, title + Display-2 ("On"/"Off") + Toggle paired with 160×168 map illustration | VPN status toggle |
+| `list/digital-risk` | 353×var white card; title + risk word (right) + 320×16 exposure bar + card-section footer | Composite "exposure / risk level" indicator |
+| `list/recent-activity` | 353×var white card; Divider §2 date bands separating Progress List Item rows; card-section footer | Recent feature events grouped by date |
+| `list/actions-taken` | 353×var white card; outer gap `--ct-spacing-40`; header (title + Display-2 + ↑ Stat) + 3 stat rows + card-section footer | Hero KPI with breakdown rows |
+| `list/inbox` | 361×var card; header bar (label + count) + N inbox rows; no card-section footer | Compact inbox preview |
+
+**Sizing.**
+
+*default (kpi/avators)*
+- Container: width 173px (raw — no matching `--ct-spacing-*`); height 200px (raw); border-radius `--ct-spacing-20`; `flex-direction: column`; `justify-content: space-between`.
+- Header block: padding `--ct-spacing-16`; gap `--ct-spacing-12`; `flex-direction: column`; `align-items: flex-start`. Title width 141px (raw — interior constraint).
+- Visualization slot: padding-inline `--ct-spacing-16`; padding-block `--ct-spacing-20`; gap `--ct-spacing-8`; avatars 64×64.
+
+*kpi/bars* — visualization slot only
+- Padding-block-start `--ct-spacing-4`; padding-block-end `--ct-spacing-20`; padding-inline `--ct-spacing-20`; gap **19px raw** (no `--ct-spacing-*` matches); bars 3×64 raw (illustration).
+
+*kpi/line* — visualization slot only
+- Height 96px (raw); full width; `overflow: clip`. Line strokes are illustration, not chrome.
+
+*kpi/pay* — visualization slot only
+- Height 109px (raw); credit-card stack is illustration (Mastercard / Spotify / Cloaked card art).
+
+*kpi/status*
+- Header block: hero row gap **2px raw** between Display-2 digit and 16px body suffix; suffix width 62px raw.
+- Footer block (in place of visualization): padding `--ct-spacing-16`; gap `--ct-spacing-12`; contains a Status `/card` pill (Label §3) — 141px (raw) wide.
+
+*intro*
+- Container: 173×200 (same as default); `position: relative` (children absolute-positioned).
+- Title: top inset 8% raw, left/right inset 9.09% raw.
+- Caption: top inset 31% raw; same left/right inset.
+- Primary icon CTA: 24×24 wrapper (icon 16×16 inside `--ct-spacing-4` padding); positioned bottom-center; border-radius 12px raw (resolves to `--ct-spacing-12`).
+
+*scanning*
+- Container: 354×200 raw; padding `--ct-spacing-16`; gap `--ct-spacing-8`; `flex-direction: row`; `align-items: center`; `overflow: clip`.
+- Brand stripe: position absolute, left 0, top 0, width 73px (raw), height 200px (full bleed).
+- Left content column: 161×168 raw; `flex-direction: column`; `justify-content: space-between`.
+- Right content column: 160×168 raw; `flex-direction: column`; `align-items: flex-end`; `justify-content: flex-end`.
+
+*vpn*
+- Container: padding `--ct-spacing-16`; gap `--ct-spacing-8`; `flex-direction: row`; `align-items: center`.
+- Left column: 161×168 raw; `flex-direction: column`; `justify-content: space-between`. Header (title + Display-2): gap `--ct-spacing-12`. Toggle: 72×32 (defers to Control §5).
+- Right column: 160×168 raw; `overflow: clip`; border-radius 16px raw (resolves to `--ct-spacing-16`); contains the map illustration.
+
+*list/digital-risk*
+- Container: width 353px (raw); border-radius `--ct-spacing-20`; `flex-direction: column`; gap `--ct-spacing-20`; `align-items: center`.
+- Header row: padding-top `--ct-spacing-24`; padding-inline `--ct-spacing-16`; `justify-content: space-between`; full width.
+- Exposure bar: 320×16 raw (illustration SVG).
+- Footer: defers to Footer §9 `card-section` (50px height, top hairline `--ct-divider`).
+
+*list/recent-activity*
+- Container: width 353px (raw); border-radius `--ct-spacing-20`; `flex-direction: column`; padding 0 (children own padding); `align-items: flex-start`.
+- Header section: padding-block `--ct-spacing-24`; padding-inline `--ct-spacing-16`; gap `--ct-spacing-24`; `flex-direction: column`.
+- Date bands: full width — defer to Divider §2.
+- Progress rows: full width — defer to List Item §6 progress variant.
+- Footer: defers to Footer §9 `card-section`.
+
+*list/actions-taken*
+- Container: width 353px (raw); border-radius `--ct-spacing-20`; `flex-direction: column`; outer gap `--ct-spacing-40`.
+- Header section: padding-top `--ct-spacing-24`; padding-inline `--ct-spacing-16`; gap `--ct-spacing-24`; `flex-direction: column`.
+- Hero row: gap `--ct-spacing-16`; `align-items: flex-end`. Number block 113px raw; gap **2px raw** between Display-2 digit and trailing element.
+- Stat rows: width 322px (raw — interior gutter); padding-block `--ct-spacing-16`; bottom hairline 0.5px raw, `--ct-divider`. Defers to List Item §6 stat variant.
+- Footer: width 337px raw; defers to Footer §9 `card-section`.
+
+*list/inbox*
+- Container: width 361px (raw); border-radius `--ct-spacing-20`; `flex-direction: column`; `overflow: clip` (rounds the corners on row backgrounds).
+- Header bar: padding `--ct-spacing-16`; `justify-content: space-between`; full width.
+- Inbox rows: padding `--ct-spacing-20`; defer anatomy to List Item §6 inbox variant.
+
+**Tokens.**
+
+*default (kpi/avators)*
+
+| Slot | Property | Token |
+| --- | --- | --- |
+| Container | background | `--ct-bkgd-02` |
+| Container | border-radius | `--ct-spacing-20` |
+| Header block | padding | `--ct-spacing-16` |
+| Header block | gap | `--ct-spacing-12` |
+| Title | color | `--ct-text-primary` |
+| Title | font (apply all 5 sub-tokens) | `--ct-text-body-family`, `--ct-text-body-weight`, `--ct-text-body-size`, `--ct-text-body-line-height`, `--ct-text-body-letter-spacing` |
+| Number | color | `--ct-text-primary` |
+| Number | font (apply all 5 sub-tokens) | `--ct-text-display-2-family`, `--ct-text-display-2-weight`, `--ct-text-display-2-size`, `--ct-text-display-2-line-height`, `--ct-text-display-2-letter-spacing` |
+| Visualization slot | padding-inline | `--ct-spacing-16` |
+| Visualization slot | padding-block | `--ct-spacing-20` |
+| Visualization slot | gap | `--ct-spacing-8` |
+
+*kpi/bars / kpi/line / kpi/pay* — chrome matches `default`. Visualization geometry (bar widths, line strokes, card art) is illustration, not chrome — no token table. The `kpi/pay` illustration uses raw brand colors (`#f56600`, `#1ed760`) intentionally for asset recognition; do not tokenize.
+
+*kpi/status* — overrides
+
+| Slot | Property | Token |
+| --- | --- | --- |
+| Suffix word | color | `--ct-text-primary` |
+| Suffix word | font (apply all 5 sub-tokens) | `--ct-text-body-family`, `--ct-text-body-weight`, `--ct-text-body-size`, `--ct-text-body-line-height`, `--ct-text-body-letter-spacing` |
+| Status pill block | padding | `--ct-spacing-16` |
+| Status pill block | gap | `--ct-spacing-12` |
+| Status pill | spec | defers to [Component 3 — Label](#3-label) `status/card` variant |
+
+*intro* — overrides
+
+| Slot | Property | Token |
+| --- | --- | --- |
+| Container | background | `--ct-banner-container` |
+| Title | color | `--ct-text-primary` |
+| Title | font (apply all 5 sub-tokens) | `--ct-text-body-family`, `--ct-text-body-weight`, `--ct-text-body-size`, `--ct-text-body-line-height`, `--ct-text-body-letter-spacing` |
+| Caption | color | `--ct-text-primary` |
+| Caption | font (apply all 5 sub-tokens) | `--ct-text-body-family`, `--ct-text-body-weight`, `--ct-text-body-size`, `--ct-text-body-line-height`, `--ct-text-body-letter-spacing` |
+| Primary icon CTA | container | `--ct-cta-primary-container` |
+| Primary icon CTA | icon color | `--ct-cta-primary-text` |
+| Primary icon CTA | padding | `--ct-spacing-4` |
+
+*scanning* — overrides
+
+| Slot | Property | Token |
+| --- | --- | --- |
+| Container | padding | `--ct-spacing-16` |
+| Container | gap | `--ct-spacing-8` |
+| Brand stripe | background | `--ct-brand` |
+| Title | color | `--ct-text-primary` |
+| Title | font (apply all 5 sub-tokens) | `--ct-text-body-family`, `--ct-text-body-weight`, `--ct-text-body-size`, `--ct-text-body-line-height`, `--ct-text-body-letter-spacing` |
+| Number | color | `--ct-text-primary` |
+| Number | font (apply all 5 sub-tokens) | `--ct-text-display-2-family`, `--ct-text-display-2-weight`, `--ct-text-display-2-size`, `--ct-text-display-2-line-height`, `--ct-text-display-2-letter-spacing` |
+| ETA | color | `--ct-text-primary` |
+| ETA | font (apply all 5 sub-tokens) | `--ct-text-body-family`, `--ct-text-body-weight`, `--ct-text-body-size`, `--ct-text-body-line-height`, `--ct-text-body-letter-spacing` |
+
+*vpn* — overrides
+
+| Slot | Property | Token |
+| --- | --- | --- |
+| Container | padding | `--ct-spacing-16` |
+| Container | gap | `--ct-spacing-8` |
+| Title | font (apply all 5 sub-tokens) | `--ct-text-body-family`, `--ct-text-body-weight`, `--ct-text-body-size`, `--ct-text-body-line-height`, `--ct-text-body-letter-spacing` |
+| Number ("On" / "Off") | font (apply all 5 sub-tokens) | `--ct-text-display-2-family`, `--ct-text-display-2-weight`, `--ct-text-display-2-size`, `--ct-text-display-2-line-height`, `--ct-text-display-2-letter-spacing` |
+| Toggle | spec | defers to [Component 5 — Control](#5-control); on-state container resolves to `--ct-status-success-solid` |
+| Map illustration column | background | `--ct-bkgd-01` |
+
+> _The Figma master references the `--ct-color-green-01` primitive on the on-state Toggle. Per SKILL.md §4.4, components consume the semantic token (`--ct-status-success-solid`), not the primitive — both resolve to the same hex._
+
+*list/digital-risk* — overrides
+
+| Slot | Property | Token |
+| --- | --- | --- |
+| Container | padding-top | `--ct-spacing-24` |
+| Container | padding-inline | `--ct-spacing-16` |
+| Container | gap | `--ct-spacing-20` |
+| Title | color | `--ct-text-primary` |
+| Title | font (apply all 5 sub-tokens) | `--ct-text-body-family`, `--ct-text-body-weight`, `--ct-text-body-size`, `--ct-text-body-line-height`, `--ct-text-body-letter-spacing` |
+| Risk word | color | _TBD_ |
+| Risk word | font (apply all 5 sub-tokens) | `--ct-text-body-family`, `--ct-text-body-weight`, `--ct-text-body-size`, `--ct-text-body-line-height`, `--ct-text-body-letter-spacing` |
+| Footer | spec | defers to [Component 9 — Footer](#9-footer) `card-section` variant |
+
+> _Risk-word color in Figma is raw `#c90004`. The closest existing token, `--ct-status-fail-solid` (`#b83100`), does not match — it's a different red. Add a darker fail-status token in Figma and re-export before resolving this slot. Per SKILL.md §2.1, do not substitute the closest token by hand._
+
+*list/recent-activity* — overrides
+
+| Slot | Property | Token |
+| --- | --- | --- |
+| Header | padding-block | `--ct-spacing-24` |
+| Header | padding-inline | `--ct-spacing-16` |
+| Header | gap | `--ct-spacing-24` |
+| Title | color | `--ct-text-primary` |
+| Title | font (apply all 5 sub-tokens) | `--ct-text-body-family`, `--ct-text-body-weight`, `--ct-text-body-size`, `--ct-text-body-line-height`, `--ct-text-body-letter-spacing` |
+| Date band | spec | defers to [Component 2 — Divider](#2-divider) |
+| Progress row | spec | defers to [Component 6 — List Item](#6-list-item) progress variant |
+| Footer | spec | defers to [Component 9 — Footer](#9-footer) `card-section` variant |
+
+*list/actions-taken* — overrides
+
+| Slot | Property | Token |
+| --- | --- | --- |
+| Container | gap (outer) | `--ct-spacing-40` |
+| Header | padding-top | `--ct-spacing-24` |
+| Header | padding-inline | `--ct-spacing-16` |
+| Header | gap (between title and hero row) | `--ct-spacing-24` |
+| Title | color | `--ct-text-primary` |
+| Title | font (apply all 5 sub-tokens) | `--ct-text-body-family`, `--ct-text-body-weight`, `--ct-text-body-size`, `--ct-text-body-line-height`, `--ct-text-body-letter-spacing` |
+| Hero row | gap (between number and Stat) | `--ct-spacing-16` |
+| Number | color | `--ct-text-primary` |
+| Number | font (apply all 5 sub-tokens) | `--ct-text-display-2-family`, `--ct-text-display-2-weight`, `--ct-text-display-2-size`, `--ct-text-display-2-line-height`, `--ct-text-display-2-letter-spacing` |
+| Stat pill | spec | defers to [Component 3 — Label](#3-label) `stat/up` variant |
+| Stat row | padding-block | `--ct-spacing-16` |
+| Stat row | bottom hairline | `--ct-divider`, 0.5px (raw) |
+| Stat row | spec | defers to [Component 6 — List Item](#6-list-item) stat variant |
+| Footer | spec | defers to [Component 9 — Footer](#9-footer) `card-section` variant |
+
+*list/inbox* — overrides
+
+| Slot | Property | Token |
+| --- | --- | --- |
+| Container | background | none (children own background) |
+| Header bar | background | `--ct-bkgd-02` |
+| Header bar | padding | `--ct-spacing-16` |
+| Header label | color | `--ct-text-primary` |
+| Header label | font (apply all 5 sub-tokens) | `--ct-text-body-family`, `--ct-text-body-weight`, `--ct-text-body-size`, `--ct-text-body-line-height`, `--ct-text-body-letter-spacing` |
+| Inbox row | background | `--ct-bkgd-02` |
+| Inbox row | padding | `--ct-spacing-20` |
+| Inbox row | spec | defers to [Component 6 — List Item](#6-list-item) inbox variant |
+
+**Don't.**
+- Don't reach for Simula on any Display-2 number (KPI hero, scanning percentage, VPN On/Off, actions-taken hero). Simula is reserved for page titles and FAQ headlines (SKILL.md §2.4 / §6); even very large numbers stay sans.
+- Don't bold any title, suffix, or counter to differentiate variants. All weights are 400 (SKILL.md §2.5); variants differ by surface, layout, and visualization — never by weight.
+- Don't tint any Card/Dashboard variant with `--ct-monitoring-*`, `--ct-guard-*`, or `--ct-identity-*`. Category container tokens belong to Card/Feature `automation` (SKILL.md §9.1); do not extend the pattern here.
+- Don't apply `--ct-text-ai-*` or `--ct-bkgd-ai-input` to any Card/Dashboard variant. No dashboard tile lives on a fixed-dark surface; AI tokens are restricted to the AI input and the FAQ band (SKILL.md §5.2).
+- Don't substitute `--ct-status-fail-solid` for the `list/digital-risk` risk-word color "to use a token." The Figma value (`#c90004`) is a different red than the existing fail token; per SKILL.md §2.1, wait for the missing token instead of approximating.
+- Don't reference the `--ct-color-green-01` primitive on the `vpn` on-state Toggle. Components consume the semantic token (`--ct-status-success-solid`) — see SKILL.md §4.4.
+- Don't drop a shadow or wrap any tile in a border. Separation between dashboard tiles comes from the `--ct-spacing-12` cream gap (SKILL.md §9.2).
+- Don't add a `chevron.right` to `list/recent-activity` progress rows, `list/actions-taken` stat rows, or `list/inbox` rows. The row is the affordance; the trailing slot stays empty (SKILL.md §9.3).
+- Don't add a card-section footer to `list/inbox`. The Figma master ends at the last inbox row; adding a "See details" footer drifts from spec (SKILL.md §2.3).
+- Don't replace the `intro` banner background with `--ct-bkgd-02` "for consistency." The `--ct-banner-container` cream tint is the visual signature that marks `intro` as the unconfigured-feature lure (SKILL.md §9.5 spirit).
+- Don't add a static `9:41` clock or signal/wifi/battery glyphs to the `vpn` map illustration. The map is decorative; simulated iOS chrome is forbidden (SKILL.md §9.4).
+- Don't introduce a new variant (e.g. `kit-briefing`, `notification`, `feature-hero`). Hero / kit-briefing / notification variants live in §13–15 — surface the request (SKILL.md §7.1, §2.3).
+- Don't render the `kpi/bars` 19px gap or the actions-taken 2px hero gap as `--ct-spacing-20` / `--ct-spacing-4` "to use a token." Those values are illustration / micro-layout geometry; spec them raw until a matching `--ct-spacing-*` lands.
+- Don't pad the `list/inbox` outer container directly. Padding lives on the header bar and on each inbox row; an outer pad creates a second inset that breaks the row's full-width hairline.
+
+**Figma.**
+- Page node: `16063:9308`
+- Variant masters: `16906:7329` (kpi/avators), `16906:7234` (kpi/bars), `16901:7057` (kpi/line), `16906:7386` (kpi/pay), `16901:7027` (kpi/status), `16022:5191` (intro), `16910:7549` (scanning), `16910:7499` (vpn / off), `16910:7500` (vpn / on), `17384:8997` (list/digital-risk), `17384:8995` (list/recent-activity), `17384:8996` (list/actions-taken), `16238:5139` (list/inbox)
+- File: Playlist — Toolkit
+- Link: https://www.figma.com/design/k0n0CNGfk4ie9Vb74byl9v/Playlist-%E2%80%94-Toolkit?node-id=16063-9308
 
 ### 13. Hero / Feature
 _TBD_
