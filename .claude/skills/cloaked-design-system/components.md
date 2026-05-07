@@ -1958,6 +1958,78 @@ scanning/data-removal ┌──────────────────�
 - Link: https://www.figma.com/design/k0n0CNGfk4ie9Vb74byl9v/Playlist-%E2%80%94-Toolkit?node-id=17826-13504
 
 ### 15. Hero / Notification
-_TBD_
+
+**Use.** Standalone AI notification moment — a single fixed-dark notification card from Kit (AI persona) presented on the app's light cream surface, without the editorial headline of §14. Reach for it as a celebratory milestone or one-line status update from the AI when no Kit voice headline is appropriate.
+
+**Anatomy.**
+```
+                cream surface
+                ┌─────────────────────────────────┐
+                │                                 │
+                │  ╭───────────────────────────╮  │
+                │  │ ◉  One Year Wrap          │  │   ← AI notification card (fixed-dark)
+                │  │    From 25 to 64.         │  │      avatar (40×40, celebration) +
+                │  │    Untouchable            │  │      2-line text column
+                │  ╰───────────────────────────╯  │
+                │                                 │
+                └─────────────────────────────────┘
+```
+- **Outer surface.** A cream sheet on the app's light theme (`--ct-bkgd-01`). The card is the only content — no headline, no decorative blob, no backdrop blur (contrast with §14).
+- **AI notification card.** Fixed-dark `--ct-bkgd-ai-input` pill with 20px radius. Two slots: leading 40×40 celebration avatar + a stacked text column (252px raw) with primary label (body, opacity 0.7 raw) over secondary tagline (body, text-secondary).
+  - **Celebration avatar.** A green circular fill (`--ct-status-success-solid`, baked in the SVG asset) overlaid with a numeric glyph (e.g. "1") indicating the milestone. Distinct from the §14 Guard avatar — different recognition anchor for the celebration moment.
+
+**Variants.**
+
+| Variant | Visual | When |
+| --- | --- | --- |
+| `default` | 361px-wide fixed-dark AI notification card with celebration avatar (green + numeric glyph) and 2-line label stack, floating on a cream `--ct-bkgd-01` surface | Milestone celebration or one-line AI status update when no Simula headline is appropriate |
+
+**Sizing.**
+- Card: width 361px (raw — no matching `--ct-spacing-*`); `flex-direction: row`; `align-items: center`; gap `--ct-spacing-20`; padding-inline `--ct-spacing-24`; padding-block `--ct-spacing-20`; border-radius `--ct-spacing-20` (= 20px, doubles as full pill at this height).
+  - Celebration avatar: `--ct-spacing-40` × `--ct-spacing-40` (40×40); SVG asset bakes the green ellipse fill and the numeric glyph (positioned at `left: 16px raw`, `top: 12px raw`, size 9×16 raw inside the 40×40 frame). Geometry baked in the asset; do not redraw.
+  - Text column: width 252px raw; `flex-direction: column`; `align-items: flex-start`. Primary label opacity `0.7` raw; secondary label full opacity.
+
+**Tokens.**
+
+| Slot | Property | Token |
+| --- | --- | --- |
+| Outer surface | background | `--ct-bkgd-01` |
+| AI notification card | background | `--ct-bkgd-ai-input` |
+| AI notification card | padding-inline | `--ct-spacing-24` |
+| AI notification card | padding-block | `--ct-spacing-20` |
+| AI notification card | gap | `--ct-spacing-20` |
+| AI notification card | border-radius | `--ct-spacing-20` |
+| Celebration avatar | size | `--ct-spacing-40` |
+| Celebration avatar | spec | _TBD_ — SVG asset bakes the green ellipse fill (visually `--ct-status-success-solid`) and the numeric glyph (same caveat as §1 icon strokes and §14 Guard avatar — Figma must export the fill as a variable for theme-aware re-color) |
+| Primary label | color | `--ct-text-primary` (resolves cream when the card is wrapped in local `data-theme="dark"` — see note) |
+| Primary label | opacity | `0.7` (raw — only `--ct-opacity-disabled` = 0.3 exists; no match) |
+| Primary label | font (apply all 5 sub-tokens) | `--ct-text-body-family`, `--ct-text-body-weight`, `--ct-text-body-size`, `--ct-text-body-line-height`, `--ct-text-body-letter-spacing` |
+| Secondary label | color | `--ct-text-secondary` |
+| Secondary label | font (apply all 5 sub-tokens) | `--ct-text-body-family`, `--ct-text-body-weight`, `--ct-text-body-size`, `--ct-text-body-line-height`, `--ct-text-body-letter-spacing` |
+
+> _Unlike §14 Hero / Kit Briefing — where the whole hero sits in `data-theme="dark"` so its `--ct-bkgd-02` sheet flips dark — this hero's outer surface is cream (`--ct-bkgd-01`) and must remain on `data-theme="light"`. The fixed-dark notification card therefore needs a local `data-theme="dark"` wrapper around the card itself so its `--ct-text-primary` and `--ct-text-secondary` resolve cream over the fixed-dark fill, while the surrounding cream surface stays unchanged. The card background (`--ct-bkgd-ai-input`) is pinned dark per SKILL.md §5.2 and does not flip._
+
+**Don't.**
+- Don't reach for Simula on either label. Both the primary recommendation and the secondary tagline are body 16px sans; per SKILL.md §2.4 / §6, Simula stays scoped to page titles and FAQ headlines — and this hero has no Simula slot at all (contrast with §14, which uses Simula exactly once).
+- Don't add a Simula headline above the card "to match §14." The absence of a headline is the whole point of this variant — it's the no-headline sibling. If a headline is needed, reach for §14 Hero / Kit Briefing instead (SKILL.md §6.4, §7.1).
+- Don't bold the primary or secondary label to differentiate hierarchy. All weights are 400 (SKILL.md §2.5); hierarchy comes from color (`--ct-text-primary` vs `--ct-text-secondary`) and the raw `0.7` opacity on the primary line.
+- Don't tokenize the primary-label `opacity: 0.7` as `--ct-opacity-disabled`. The only sanctioned opacity token is 0.3 (disabled state); `0.7` here is illustration / Figma raw, not chrome (SKILL.md §4.3).
+- Don't apply `--ct-text-ai-*` to either label. Figma exports `--ct-text-primary` / `--ct-text-secondary` here (mirroring §14); the cream resolution comes from wrapping the card in local `data-theme="dark"`, not from the AI text family. AI text tokens are reserved for the AI input field surface (SKILL.md §5.2).
+- Don't render the card directly on a `data-theme="light"` surface without a local `data-theme="dark"` wrapper. Without it, `--ct-text-primary` resolves near-black on the fixed-dark card and the labels disappear (SKILL.md §5.1, §5.4).
+- Don't repaint the celebration avatar's green circle by binding `--ct-status-success-solid` to a CSS fill. The fill is baked into the SVG asset; theme-aware re-color requires re-export from Figma (same caveat as §1 icon strokes and §14 Guard avatar — SKILL.md §2.1).
+- Don't replace the celebration avatar with a generic icon (e.g. `bell`, `info`, `confetti`, `check`) or with the §14 Guard avatar. The green-circle-plus-numeric-glyph is this notification's visual signature; swapping it generic-ifies the moment and breaks the recognition contract with §14 (SKILL.md §9.5).
+- Don't drop a shadow on the AI notification card or wrap it in a hairline border to lift it off the cream sheet. The 20px-radius pill plus the fixed-dark fill is the separation. Section separation across the product comes from the `--ct-spacing-12` cream gap, not from chrome (SKILL.md §9.2).
+- Don't add a `chevron.right` to the card. The card itself is the affordance — tapping it commits to the milestone or status action (SKILL.md §9.3).
+- Don't write `"Loading…"` as the primary label while a celebration animation plays. The avatar + the milestone copy *are* the live state; replacing them with a spinner is the exact pattern §9.6 forbids.
+- Don't add a static `9:41` clock or signal/wifi/battery glyphs above the card to fake an OS notification. Simulated iOS chrome is forbidden (SKILL.md §9.4).
+- Don't introduce a second variant (e.g. `notification/monitoring`, `notification/identity`, `notification/guard`) by swapping the avatar or recoloring the card. The Hero / Notification variant set is closed at one — surface the request rather than improvising; new variants go into Figma first and re-export (SKILL.md §7.1).
+- Don't dim the card with arbitrary opacity to indicate disabled. The only sanctioned opacity is `--ct-opacity-disabled` (= 0.3); the raw `0.7` on the primary label belongs to the illustration layer, not chrome (SKILL.md §4.3).
+
+**Figma.**
+- Specimen frame: `16978:11906`
+- Variant master: `16081:12390` (ai-notification)
+- Inner nodes: `16081:12386` (Avatar_Celebration), `16081:12379` (avatar ellipse), `16081:12380` (numeric glyph "1"), `16081:12359` (text column), `16072:11494` (primary label), `16072:11495` (secondary label)
+- File: Playlist — Toolkit
+- Link: https://www.figma.com/design/k0n0CNGfk4ie9Vb74byl9v/Playlist-%E2%80%94-Toolkit?node-id=16978-11906
 
 ---
