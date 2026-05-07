@@ -366,7 +366,144 @@ Segment     ╭───────╮ ╭───────╮ ╭───
 - Link: https://www.figma.com/design/k0n0CNGfk4ie9Vb74byl9v/Playlist-%E2%80%94-Toolkit?node-id=16022-7383
 
 ### 6. List Item
-_TBD_
+
+**Use.** Covers all list rows and stat/empty placeholders within a single component family. Anatomy splits into two classes: Standard row (with Avatar) / Nested (without Avatar).
+
+**Anatomy — Class A (Standard row).**
+[Avatar 40×40]  [Title           ]  [Trailing?]
+[Meta             ]
+[─────── Divider (bottom, optional) ─────────]
+
+- Container: `--ct-spacing-20` padding all sides, `--ct-bkgd-02`, width 393px
+- Avatar: 40×40 leading slot (see Avatar slot section below)
+- Title: `var(--ct-text-body-*)` + `--ct-text-primary`, single-line ellipsis
+- Meta: `var(--ct-text-body-small-*)` + `--ct-text-secondary`, single-line ellipsis
+- Trailing: optional, variant-dependent (see Trailing slot section below)
+- Divider: 1px line at bottom, `--ct-divider`. The row owns its own divider — do not draw it externally.
+
+**Anatomy — Class B (Nested).**
+
+Used when the row sits inside a parent container (e.g. a Card or Section) that already provides horizontal padding. Does not span screen edge-to-edge.
+
+| Subtype | Anatomy |
+|---|---|
+| Stat | Label (w-210) + Value (right-aligned, primary). Width 322px, py-16, no horizontal padding, no background. Lives inside a parent container. |
+| Empty | 360×240 placeholder block. Single message, absolute-centered. Not a row — represents the empty state of the entire list region. |
+
+**Title content rule (page-dependent).**
+
+The same List Item component, but the Title's starting content depends on which page it appears on.
+
+| Page | Title starts with | Example |
+|---|---|---|
+| Activities | **Action verb** (what happened) | "Spam call blocked" |
+| Detail | **Entity name** (who/where) | "(322) 142-8932" |
+
+Activities answers *what happened*. Detail answers *who/where*. Meta fills in the missing half — phone number on Activities, scam type on Detail.
+
+**Avatar slot — 7 types.** Determined by data availability and contact type.
+
+| Type | When | Visual |
+|---|---|---|
+| `Avatar_default` | System action / feature row | Icon shell + sub-icon (e.g. `Default_monitoring/Darkweb`, `Default_guard/call`, `Default_Identity/Authenticator`) |
+| `Avatar_default` (Card shape) | Identity card variant | 40px wrapper containing a 22×34 rounded card |
+| `Avatar_Flags` | VPN | Country flag icon |
+| `Avatar_Category` | Password | Colored circle base + key icon overlay |
+| `Avatar_Brand logo` | Brand entity (image=true) | Third-party logo (Lululemon, Spokeo, etc.) |
+| `Avatar_CloakedPay_Brand Logo` | Card with brand | 40px wrapper + 22×34 brand-filled card |
+| `Avatar_caller initicial` | Person contact, no photo | 40px circle + uppercase initial in white (`--ct-cta-primary-text`) |
+| `Avatar_Custom Image` | Person contact, has photo | 40px filled with user-uploaded photo |
+
+**Image boolean toggle.** Many variants carry an `image: boolean` prop.
+
+| image | System contact | Brand contact | Person contact |
+|---|---|---|---|
+| `false` | `Avatar_default` (icon) | `Avatar_default` (icon) | `Avatar_caller initicial` (initial letter) |
+| `true` | (n/a) | `Avatar_Brand logo` | `Avatar_Custom Image` (photo) |
+
+→ Meaning: "show real avatar instead of fallback"
+
+**Trailing slot — 5 types + none.**
+
+| Type | Visual | When |
+|---|---|---|
+| Plain text | Content-driven width (82px ~ 172px), right-aligned, `var(--ct-text-body-*)` + `--ct-text-primary` | VPN duration, phone numbers, status counts |
+| Label badge | Cream pill: `--ct-bkgd-01`, h-32, padding `--ct-spacing-12`/`--ct-spacing-4`, radius 4px | Block Spam type ("SMS"/"Call"/"Email") |
+| 2-line text block | Title primary + Subtitle secondary, right-aligned, fixed width | VPN: "2h 14m" / "1.2GB" |
+| Icon (24×24) | Type icon | Inbox row type indicator, Password copy icon |
+| (none) | Slot omitted entirely | Activity/Monitor Dark Web, Data Removal (info goes in body inline) |
+
+**Body inline content.** Content placed inside the body slot rather than in a separate trailing slot.
+
+| Pattern | When | Anatomy |
+|---|---|---|
+| Inline number/status | Data Removal, Monitoring | Title row splits left/right: left=source, right=number/status |
+| Progress bar | Data Removal (Not started, In Progress) | Title row + progress bar (h-8, full-width, fill `--ct-brand`, track `--ct-bkgd-01`) + Meta |
+
+**Variants by context.**
+
+| Context | Notable variants | Notes |
+|---|---|---|
+| Activities | Create Identity, Monitor Dark Web, Use VPN, Block Spam, Monitor Data Removal | **Title = action verb** ("Spam call blocked"). Activity log. |
+| Detail | (Same component as Activity, different page) | **Title = entity name** ("(322) 142-8932"). Entity detail. |
+| Monitoring Data | Dark web monitoring, Data Removal | Same component as Activity; only meta text differs. |
+| Guard | SMS Guard, Call Guard, Email Guard, VPN | Trailing = Label badge (Spam types) or 2-line text (VPN). |
+| Identity | Phone, Email, Card, Password, Account | Each carries `image: boolean` toggle (except Password). |
+| Identity/Inbox | Call, Voicemail, Missed call, Message, Email | Single base + type prop. Trailing icon paired 1:1 with type. |
+| Stat | Stat (no Avatar) | Class B — nested subtype. |
+| Empty | empty-state | Class B — placeholder block. |
+
+**Inbox type ↔ trailing icon mapping.**
+
+| Type | Trailing icon |
+|---|---|
+| Call | `informational/call` |
+| Voicemail | `informational/voicemail` |
+| Missed call | `informational/missed` |
+| Message | `feature/identity/sms` |
+| Email | `feature/identity/email` |
+
+**Layout patterns — 2 types.**
+
+| Pattern | Body | Trailing | When |
+|---|---|---|---|
+| Default (gap-based) | flex-1 | auto | Most Activity rows, Identity (general). |
+| Fixed-width (justify-between) | fixed width | fixed width | VPN (any page), Identity/Inbox throughout. |
+
+→ Layout signal: use fixed-width when body or trailing contains multi-line / long content.
+
+**Sizing.**
+- Row width: 393px (Class A standard)
+- Stat width: 322px (Class B nested — parent provides horizontal padding)
+- Empty: 360×240
+- Inner padding: `--ct-spacing-20` (Class A) / `--ct-spacing-16` vertical only (Stat)
+- Avatar: 40×40 (`--ct-spacing-40`)
+- Avatar ↔ Body gap: `--ct-spacing-12`
+- Body ↔ Trailing gap: `--ct-spacing-8` (default), or fixed-width split
+- Title ↔ Meta gap: `--ct-spacing-8`
+
+**Tokens.**
+- Background: `--ct-bkgd-02`
+- Title: `var(--ct-text-body-*)` + `--ct-text-primary`
+- Meta: `var(--ct-text-body-small-*)` + `--ct-text-secondary`
+- Divider: `--ct-divider`
+- Avatar initial color: `--ct-cta-primary-text` (white)
+- Label badge bg: `--ct-bkgd-01`
+- Progress bar fill: `--ct-brand`
+- Progress bar track: `--ct-bkgd-01`
+- Title/Meta overflow: single-line ellipsis
+
+**Don't.**
+- ❌ Do not add chevron right (SKILL.md §9.3) — the row itself is the affordance.
+- ❌ Do not mix Avatar types arbitrarily — they are determined by `image` boolean and contact type (System/Brand/Person).
+- ❌ Do not enforce Cloaked color rules on Brand logos — brand fidelity wins.
+- ❌ Do not allow Title or Meta to wrap to multiple lines — enforce single-line ellipsis.
+- ❌ Do not place Stat at the screen edge — it must sit nested inside a parent's horizontal padding.
+- ❌ Do not treat Empty like a "row" — it is the empty placeholder for the entire list region.
+- ❌ Do not start an Activities title with an entity name — start with an action verb ("Spam call blocked", not "(322) 142-8932").
+- ❌ Do not start a Detail title with an action verb — start with the entity name.
+
+**Figma.** 6 pages — Activity / Monitoring Data / Guard / Identity / Identity-Inbox / Global (Stat-Empty).
 
 ### 7. Section Header
 _TBD_
