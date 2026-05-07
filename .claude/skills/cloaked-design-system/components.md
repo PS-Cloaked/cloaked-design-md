@@ -368,34 +368,31 @@ Segment     ╭───────╮ ╭───────╮ ╭───
 ### 6. List Item
 _TBD_
 
-### 7. Feature List Item
+### 7. Section Header
 _TBD_
 
-### 8. Section Header
+### 8. Timeline
 _TBD_
 
-### 9. Timeline
+### 9. Footer
 _TBD_
 
-### 10. Footer
+### 10. Navigation
 _TBD_
 
-### 11. Navigation
+### 11. Card / Feature
 _TBD_
 
-### 12. Card / Feature
+### 12. Card / Dashboard
 _TBD_
 
-### 13. Card / Dashboard
+### 13. Hero / Feature
 _TBD_
 
-### 14. Hero / Feature
+### 14. Hero / Kit Briefing
 _TBD_
 
-### 15. Hero / Kit Briefing
-_TBD_
-
-### 16. Hero / Notification
+### 15. Hero / Notification
 _TBD_
 
 ---
