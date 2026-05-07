@@ -1,3 +1,3 @@
-# Cloaked — Page Examples
+# Examples
 
-<!-- TODO: 12 page examples from Figma Page section -->
+TBD — BAD / GOOD usage examples not yet authored.

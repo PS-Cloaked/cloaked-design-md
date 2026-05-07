@@ -1,57 +1,80 @@
-# Cloaked Design System — .md Package
+# Cloaked Toolkit — `.md` Package
 
-## What is this
+A lightweight context bundle that teaches AI tools (Claude, Cursor, Claude Code) how to use the Cloaked design language. It contains the token CSS files, the Simula font, and a single AI-facing rules document — enough for an LLM to generate code or specs that match the system without guessing.
 
-An LLM-friendly context package for the Cloaked Design System. It bundles design tokens (`.css`), font files, and component specs (`.md`) so AI tools can understand and follow the Cloaked design language when generating code or making design decisions.
+This package is **not** a component library. It is a rule book + token export. You drop it into your AI tool's context, and the AI follows it.
 
-## Files
+---
+
+## Quick start
+
+### Claude (chat / Project)
+
+1. Attach this folder (or upload as a zip) to a Claude Project.
+2. Claude picks up `cloaked.design.md` automatically as its rules.
+3. Ask: *"Build a CTA card using Cloaked tokens, dark theme."*
+
+### Cursor
+
+1. Place this folder anywhere in your workspace.
+2. Reference it in chat with `@cloaked-design-md` (or `@cloaked.design.md` for just the rules file).
+3. Cursor reads the tokens and rules together.
+
+### Claude Code
+
+1. `cd` into a project that includes (or imports) this folder.
+2. Open Claude Code and start working — it reads the package as repo context automatically.
+
+### Other LLMs / API
+
+Pass `cloaked.design.md` plus the four `tokens/*.css` files as system context. Skip the fonts unless you need to render previews.
+
+---
+
+## Folder structure
 
 ```
 cloaked-design-md/
-├── README.md            # This file
-├── INSTRUCTIONS.md      # LLM behavior rules
-├── tokens.md            # Token usage guide
-├── assets.md            # Logo, icon, and asset guidelines
-├── components.md        # Component specs and patterns
-├── examples.md          # End-to-end usage examples
+├── README.md             # This file (humans)
+├── cloaked.design.md     # AI rules (read by LLMs)
+├── components.md         # Component specs — currently TBD
+├── examples.md           # BAD / GOOD usage — currently TBD
 ├── tokens/
-│   ├── colors.css       # Color primitives (16 tokens)
-│   ├── themes.css       # Light/Dark semantic tokens
-│   ├── numbers.css      # Spacing + opacity tokens
-│   └── typography.css   # Text styles + @font-face declarations
+│   ├── colors.css        # 16 color primitives
+│   ├── numbers.css       # Spacing scale + opacity
+│   ├── themes.css        # Light + Dark semantic tokens
+│   └── typography.css    # Text styles + @font-face
 └── fonts/
     ├── Simula-Book.otf
     └── Simula-Italic.otf
 ```
 
-## How to use with LLMs
+---
 
-### Quick start (Claude)
+## How tokens work
 
-- Attach the entire repo folder to a Claude Project.
-- Claude automatically picks up `INSTRUCTIONS.md` as its behavior rules.
-- The remaining files are referenced as context when relevant.
+- **`tokens/*.css` is the source of truth** for the AI. Token names and values come from there, not from prose docs.
+- All token names are prefixed `--ct-*` (Cloaked Toolkit).
+- Components consume **semantic** tokens (`--ct-bkgd-02`, `--ct-text-primary`, `--ct-cta-primary-container`). Color primitives (`--ct-color-*`) are backstage and should not be referenced directly.
+- Themes activate via `data-theme="light"` or `data-theme="dark"` on the root element. There is no fallback.
 
-### Other LLMs
+The full rule set, including what's forbidden and how the AI should behave when something is ambiguous, lives in `cloaked.design.md`.
 
-- **ChatGPT** — Upload as files (subject to context limits).
-- **Cursor** — Place in workspace; reference via `@`-mention.
-- **API integrations** — Pass relevant files as system context.
+---
 
-### Example prompts
+## Updating tokens
 
-```
-Create a CTA button using Cloaked design tokens.
-```
+Token CSS is generated from Figma Variables, **not hand-edited**. To update:
 
-```
-Build a card component with the dark theme.
-```
+1. In Figma, open the relevant Variables collection (Colors / Numbers / Theme) or Text Styles.
+2. Export to W3C DTCG JSON.
+3. Regenerate the corresponding `tokens/*.css` from the export.
+4. Commit the regenerated CSS.
 
-```
-Style this header with --ct-text-h1.
-```
+Hand-edits to `tokens/*.css` will be overwritten on the next export. If a value needs to change, change it in Figma first.
 
-## Sync with Figma
+---
 
-When Figma Variables or Text Styles change, export the relevant collection as JSON to the `_temp/` folder (gitignored), then regenerate the corresponding `tokens/*.css` file. Do not hand-edit token values — always regenerate from the Figma export so the CSS stays a faithful mirror of the source of truth.
+## License
+
+Simula is a licensed typeface. The `.otf` files in `fonts/` are bundled for use within Cloaked products only. Do not redistribute the fonts as part of forks or external projects.
