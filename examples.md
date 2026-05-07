@@ -47,7 +47,7 @@ Most features have three possible states. Not every feature uses all three.
 - **1 year** — data has accumulated. Hero transforms into proof (numbers, charts, maps). Multiple stacks with section footers.
 
 Currently in this file:
-- **Home**: day 1, 1 year
+- **Home**: 1 year
 - **Activities**: day 1, 1 year
 - **Monitoring (VPN)**: day 1, 1 year
 - **Monitoring (Data Removal)**: day 1, 1 year
@@ -71,8 +71,8 @@ Rules that apply to **every** screen below. Do not restate these in individual e
    Each feature owns a color/treatment that runs through hero, FAQ accents, and key surfaces.
    - Activities: orange · Monitoring: purple · Guard: gold/ochre · Identity: dark blue · Home: warm neutral
 
-3. **FAQ at the bottom, colored by feature**
-   Every page ends with the FAQ section. **The FAQ card color matches its feature's identity color.** Never use a generic FAQ color.
+3. **Every page ends with one closing footer — `Footer / faq` OR `Footer / impact`, never both.**
+   Pick one per page. `faq` is the fixed-dark AI band with the Section Header + horizontal carousel; `impact` is the cream editorial band with the inline Simula number + Tertiary CTA. The closer is positional, not stackable.
 
 4. **Stack with section footers**
    Cards never just float. They are grouped into **stacks**, and most stacks end with a **section footer CTA**.
@@ -128,77 +128,125 @@ States of the same feature are placed **together** so the evolution is visible.
 
 ---
 
-### Home — day 1
-
-**Figma**: <!-- node-id -->
-
-**Composition (stack)**
-```
-1. ...
-```
-
-**Tokens**
-- _..._
-
-**Decisions**
-- _What's in the hero (promise + single CTA)._
-- _Why warm neutral, not a feature color (Home summarizes all features)._
-
-**Refs**: → `components.md`
-
 ### Home — 1 year
 
-**Figma**: <!-- node-id -->
+**Figma**: https://www.figma.com/design/k0n0CNGfk4ie9Vb74byl9v/Playlist-%E2%80%94-Toolkit?node-id=17492-12966&m=dev
 
 **Composition (stack)**
 ```
-1. ...
+1. Navigation  `top_bar/home`                              ← "Profile" right-aligned, no title
+2. Hero / Kit Briefing                                     ← full-bleed; Simula H1 + AI notification card slot
+3. ┌─ Group: Dashboard ──────────────────────────────────
+   │  inline header: "Dashboard" + "Edit" (right)
+   │  - Card / Dashboard  `list/digital-risk`              (Digital risk · High + exposure bar)
+   │  - Card / Dashboard  `list/actions-taken`             (4,216 + ↑ 4 Today + 3 stat rows)
+   │  - Card / Dashboard  `list/recent-activity`           (In Progress / Up Next bands + 3 progress rows)
+   │  └ footer CTA: Button `text/secondary`, "Add to dashboard"
+4. Footer / `faq`                                          ← horizontal scroll, 5 Simula H2 cards
 ```
 
 **Tokens**
-- _..._
+- Hero floor: `--ct-bkgd-ai-input` (fixed-dark). Hero sheet: `--ct-bkgd-02` resolved dark via local `data-theme="dark"`. Headline: `--ct-text-h1-serif-*` (Simula 32, cream).
+- Dashboard panel surface: `--ct-bkgd-01` (cream). Tiles: `--ct-bkgd-02` (white under light theme). Tile-to-tile gap inside the panel: 24px (raw — `--ct-spacing-24` matches but this is panel-internal layout, not the cross-cutting section gap).
+- KPI number "4,216": `--ct-text-display-2-*` (sans, 48px — Simula stays out of numbers per components.md §12).
+- Stat pill "4 Today": defers to Label §3 `stat/up` — `--ct-status-success-subtle` container, `--ct-status-success-solid` text.
+- FAQ band: `--ct-bkgd-ai-input` (fixed-dark, AI band). Question headlines: `--ct-text-h2-serif-*` (Simula 24). Accent label ("1 yr since you joined", "Score", "Goal", "Urgency", "Trusting Family"): `--ct-brand` (#ff550c).
+- Section padding around the FAQ tail: `--ct-spacing-240` bottom (matches the Hero / Kit Briefing footprint per components.md §14).
 
 **Decisions**
-- _What replaced the day 1 hero (score, "Actions taken" big number, breakdown)._
-- _Note: Home aggregates all features. It does not own a single feature color._
+- **Home 1-year hero is Hero / Kit Briefing, not a feature hero.** Home keeps Kit's editorial briefing at the top because it summarizes every feature. The proof appears in the Dashboard group (`list/digital-risk`, `list/actions-taken`, `list/recent-activity`) rather than in a single feature-specific hero.
+- **The orange blob in Kit Briefing is illustration, not feature identity.** Per components.md §14 it's the AI-moment recognition anchor. Don't read it as a Home feature color.
+- **Dashboard tiles are `list/*` variants, never `kpi/*`.** Each composite tile (`list/digital-risk`, `list/actions-taken`, `list/recent-activity`) owns its own `card-section` footer ("See Details" / "See all activities") — those are component-internal per components.md §12, not stack-level group footers.
+- **Group footer = "Add to dashboard" Button (Secondary).** This is the only stack-level footer for the Dashboard group, sitting inside the cream panel before the FAQ band.
+- **FAQ accent = `--ct-brand`.** Home has no feature color (cross-cutting #2 → warm neutral), so its FAQ accent inherits the brand. Don't introduce a Home-only accent token.
+- **Inline "Dashboard / Edit" panel header is one-off, not Section Header §7.** Body 16px on `--ct-bkgd-01` cream; §7 spec is H3 20px on `--ct-bkgd-02`. Code it inline here — do not promote to a Section Header variant.
 
 **Refs**: → `components.md`
-
----
 
 ### Activities — day 1
 
-**Figma**: <!-- node-id -->
+**Figma**: https://www.figma.com/design/k0n0CNGfk4ie9Vb74byl9v/Playlist-%E2%80%94-Toolkit?node-id=17492-12607&m=dev
 
 **Composition (stack)**
 ```
-1. ...
+1. Hero / Feature  `scanning/data-removal`             ← full-bleed; counter video + "Places data is exposed" + footer Status pill
+   ⤷ Navigation  `top_bar/page`                        ← overlaid; title "Activities" only, no trailing
+2. ┌─ Group: In Progress ─────────────────────────────
+   │  Section Header  `default`                        ("In Progress")
+   │  - List Item  `progress`                          (Removing you from Spoeko · Day 2 of 3)
+   │  - List Item  `progress`                          (Monitoring 4 new breach alerts · Scanning now)
+3. ┌─ Group: Next Steps ──────────────────────────────
+   │  Section Header  `default`                        ("Next Steps")
+   │  - List Item  `progress`                          (Preparing removal request for Whitepages · Start on Jan 13)
+4. ┌─ Group: Today ───────────────────────────────────
+   │  Section Header  `default`                        ("Today")
+   │  - List Item  `empty`                             ("Activity History will show here")
+5. Footer / `impact`                                   ← cream band; Simula brand "170 million" + Tertiary "Explore tools"
 ```
 
 **Tokens**
-- _..._
+- Hero surface: raw `#000` (per components.md §13 — no `--ct-bkgd-*` resolves to pure black; TBD). Orange overlay: `--ct-brand` with `mix-blend-mode: multiply`. Wrapped in `data-theme="dark"` so caption + status text resolve cream.
+- Counter video & footer Status pill: video raw illustration; pill defers to Label §3 `status/active`.
+- Navigation overlaid: Simula H2 (`--ct-text-h2-serif-*`), text `--ct-text-primary` (cream via inherited `data-theme="dark"`).
+- Section Header `default`: surface `--ct-bkgd-02`, title `--ct-text-h3-*` capitalize, padding-top `--ct-spacing-40`, padding-bottom `--ct-spacing-12`, padding-inline `--ct-spacing-16`.
+- List Item `progress`: surface `--ct-bkgd-02`, padding `--ct-spacing-20`, gap `--ct-spacing-12`, leading 40×40 `Default_monitoring/Data Removal` avatar, title `--ct-text-body-*` + meta `--ct-text-body-small-*` `--ct-text-secondary`, bottom hairline `--ct-divider`. Progress bar 8px raw; track `--ct-bkgd-01`.
+  - **Progress fill on this screen = `--ct-status-success-solid`** (deviates from List Item §6 spec, which mandates `--ct-brand` — see Decisions).
+- List Item `empty`: surface `--ct-bkgd-02`, height 240px raw, copy `--ct-text-body-*` `--ct-text-primary`, centered.
+- Footer / `impact`: surface `--ct-bkgd-01`, height 550px raw, inner stack 271px raw centered. Copy at `--ct-text-h3-*` capitalize; inline Simula on "170 million" via `--ct-text-h2-serif-*` colored `--ct-brand`. CTA pill `--ct-cta-secondary-container`, label `--ct-text-body-*`.
 
 **Decisions**
-- _Hero is orange gradient with hero number 245 + "Places data is exposed" label._
-- _"Activity history will show here" placeholder. What's deferred until 1 year._
+- **Hero is `scanning/data-removal`, not a static-number hero.** No Display-1 number on this screen — the live counter video is the visualization, captioned by "Places data is exposed". The orange identity comes from `--ct-brand` mix-blend-multiply over a black surface, not a feature gradient.
+- **Two active sections render on day 1: In Progress + Next Steps.** Cloaked is already running scans before any history exists; the empty state is scoped to the *Today* (history) section only — not the whole screen.
+- **Progress-bar fill on Activities = `--ct-status-success-solid` (green).** Activities-specific override of the List Item §6 default (`--ct-brand`). Treat as intentional — live scanning reads as success — and don't unify across screens.
+- **Activities closes with `Footer / impact`, not `Footer / faq`.** Per cross-cutting #3 a page picks one closer; here the editorial moment ("170 million records") is the close.
 
 **Refs**: → `components.md`
 
 ### Activities — 1 year
 
-**Figma**: <!-- node-id -->
+**Figma**: https://www.figma.com/design/k0n0CNGfk4ie9Vb74byl9v/Playlist-%E2%80%94-Toolkit?node-id=17492-12608&m=dev
 
 **Composition (stack)**
 ```
-1. ...
+1. Navigation  `top_bar/page`                          ← title "Activities"
+2. Hero / KPI region                                   ← custom for Activities — see Decisions
+   ⤷ kicker "Actions taken to protect you" (body-small)
+   ⤷ Display-2 number "4,216" + Stat `stat/up` "4 Today"
+   ⤷ 3-tile horizontal breakout: Card / Feature `default` (activity), category-tinted ×3
+        · Monitoring · 342 · "Data removed"
+        · Guard      · 234 · "Spam blocked"
+        · Identity   ·  13 · "Identities created"
+   ⤷ caption row: "Since · Feb 06.2026"
+3. ┌─ Group: In Progress ─────────────────────────────
+   │  Section Header  `default`
+   │  - List Item  `progress` ×2                       (Removing you from Spoeko · Day 2 of 3 / Monitoring 4 new breach alerts · Scanning now)
+4. ┌─ Group: Next steps ──────────────────────────────
+   │  Section Header  `default`
+   │  - List Item  `progress` ×1                       (Preparing removal request for Whitepages · Start on Jan 13 — no fill bar yet)
+5. ┌─ Group: Scan history ────────────────────────────
+   │  Section Header  `dropdown`                       (title "Scan history" + Control `dropdown/collapsed` "Latest")
+   │  Divider time-bands + List Item ×8                (interleaved by date — "10 mins ago", "1 hr ago", "2:30pm", "Jan 15, 2026" ×2, "Jan 14, 2026"; rows mix progress / event / contact / List Item_VPN variants)
+   │  └ footer CTA: Footer `card-section`, "See more"
+6. Footer / `impact`                                   ← cream band; Simula brand "170 million" + Tertiary "Explore tools"
 ```
 
 **Tokens**
-- _..._
+- Hero KPI block: surface `--ct-bkgd-02`. Kicker `--ct-text-body-small-*` `--ct-text-primary`. Number `--ct-text-display-2-*`. Stat pill defers to Label §3 `stat/up` (`--ct-status-success-subtle` container, `--ct-status-success-solid` text).
+- 3-tile breakout (Card / Feature `default`, category-tinted): tile surfaces `--ct-monitoring-container-02` (#5936c1), `--ct-guard-container-02` (#d78e20), `--ct-identity-container-02` (#379aad). Number `--ct-text-display-2-*`, label `--ct-text-body-small-*`. Tile text resolves cream via local `data-theme="dark"` (the category container is fixed-dark per Card / Feature §11 / SKILL.md §9.1).
+- "Since" caption: `--ct-text-body-small-*` `--ct-text-secondary`.
+- Section Header `default` and `dropdown`: surface `--ct-bkgd-02`, title `--ct-text-h3-*` capitalize, padding-top `--ct-spacing-40`, padding-bottom `--ct-spacing-12`, padding-inline `--ct-spacing-16`. Dropdown chip defers to Control §5 `dropdown/collapsed`.
+- List Item `progress` (Activities rule): surface `--ct-bkgd-02`, padding `--ct-spacing-20`, gap `--ct-spacing-12`, leading 40×40 `Default_monitoring/Data Removal`, title `--ct-text-body-*` + meta `--ct-text-body-small-*` `--ct-text-secondary`, bottom hairline `--ct-divider`. Progress bar 8px raw, track `--ct-bkgd-01`, **fill `--ct-status-success-solid`** (Activities-screen rule, see Decisions).
+- Time-band Divider rows: defer to Divider §2 (cream band, `--ct-bkgd-01`, body-small label).
+- Footer `card-section`: top hairline `--ct-divider`, link `--ct-text-link-*` `--ct-text-primary`, height 50px raw.
+- Footer / `impact`: same tokens as Activities — day 1 (cream `--ct-bkgd-01` band, inline Simula `--ct-brand` "170 million", Tertiary CTA).
 
 **Decisions**
-- _Hero number jumps to 4,216. 3-tile breakdown appears below._
-- _New stacks: Scan History group with "See more" footer, Social Proof block with "Explore tools" CTA._
+- **The hero region is not a Hero / Feature §13 variant.** Composition (kicker + Display-2 + Stat + 3-tile breakout + "Since" caption) does not match any of the 7 closed `intro/* | active/* | scanning/*` variants. Treat as a custom Activities-1-year hero pattern; flag if a new `active/activities` variant should be added to §13.
+- **The 3 breakout tiles tint Card / Feature `default` (activity) with category tokens.** Per Card / Feature §11 Don't #1, only the `automation` variant may consume `--ct-monitoring-*` / `--ct-guard-*` / `--ct-identity-*`; tinting Activity tiles is explicitly forbidden. The Figma master uses them here anyway. _Question for the user: is this an intentional Activities-page exception (the breakout surfaces other features' results, so feature colors carry meaning), or should the tiles switch to white `default` (activity) surfaces to comply with §11?_
+- **Activities — 1 year hero shows other features' identity colors, not its own brand orange.** Activities is the meta-feature that summarizes what Monitoring / Guard / Identity did, so the breakout uses their colors. Brand orange (the Activities identity per cross-cutting #2) does not appear in the hero — it stays scoped to the day-1 `scanning/data-removal` hero and to the Footer / impact's "170 million".
+- **Progress-bar fill = `--ct-status-success-solid` (green) here too.** Activities-screen rule (see day 1). Don't unify with `--ct-brand` from List Item §6.
+- **Scan history is a single composite stack — not a card group.** Section Header `dropdown` (filterable by "Latest") + mixed List Item variants (progress / event / contact / VPN) interleaved with date-band Dividers + `card-section` "See more" footer. Date Dividers sit between rows, not at group boundaries.
+- **Closes with `Footer / impact`, same as day 1.** No FAQ band (cross-cutting #3).
 
 **Refs**: → `components.md`
 
