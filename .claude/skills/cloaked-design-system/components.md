@@ -590,7 +590,101 @@ action      ┌─────────────────────�
 - Link: https://www.figma.com/design/k0n0CNGfk4ie9Vb74byl9v/Playlist-%E2%80%94-Toolkit?node-id=16206-3359
 
 ### 8. Timeline
-_TBD_
+
+**Use.** Vertical progression of steps in a single flow — shows what's done, what's happening now, and what's still ahead. One linear path, one current step at a time. Used for Identity setup, removal progress, and any sequenced task.
+
+**Anatomy.**
+```
+┌─────────────────────────────────────────────────┐
+│  │                                              │   ← top connector (12px, links to previous)
+│ ╭───╮                                           │
+│ │ ● │   Title                                   │   ← shell (40×40) + body block
+│ ╰───╯   Description                             │
+│  │                                              │   ← bottom connector (12px, links to next)
+└─────────────────────────────────────────────────┘
+```
+- One row per step. Three slots: leading connector column (2px line + 40×40 shell), body block (title + optional description), no trailing slot.
+- The connector column is the shared spine: each row contributes a top segment (above the shell) and a bottom segment (below). First step has no top; last step has no bottom.
+- Body block is a `description: boolean` pair — title always shown, description optional.
+
+**Variants.**
+
+| Variant | Visual | When |
+| --- | --- | --- |
+| `completed-first` | Brand-fill shell + check icon, bottom connector brand. No top connector. | First step in the timeline, already done |
+| `completed-middle` | Brand-fill shell + check icon, both connectors brand | Middle step, already done |
+| `current-middle` | Graph-background shell + timer icon + 40×40 halo overlay, top connector brand, bottom connector graph-background | The active step — exactly one per timeline |
+| `upcoming-middle` | Graph-background shell + step-specific feature icon, both connectors graph-background | Middle step, not yet started |
+| `upcoming-last` | Graph-background shell + step-specific feature icon, top connector graph-background. No bottom connector. | Last step in the timeline, not yet started |
+
+> _Variant set is intentionally not the full 3×3 (position × state). `completed-last`, `current-first`, `current-last`, `upcoming-first` are not exported in Figma — surface the request rather than improvising one (SKILL.md §7.1, §2.3)._
+>
+> _Connector colors encode progression as a single rule: a segment is `--ct-brand` when it links a completed-or-current step backward to an already-done step, and `--ct-graph-background` when it links forward into not-yet territory. The boundary is the bottom of the current step._
+
+**Sizing.**
+- Container: width 393px; padding-inline `--ct-spacing-20`; padding-block `--ct-spacing-12`; `align-items: center`; `justify-content: space-between`.
+- Shell: 40×40 (padding `--ct-spacing-8` around a 24×24 icon); border-radius `--ct-spacing-24`.
+- Halo (current-middle only): 40×40, absolute, centered on the shell. Bundled in the SVG asset — no theme token.
+- Body block: width 211px (no matching `--ct-spacing-*`; raw value retained until a token lands); `flex-direction: column`; `justify-content: center`; no inter-row gap (line-heights provide it).
+- Shell ↔ body gap: `--ct-spacing-12`.
+- Connector: 2px wide (no matching `--ct-spacing-2`; raw value retained until a token lands), absolute, vertically centered on the shell column. Visible segment height is 12px above and 12px below the shell — Figma exports completed segments as 32px tall, but the inner 20px sits behind the shell fill and contributes nothing visually. Spec the visible 12px; do not hand-tune the hidden portion.
+
+**Tokens.**
+
+*Container*
+
+| Slot | Property | Token |
+| --- | --- | --- |
+| Container | background | `--ct-bkgd-02` |
+
+*Shell*
+
+| Slot | Property | Token |
+| --- | --- | --- |
+| Shell (`completed-first`, `completed-middle`) | background | `--ct-brand` |
+| Shell (`current-middle`, `upcoming-middle`, `upcoming-last`) | background | `--ct-graph-background` |
+| Shell icon (`completed-*`) | asset | `informational/check` (24×24) |
+| Shell icon (`current-middle`) | asset | `informational/timer` (24×24) + 40×40 halo overlay |
+| Shell icon (`upcoming-*`) | asset | step-specific feature icon (24×24, e.g. `feature/identity/email`) |
+| Shell icon | color | inherits from shell fill — check on brand, timer/feature on graph-background (no color override) |
+
+*Connector*
+
+| Slot | Property | Token |
+| --- | --- | --- |
+| Top segment (`completed-middle`, `current-middle`) | background | `--ct-brand` |
+| Top segment (`upcoming-middle`, `upcoming-last`) | background | `--ct-graph-background` |
+| Bottom segment (`completed-first`, `completed-middle`) | background | `--ct-brand` |
+| Bottom segment (`current-middle`, `upcoming-middle`) | background | `--ct-graph-background` |
+
+*Body block*
+
+| Slot | Property | Token |
+| --- | --- | --- |
+| Title | color | `--ct-text-primary` |
+| Title | font (apply all 5 sub-tokens) | `--ct-text-body-family`, `--ct-text-body-weight`, `--ct-text-body-size`, `--ct-text-body-line-height`, `--ct-text-body-letter-spacing` |
+| Title | overflow | single-line ellipsis |
+| Description | color | `--ct-text-secondary` |
+| Description | font (apply all 5 sub-tokens) | `--ct-text-body-small-family`, `--ct-text-body-small-weight`, `--ct-text-body-small-size`, `--ct-text-body-small-line-height`, `--ct-text-body-small-letter-spacing` |
+| Description | overflow | single-line ellipsis |
+
+**Don't.**
+- Don't add a `chevron.right`, arrow, or any trailing affordance to a step. The shell state + connector color is the entire affordance (SKILL.md §9.3).
+- Don't draw the connector with `--ct-divider`. The connector is always `--ct-brand` (done) or `--ct-graph-background` (upcoming) — never the hairline.
+- Don't bold the title or description. All weights are 400 (SKILL.md §2.5); progression is encoded in the connector and shell, never in weight.
+- Don't reach for Simula on title or description. Title (16px body) and description (14px body-small) are both sans, both outside Simula scope (SKILL.md §2.4 / §6).
+- Don't tint the shell with `--ct-monitoring-*`, `--ct-guard-*`, or `--ct-identity-*`. The shell fill is `--ct-brand` (completed) or `--ct-graph-background` (current/upcoming) — category tokens are reserved for feature surfaces (SKILL.md §9.1).
+- Don't render more than one `current-middle` step in a single timeline. The "current" pointer is singular by design — two halos at once break the linear progression read.
+- Don't use `completed-first` for a non-first step, or `upcoming-last` for a non-last step. They omit one connector each; placing them mid-list breaks the visual chain.
+- Don't put a check icon on a `current-*` or `upcoming-*` step, or a timer / feature icon on a `completed-*` step. Icon ↔ state is paired 1:1.
+- Don't drop a shadow on the row or add a card border. The row sits on the same `--ct-bkgd-02` surface as its neighbors; separation comes from the connector, not from elevation (SKILL.md §9.2).
+- Don't introduce a sixth variant (e.g., `failed`, `skipped`, `paused`). The five above are the closed set — surface the request rather than improvising (SKILL.md §7.1, §2.3).
+
+**Figma.**
+- Page node: `17651:5332`
+- Step masters: `17612:3213` (completed-first), `17612:3249` (completed-middle), `17612:3212` (current-middle), `17612:3211` (upcoming-middle), `17612:3227` (upcoming-last)
+- File: Playlist — Toolkit
+- Link: https://www.figma.com/design/k0n0CNGfk4ie9Vb74byl9v/Playlist-%E2%80%94-Toolkit?node-id=17651-5332
 
 ### 9. Footer
 _TBD_
