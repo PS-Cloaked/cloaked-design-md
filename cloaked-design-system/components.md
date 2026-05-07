@@ -479,7 +479,7 @@ Segment     ╭───────╮ ╭───────╮ ╭───
 - Title: `var(--ct-text-body-*)` + `--ct-text-primary`, single-line ellipsis
 - Meta: `var(--ct-text-body-small-*)` + `--ct-text-secondary`, single-line ellipsis
 - Trailing: optional, variant-dependent (see Trailing slot section below)
-- Divider: 1px line at bottom, `--ct-divider`. The row owns its own divider — do not draw it externally.
+- Divider: 0.5pt hairline at bottom, `--ct-divider`. The row owns its own divider — do not draw it externally. Inset behavior depends on Mode A vs Mode B (see *Composition — modes × containers* below).
 
 **Anatomy — Class B (Nested).**
 
@@ -593,6 +593,26 @@ Activities answers *what happened*. Detail answers *who/where*. Meta fills in th
 - Progress bar track: `--ct-bkgd-01`
 - Title/Meta overflow: single-line ellipsis
 
+**Composition — modes × containers.**
+
+Two orthogonal axes describe how rows aggregate into a list and which surface that list sits on. Pick one mode and one container; any of the four combinations is valid.
+
+*Axis 1 — Mode (divider behavior).* The only difference between modes is whether the row's bottom 0.5pt hairline reaches the container's left and right edges.
+
+| Mode | Divider | Use when |
+|---|---|---|
+| **A — Full-bleed** *(default)* | 0.5pt `--ct-divider`, runs edge-to-edge of the container, no horizontal inset | Rows are tappable (push to detail, copy a value, play a voicemail), and dense enough to read as a continuous feed (settings, accounts, OTP codes, activity). The hairline reaching the surface edge does the visual work of "item, item, item." |
+| **B — Inset** | 0.5pt `--ct-divider`, inset from the container's edges by the row's horizontal padding (typically `--ct-spacing-20`) | Rows are read-only / informational — a key/value sheet ("Your Info"), a summed total ("Total this month"), a dashboard summary ("Weekly removal"). Each row reads as a labelled fact, not an action. |
+
+Mode B is **global** — not bound to dark surfaces. It works on cream, white, cards, hero bands, anywhere rows are facts rather than actions.
+
+*Axis 2 — Container (surface).* Distinguished by the surface's margin from the screen edge.
+
+| Container | Anatomy | Use when |
+|---|---|---|
+| **Page section** | Spans full screen width — zero left/right margin from screen edges. Optional section title above. Multiple page sections stack with a `--ct-spacing-12` cream gap that exposes `--ct-bkgd-01` (SKILL.md Pattern 5/Layering 2.1.1). | The list is the page's primary content (One-time passcodes), or it's one of several stacked sections that all read as part of the same flow (Inbox, Settings, Activity feed). Page sections feel like consecutive printed pages — chapters of one running document, not discrete objects. |
+| **Card** | Explicit `--ct-spacing-16` margin from screen edges + 20px corner radius (raw — no `--ct-radius-*` token). Sits *on* the cream page like a physical card laid on a table, with cream visible around it. | The surface is a discrete object you might rearrange, dismiss, or place next to other cards (a dashboard tile, a "Your Info" panel, a "Digital health" widget). The card stands alone — a self-contained read or interaction, often with its own hero number or visual. |
+
 **Don't.**
 - ❌ Do not add chevron right (SKILL.md §9.3) — the row itself is the affordance.
 - ❌ Do not mix Avatar types arbitrarily — they are determined by `image` boolean and contact type (System/Brand/Person).
@@ -602,6 +622,9 @@ Activities answers *what happened*. Detail answers *who/where*. Meta fills in th
 - ❌ Do not treat Empty like a "row" — it is the empty placeholder for the entire list region.
 - ❌ Do not start an Activities title with an entity name — start with an action verb ("Spam call blocked", not "(322) 142-8932").
 - ❌ Do not start a Detail title with an action verb — start with the entity name.
+- ❌ Do not call a surface a "card" if it has zero left/right margin from the screen edge — that's a page section, even with rounded corners. Cards must have visible cream around them.
+- ❌ Do not separate stacked page sections with a divider or shadow — separation is the `--ct-spacing-12` cream gap (SKILL.md Pattern 5/Layering 2.1.1).
+- ❌ Do not mix Mode A and Mode B inside one list — one container, one mode.
 
 **Figma.** 6 pages — Activity / Monitoring Data / Guard / Identity / Identity-Inbox / Global (Stat-Empty).
 
