@@ -32,7 +32,107 @@ Each component uses the sections below. Omit a section when the component matche
 ## Components
 
 ### 1. Button
-_TBD_
+
+**Use.** A discrete action atom — the user taps it to commit, dismiss, navigate, or expand. Four shape families share the *Button* schema: Text (filled / outlined / pill / link) and Icon (filled / outlined). Pick the family by the action's weight, not the layout.
+
+**Anatomy.**
+```
+text/primary       ╭───────────────────────────────╮
+                   │          Disconnect           │   ← black-filled bar, white label
+                   ╰───────────────────────────────╯
+
+text/secondary     ┌───────────────────────────────┐
+                   │     + Create new number       │   ← 1px outline, no fill
+                   └───────────────────────────────┘
+
+text/tertiary      ╭──────────────╮
+                   │ Explore tools│   ← translucent pill, primary label
+                   ╰──────────────╯
+
+text/link            See Details   ← naked link, 12px, primary text
+
+icon-primary       ╭────╮          ╭──╮
+                   │ ⤢  │          │⤢ │   ← black-filled rounded square
+                   ╰────╯          ╰──╯      large (48-ish) and small (24)
+
+icon-secondary     ╭────╮          ╭──╮
+                   │ →  │          │ →│   ← 1px outline circle / square
+                   ╰────╯          ╰──╯      large (48) and small (24)
+```
+- **Text/primary, text/secondary.** One slot — label only, centered. Full-width sheet CTA.
+- **Text/tertiary.** One slot — label only. Intrinsic width pill, lives inline.
+- **Text/link.** One slot — label only. No container.
+- **Icon-primary, icon-secondary.** One slot — icon only. No label.
+
+**Variants.**
+
+| Variant | Visual | When |
+| --- | --- | --- |
+| `text/primary` | Filled `--ct-cta-primary-container`, white label, 16px radius, 56px tall, full-width | The single most important CTA on a sheet (e.g., "Disconnect") |
+| `text/secondary` | 1px solid `--ct-cta-secondary-container` outline, no fill, primary text label, 16px radius, 56px tall, full-width | Secondary CTA paired with `text/primary` (e.g., "+ Create new number") |
+| `text/tertiary` | Translucent `--ct-cta-secondary-container` pill, primary text label, 100px radius, intrinsic width | Compact inline action with no full-width pressure (e.g., "Explore tools") |
+| `text/link` | No container, no fill, link text (12px) in `--ct-text-primary` | Inline "see details"-style affordance, text only |
+| `icon-primary/default` | Filled `--ct-cta-primary-container`, 24×24 icon, 12px padding, 24px radius | Primary icon-only action at standard density |
+| `icon-primary/small` | Filled `--ct-cta-primary-container`, 16×16 icon, 4px padding, 12px radius | Primary icon-only action in dense layouts |
+| `icon-secondary/large` | 48×48 circular outline, 24×24 icon centered | Secondary icon action — e.g., expand / next |
+| `icon-secondary/small` | 24×24 outline, 16×16 icon, 4px padding | Compact secondary icon in dense layouts |
+
+**Sizing.**
+- **`text/primary`.** Height 56px; width 100% of parent (full-width sheet CTA); padding `--ct-spacing-16`; border-radius `--ct-spacing-16`.
+- **`text/secondary`.** Height 56px; width 100% of parent; padding `10px` (no matching `--ct-spacing-*` token — write raw px); border `1px solid`; border-radius `--ct-spacing-16`.
+- **`text/tertiary`.** Padding-inline `--ct-spacing-24`; padding-block `--ct-spacing-12`; border-radius 100px (full pill — no token; any value ≥ height/2 collapses to a pill).
+- **`text/link`.** No container, no padding, no border. Hit area is the label's intrinsic box.
+- **`icon-primary/default`.** Padding `--ct-spacing-12`; border-radius `--ct-spacing-24`; icon 24×24.
+- **`icon-primary/small`.** Padding `--ct-spacing-4`; border-radius `--ct-spacing-12`; icon 16×16.
+- **`icon-secondary/large`.** Total size `--ct-spacing-48` × `--ct-spacing-48`; padding `--ct-spacing-12`; icon 24×24; circular outline (full radius).
+- **`icon-secondary/small`.** Total size `--ct-spacing-24` × `--ct-spacing-24`; padding `--ct-spacing-4`; icon 16×16.
+
+**Tokens.**
+
+*Text variants*
+
+| Slot | Property | Token |
+| --- | --- | --- |
+| Container (`text/primary`) | background | `--ct-cta-primary-container` |
+| Container (`text/secondary`) | border-color | `--ct-cta-secondary-container` |
+| Container (`text/tertiary`) | background | `--ct-cta-secondary-container` |
+| Container (`text/link`) | background | none |
+| Label (`text/primary`) | color | `--ct-cta-primary-text` |
+| Label (`text/secondary`) | color | `--ct-cta-secondary-text` |
+| Label (`text/tertiary`, `text/link`) | color | `--ct-text-primary` |
+| Label (`text/primary`, `text/secondary`, `text/tertiary`) | font (apply all 5 sub-tokens) | `--ct-text-body-family`, `--ct-text-body-weight`, `--ct-text-body-size`, `--ct-text-body-line-height`, `--ct-text-body-letter-spacing` |
+| Label (`text/link`) | font (apply all 5 sub-tokens) | `--ct-text-link-family`, `--ct-text-link-weight`, `--ct-text-link-size`, `--ct-text-link-line-height`, `--ct-text-link-letter-spacing` |
+
+*Icon variants*
+
+| Slot | Property | Token |
+| --- | --- | --- |
+| Container (`icon-primary/*`) | background | `--ct-cta-primary-container` |
+| Container (`icon-secondary/*`) | border / outline | _TBD_ (bundled in SVG asset — see note below) |
+| Icon (`icon-primary/*`) | stroke | _TBD_ (bundled in SVG asset; visually `--ct-cta-primary-text`) |
+| Icon (`icon-secondary/*`) | stroke | _TBD_ (bundled in SVG asset; visually `--ct-text-primary`) |
+
+> _The `icon-secondary` outline and the icon strokes for both icon families are currently embedded in the SVG asset, not exported as Figma variables. This mirrors the Toggle knob caveat in §5 Control — for theme-aware fills, Figma must export them as variables and re-export. Until then, the rendered colors are visually consistent with `--ct-cta-secondary-container` (outline) and `--ct-cta-primary-text` / `--ct-text-primary` (icon strokes), but components must not hard-code those tokens against the asset._
+
+**Don't.**
+- Don't reach for Simula on any Button label. All variants use body (16px) or link (12px) — sans only (SKILL.md §2.4 / §6).
+- Don't bold any label. Weight is 400 across the family; differentiate `primary` / `secondary` / `tertiary` by fill, border, and color — never by weight (SKILL.md §2.5).
+- Don't tint a button container with `--ct-monitoring-*`, `--ct-guard-*`, or `--ct-identity-*`. Buttons consume `--ct-cta-*` tokens only; category tokens are reserved for feature surfaces (SKILL.md §9.1).
+- Don't substitute `--ct-bkgd-*` or `--ct-status-*` for a button fill to fake a "muted" or "destructive" variant. There are four text variants and two icon variants in this spec — surface the request rather than improvising (SKILL.md §2.3).
+- Don't replace the `icon-secondary` arrow with a `chevron.right` and drop the button at the end of a list row. The list itself is the affordance there; a trailing chevron-on-row is forbidden (SKILL.md §9.3).
+- Don't shrink `text/primary` or `text/secondary` below 56px height or remove their inline padding. The 56px bar is the full-width sheet rhythm — clipping it breaks the relationship with surrounding rows.
+- Don't repurpose `text/link` as a body-inline anchor inside a paragraph. It's a discrete button atom (12px, primary text, no underline), not an `<a>` inside prose.
+- Don't write `"Loading…"` as a button label, nor swap it in for the live label during a request. Surface progress on a status row, not on the button itself (SKILL.md §9.6).
+- Don't dim a button with arbitrary opacity to indicate disabled. Use `--ct-opacity-disabled` (= 0.3) — it's the only opacity token in the system (SKILL.md §4.3).
+- Don't pair `icon-primary` with a sibling text label outside the button. If the action needs words, choose `text/primary` instead — icon-primary is icon-only by design.
+
+**Figma.**
+- Page node: `16053:7930`
+- Text masters: `16031:7864` (primary), `16031:7866` (secondary), `16196:2699` (tertiary), `16960:10527` (link)
+- Icon-primary masters: `16935:9348` (default), `16960:10477` (small)
+- Icon-secondary masters: `16054:8098` (large), `16078:12091` (small)
+- File: Playlist — Toolkit
+- Link: https://www.figma.com/design/k0n0CNGfk4ie9Vb74byl9v/Playlist-%E2%80%94-Toolkit?node-id=16053-7930
 
 ### 2. Divider
 
