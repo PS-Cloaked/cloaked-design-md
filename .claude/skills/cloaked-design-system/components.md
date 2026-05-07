@@ -1859,7 +1859,103 @@ scanning/data-removal ┌──────────────────�
 - Link: https://www.figma.com/design/k0n0CNGfk4ie9Vb74byl9v/Playlist-%E2%80%94-Toolkit?node-id=17826-13477
 
 ### 14. Hero / Kit Briefing
-_TBD_
+
+**Use.** Full-screen AI moment — Cloaked's Kit (AI persona) acknowledges the user's input in editorial voice and surfaces a single recommended action card. One pattern, one face: a Simula headline floating over a dark sheet with a decorative orange blob, anchored by an AI notification card with an animated guard avatar. Reach for it as the AI handoff face after a user prompt, not as a generic recommendation surface.
+
+**Anatomy.**
+```
+┌────────────────────────────┐
+│      ░░░ orange blob ░░░    │   ← decorative SVG (top, off-canvas, blurred)
+│   ░░░░░░░░░░░░░░░░░░░░░░    │
+│                            │
+│                            │
+│  Got it. Let's look at     │   ← Simula H1 headline (cream, 2 lines)
+│  your data instead.        │
+│                            │
+│  ╭──────────────────────╮  │
+│  │ ◉  Block spam calls  │  │   ← AI notification card (fixed-dark)
+│  │    Peace in 30 secs  │  │      avatar (40×40, animated) + 2-line text
+│  ╰──────────────────────╯  │
+│                            │
+└────────────────────────────┘
+```
+- **Outer face.** A single dark sheet — the floor uses `--ct-bkgd-ai-input` (fixed-dark, AI token). The hero sits on `data-theme="dark"` so the inner sheet, headline, and label colors flip cream.
+- **Components sheet.** Full-bleed `--ct-bkgd-02` (resolves dark under `data-theme="dark"`). Hosts the decorative blob, backdrop blur, and the content frame.
+- **Decorative blob.** A 421×421 orange SVG positioned top-center (off-canvas, `top: -403px raw`), purely illustration. Recognition anchor for the AI moment.
+- **Backdrop blur.** A full-bleed layer with `backdrop-filter: blur(100px)` and a 4%-white tint. Softens the blob into the sheet.
+- **Content frame.** Absolutely positioned (`left: var(--ct-spacing-16)`, `top: 143px raw`, width 361px raw, gap `--ct-spacing-32`). Two slots: headline + AI notification card.
+  - **Headline.** Simula H1-serif (32px), 2 lines, cream — the Kit voice moment. Editorial, not a screen title.
+  - **AI notification card.** Fixed-dark `--ct-bkgd-ai-input` pill with 20px radius. Two slots: leading 40×40 guard avatar (with embedded autoplay video, `mix-blend: lighten`) + a stacked text column (252px raw) with primary recommendation (body, opacity 0.7 raw) over secondary tagline (body, text-secondary).
+
+**Variants.**
+
+| Variant | Visual | When |
+| --- | --- | --- |
+| `default` | 393×852 dark hero, decorative orange blob (off-canvas, blurred) over `--ct-bkgd-02` sheet, Simula H1 Kit headline + dark AI notification card with guard avatar and 2-line recommendation | AI handoff after a user prompt — Kit acknowledges input ("Got it…") and surfaces one recommended action |
+
+**Sizing.**
+- Container: width 393px (raw — no matching `--ct-spacing-*`); height 852px (raw — full mobile face); `position: relative`; `overflow: clip`. Background `--ct-bkgd-ai-input`.
+- Components sheet: full bleed (393×852 raw); `position: sticky`; `top: 0`; `overflow: clip`. Background `--ct-bkgd-02` (dark theme).
+- Orange blob: position absolute; centered horizontally (`left: 50%; transform: translateX(-50%)`); `top: -403px raw`; `width: 421px raw`; `height: 421px raw`. Inner SVG insets by `-14.25%` raw on all sides. Illustration — do not tokenize.
+- Backdrop blur layer: position absolute; full bleed (393×852 raw); `backdrop-filter: blur(100px)` (raw — illustration); background `rgba(255, 255, 255, 0.04)` (raw — illustration; do not tokenize).
+- Content frame: position absolute; `left: var(--ct-spacing-16)`; `top: 143px raw`; width 361px raw; `flex-direction: column`; `align-items: flex-start`; gap `--ct-spacing-32`.
+  - Headline: width 348px raw; 2 lines; `line-height: 1` (matches `--ct-text-h1-serif-line-height`).
+  - AI notification card: full width (361px raw); `flex-direction: row`; `align-items: center`; gap `--ct-spacing-20`; padding-inline `--ct-spacing-24`; padding-block `--ct-spacing-20`; border-radius `--ct-spacing-20` (= 20px, doubles as full pill at this height).
+    - Guard avatar: `--ct-spacing-40` × `--ct-spacing-40` (40×40); SVG asset wraps an embedded autoplay video at `inset: 7px raw / 17.5% raw` with `mix-blend-mode: lighten` (raw — illustration). Geometry baked in the asset; do not redraw.
+    - Text column: width 252px raw; `flex-direction: column`; `align-items: flex-start`. Primary label opacity `0.7` raw; secondary label full opacity.
+
+**Tokens.**
+
+| Slot | Property | Token |
+| --- | --- | --- |
+| Container | background | `--ct-bkgd-ai-input` |
+| Components sheet | background | `--ct-bkgd-02` (resolves dark under `data-theme="dark"` — see note) |
+| Orange blob | spec | _TBD_ — raw SVG illustration; do not tokenize |
+| Backdrop blur | filter | `blur(100px)` (raw — illustration) |
+| Backdrop blur | background | `rgba(255, 255, 255, 0.04)` (raw — illustration; no `--ct-bkgd-*` matches) |
+| Content frame | left | `--ct-spacing-16` |
+| Content frame | gap | `--ct-spacing-32` |
+| Headline | color | `--ct-text-primary` (resolves cream under `data-theme="dark"`) |
+| Headline | font (apply all 5 sub-tokens) | `--ct-text-h1-serif-family`, `--ct-text-h1-serif-weight`, `--ct-text-h1-serif-size`, `--ct-text-h1-serif-line-height`, `--ct-text-h1-serif-letter-spacing` |
+| AI notification card | background | `--ct-bkgd-ai-input` |
+| AI notification card | padding-inline | `--ct-spacing-24` |
+| AI notification card | padding-block | `--ct-spacing-20` |
+| AI notification card | gap | `--ct-spacing-20` |
+| AI notification card | border-radius | `--ct-spacing-20` |
+| Guard avatar | size | `--ct-spacing-40` |
+| Guard avatar | spec | _TBD_ — SVG asset bakes the avatar fill + animated overlay (same caveat as Component 1 §icon strokes — Figma must export the fill as a variable for theme-aware re-color) |
+| Avatar video overlay | mix-blend-mode | `lighten` (raw — illustration) |
+| Primary label | color | `--ct-text-primary` (resolves cream under `data-theme="dark"`) |
+| Primary label | opacity | `0.7` (raw — only `--ct-opacity-disabled` = 0.3 exists; no match) |
+| Primary label | font (apply all 5 sub-tokens) | `--ct-text-body-family`, `--ct-text-body-weight`, `--ct-text-body-size`, `--ct-text-body-line-height`, `--ct-text-body-letter-spacing` |
+| Secondary label | color | `--ct-text-secondary` |
+| Secondary label | font (apply all 5 sub-tokens) | `--ct-text-body-family`, `--ct-text-body-weight`, `--ct-text-body-size`, `--ct-text-body-line-height`, `--ct-text-body-letter-spacing` |
+
+> _The Components sheet uses `--ct-bkgd-02`, which flips with theme. Under `data-theme="light"` it resolves to white and the dark-mode aesthetic (orange blob bloom, cream Simula, fixed-dark notification) breaks. The hero must be wrapped in `data-theme="dark"` so `--ct-bkgd-02`, `--ct-text-primary`, and `--ct-text-secondary` resolve to their dark-theme values. The outer floor (`--ct-bkgd-ai-input`) and the inner notification card both use AI tokens, which are pinned dark per SKILL.md §5.2 and do not flip._
+
+**Don't.**
+- Don't use Simula on the AI notification labels ("Block spam calls" / "Peace in 30 seconds") or any slot other than the headline. The notification labels are body 16px sans; per SKILL.md §2.4 / §6, Simula is the editorial moment and must stay scoped to the Kit headline here.
+- Don't extend the Simula headline to a third or fourth slot inside the hero "to match the editorial voice." One Simula moment per hero — adding a second kills the contrast it exists to create (SKILL.md §6.4).
+- Don't bold the headline, primary label, or secondary label to differentiate hierarchy. All weights are 400 (SKILL.md §2.5); hierarchy comes from family (Simula vs SF Pro) and color (`--ct-text-primary` vs `--ct-text-secondary` vs the raw `0.7` opacity on primary).
+- Don't render this hero under `data-theme="light"` and hard-code dark hex values to compensate. The hero must sit in `data-theme="dark"` so `--ct-bkgd-02` and `--ct-text-*` flip naturally (SKILL.md §5.1, §5.4).
+- Don't tokenize the primary-label `opacity: 0.7` as `--ct-opacity-disabled`. The only sanctioned opacity token is 0.3 (disabled state); `0.7` here is illustration / Figma raw, not chrome (SKILL.md §4.3).
+- Don't tokenize the backdrop-blur tint (`rgba(255, 255, 255, 0.04)`) as `--ct-color-white-05` or any `--ct-bkgd-*` token. It's a raw illustration value tuned against the orange blob behind it — see SKILL.md §2.1 / §4.4.
+- Don't drop a shadow on the AI notification card or wrap it in a border to lift it off the sheet. The 20px-radius pill plus the fixed-dark fill is the separation. Section separation across the whole product comes from the `--ct-spacing-12` cream gap, not from chrome (SKILL.md §9.2).
+- Don't add a `chevron.right` to the AI notification card. The card itself is the affordance — tapping it commits to the recommended action (SKILL.md §9.3).
+- Don't add a static `9:41` clock or signal/wifi/battery glyphs above the hero. The dark surface is decorative; simulated iOS chrome is forbidden (SKILL.md §9.4).
+- Don't replace the guard avatar with a generic icon (e.g. `bell`, `info`, `chat`). The animated guard is the AI's visual signature and the recognition anchor for the Kit moment (SKILL.md §9.5).
+- Don't replace the decorative orange blob with a flat color, a generic gradient, or `--ct-brand` painted across the sheet. The blurred orange blob *is* the Kit moment's visual signature — any substitution generic-ifies the hero (SKILL.md §9.5).
+- Don't write `"Loading…"` as the primary label while the avatar video plays. The animated avatar + the "Got it…" headline + the recommendation card *are* the live state; replacing them with a spinner is the exact pattern §9.6 forbids.
+- Don't apply `--ct-text-ai-*` to the headline or the notification labels. AI text tokens are reserved for the AI input field surface; this hero uses `--ct-text-primary` / `--ct-text-secondary` flipped via `data-theme="dark"` (SKILL.md §5.2).
+- Don't introduce a second variant (e.g. `briefing/identity`, `briefing/vpn`) by swapping the avatar or the recommendation copy. The Hero / Kit Briefing variant set is closed at one — surface the request rather than improvising; new variants go into Figma first and re-export (SKILL.md §7.1).
+- Don't dim the hero or its notification card with arbitrary opacity to indicate disabled. The only sanctioned opacity is `--ct-opacity-disabled` (= 0.3); the raw `0.7` on the primary label and the `0.04` on the backdrop blur belong to illustration layers, not chrome (SKILL.md §4.3).
+
+**Figma.**
+- Specimen frame: `17826:13504`
+- Variant master: `16196:2888` (Kit Briefing)
+- Inner nodes: `16147:4373` (Components sheet), `16147:4374` (Orange blob), `16147:4375` (Backdrop blur), `16147:4586` (content frame), `16147:4376` (headline), `16147:4578` (AI notification card)
+- File: Playlist — Toolkit
+- Link: https://www.figma.com/design/k0n0CNGfk4ie9Vb74byl9v/Playlist-%E2%80%94-Toolkit?node-id=17826-13504
 
 ### 15. Hero / Notification
 _TBD_
