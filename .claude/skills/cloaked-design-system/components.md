@@ -1523,7 +1523,340 @@ list/inbox             ┌──────────────────
 - Link: https://www.figma.com/design/k0n0CNGfk4ie9Vb74byl9v/Playlist-%E2%80%94-Toolkit?node-id=16063-9308
 
 ### 13. Hero / Feature
-_TBD_
+
+**Use.** Full-width feature face at the top of a feature page — a single hero "moment" that introduces, summarizes, or visualizes a feature. Three patterns share the *Hero / Feature* schema: **intro** (illustration + title + Primary CTA — onboarding lure), **active** (header stat + visualization or detail card — live / configured state), and **scanning** (full-bleed media + status footer — work-in-progress state). Pick the pattern by the feature's lifecycle stage.
+
+**Anatomy.**
+```
+intro/call-guard      ┌────────────────────────────┐
+                      │   ☎ illustration            │   ← banner-tinted top, raster asset
+                      ├────────────────────────────┤
+                      │  Set up · 2 minutes        │   ← kicker row (body-small)
+                      │  Block suspicious calls    │   ← title (h1 sans, capitalize)
+                      │  in real time              │
+                      │  ╭──────────────────────╮  │
+                      │  │  Set up Call Guard   │  │   ← Primary CTA (full-width)
+                      │  ╰──────────────────────╯  │
+                      └────────────────────────────┘
+
+intro/vpn             ┌────────────────────────────┐
+                      │                       ╭─╮  │   ← top-right expand button
+                      │   · · · · · ·         ╰─╯  │   ← world map + 11 dots
+                      │ · · · · · · · · ·          │
+                      │   · · · · · ·              │
+                      │  Your Internet,            │   ← title (h1 sans, capitalize)
+                      │  But More Private          │
+                      │  ╭──────────────────────╮  │
+                      │  │ Secure my connection │  │   ← Primary CTA, monitoring tint
+                      │  ╰──────────────────────╯  │
+                      └────────────────────────────┘
+
+intro/identity        ┌────────────────────────────┐
+                      │░░░ raw dark gradient    ░░░│   ← gradient (illustration)
+                      │░░░ photo overlay (screen)░░│   ← raster, mix-blend: screen
+                      │░░░ "Hide Email" video    ░░│   ← autoplay, mix-blend: lighten
+                      │  Never give away your      │   ← title (h1 sans, capitalize, cream)
+                      │  real information again    │
+                      │  ╭──────────────────────╮  │
+                      │  │   Get Started        │  │   ← Primary CTA (inverted: cream / dark)
+                      │  ╰──────────────────────╯  │
+                      └────────────────────────────┘
+
+active/call-guard     ┌────────────────────────────┐
+                      │  Calls Blocked              │   ← label (h3 sans, capitalize)
+                      │  324                        │   ← number (display-1, 72px)
+                      │  ┌──────────────────────┐  │
+                      │  │ ▆▆ ▆ ▆ ▆ ▆ ▆ ▆ ▆     │  │   ← 9-bar bar chart card
+                      │  │ M T W T F S S        │  │
+                      │  │ ╭──╮ ╭──╮ ╭──╮       │  │
+                      │  │ │Wk│ │Mn│ │Yr│       │  │   ← Segment control
+                      │  │ ╰──╯ ╰──╯ ╰──╯       │  │
+                      │  └──────────────────────┘  │
+                      └────────────────────────────┘
+
+active/data-removal   ┌────────────────────────────┐
+                      │  Total Removed   ╭────────╮ │
+                      │                  │•Next…  │ │   ← label (h3) + Status pill
+                      │  276             ╰────────╯ │   ← number (display-1)
+                      │                            │
+                      │  Email   ▰▰▰▰▰▰         24 │   ← 5-row category bar list
+                      │  Family  ▰▰              32 │
+                      │  Name    ▰▰▰▰            21 │
+                      │  Phone   ▰▰              17 │
+                      │  Address ▰▰▰▰▰▰▰▰        58 │
+                      │                            │
+                      │  ▮▮▮▮▮▮▮▮▮▮▮▮▮▮▮▮▮▮▮▮▮▮  │   ← stacked-area chart (illustration)
+                      │  Mar 1                Today │
+                      └────────────────────────────┘
+
+active/vpn            ┌────────────────────────────┐
+                      │   · · · · · · ·       ╭─╮  │
+                      │ · · · · · · · · ·     ╰─╯  │   ← map (top) + expand button
+                      ├────────────────────────────┤
+                      │  Connected      03:45:82   │   ← timer row (body)
+                      │  ─────────────────────────  │
+                      │  Service       New York 🇺🇸 │   ← service row + flag avatar
+                      │  ╭──────────────────────╮  │
+                      │  │     Disconnect       │  │   ← Primary CTA
+                      │  ╰──────────────────────╯  │
+                      └────────────────────────────┘
+
+scanning/data-removal ┌────────────────────────────┐
+                      │░░░ raw photo + brand    ░░░│   ← orange mix-blend: multiply
+                      │░░░ counter video        ░░░│   ← autoplay, mix-blend: lighten
+                      │       Places data is       │   ← caption (body, cream)
+                      │       exposed              │
+                      │  Started 10mins   ╭──────╮ │
+                      │  ago              │•22:24│ │   ← Status pill (status/active)
+                      │                   ╰──────╯ │
+                      └────────────────────────────┘
+```
+- **`intro/*`** — three sub-variants. All share an *intro* face: full-bleed illustration column on top + text block (optional kicker row → title → Primary CTA) below.
+  - `intro/call-guard` — banner-tinted illustration band + kicker row + 2-line H1 title + full-width Primary CTA.
+  - `intro/vpn` — full-bleed dotted world map + top-right `ButtonIconPrimary` (expand glyph) + 2-line H1 title + Primary CTA tinted with `--ct-monitoring-container-02`.
+  - `intro/identity` — full-bleed dark gradient + screen-blended photo overlay + lighten-blended autoplay video + 2-line H1 title (cream) + cream Primary CTA. Hero requires `data-theme="dark"` context (SKILL.md §5.1).
+- **`active/*`** — three sub-variants. All share an *active* face: stat header (H3 label + Display-1 number) + visualization or detail.
+  - `active/call-guard` — Bar chart card (9 raw-px bars) + Segment control (Week / Month / Year).
+  - `active/data-removal` — Header pairs Display-1 with a `Status` pill (Component 3 `status/card`); body is a 5-row category bar list + a stacked-area time-series chart.
+  - `active/vpn` — Map fills the top; bottom is a white detail card with a Connected timer row, a Service row (label + `Avatar_Flags` instance), and a "Disconnect" Primary CTA.
+- **`scanning/*`** — one sub-variant. Full-bleed photo + `--ct-brand` orange `mix-blend-multiply` overlay + autoplay counter video + caption + footer Status pill.
+
+**Variants.**
+
+| Variant | Visual | When |
+| --- | --- | --- |
+| `intro/call-guard` (default) | 393×~525 banner-tinted hero, raster illustration top + kicker row + H1 title + full-width Primary CTA | Onboarding / unconfigured-feature lure for Call Guard |
+| `intro/vpn` | 393×543 cream hero, full-bleed world map (decorative) with 11 dot markers + top-right expand button + H1 title + Primary CTA tinted with `--ct-monitoring-container-02` | Onboarding lure for VPN — brand-purple CTA marks it as a VPN-product moment |
+| `intro/identity` | 393×756 dark-gradient hero, raster photo overlay (screen blend) + autoplay video (lighten blend) + cream H1 title + cream Primary CTA | Onboarding / first-launch hero for the Identity product (requires `data-theme="dark"` per §5.1) |
+| `active/call-guard` | 394×~600 white hero (1px wider than the rest — preserve), H3 label + Display-1 hero number + 9-bar chart card + Segment control | Active Call-Guard state — KPI ("324 / Calls Blocked") with weekly trend |
+| `active/data-removal` | 393×~600 white hero, H3 label + Display-1 number + Status pill + 5-row category bar list + stacked-area chart | Active Data-Removal state — totals + per-category progress + time-series |
+| `active/vpn` | 393×468 cream hero, top half is a map; bottom half is a detail card with timer + Service+flag + Disconnect Primary CTA | Active VPN connection — location, uptime, and disconnect affordance |
+| `scanning/data-removal` | 393×521 black hero, full-bleed raster photo + `--ct-brand` mix-blend-multiply + autoplay counter video + caption + Status pill (`status/active`) | Scan-in-progress state for Data Removal — replaces "Loading…" with a heroed live state |
+
+**Sizing.**
+
+*intro/call-guard (default)*
+- Container: width 393px (raw — no matching `--ct-spacing-*`); height intrinsic; `flex-direction: column`; `align-items: stretch`. Children own padding (no outer pad).
+- Illustration band: width 100%; height 333px (raw — illustration height; do not tokenize). Hosts a 225.5×220px raster asset (raw — illustration geometry).
+- Text block: padding-block `--ct-spacing-24`; padding-inline `--ct-spacing-20`; gap `--ct-spacing-24`; full width.
+  - Kicker row: `flex-direction: row`; `align-items: center`; gap **10px raw** (no `--ct-spacing-*` matches). Bullet dot 6×6 (illustration).
+  - Title: full width.
+  - CTA: defers to [Component 1 — Button](#1-button) `text/primary` (height 56px, full-width, padding `--ct-spacing-16`, border-radius `--ct-spacing-16`).
+
+*intro/vpn* — overrides
+- Container: width 393px (raw); height 543px (raw — outer hero height fixed by illustration); `position: relative` (children absolutely positioned over the map); `overflow: clip`.
+- Map illustration: position absolute, full bleed; `bottom: 47px` raw; `left: -525px` raw; `width: 966px` raw; `height: 600px` raw; `opacity: 0.5` (raw — illustration; no `--ct-opacity-*` match).
+- 11 dot markers: each 8×8, raw absolute coordinates (illustration; do not tokenize).
+- Top-right expand button: position absolute; `top: var(--ct-spacing-16)`; `right: var(--ct-spacing-16)` (the spec board renders this as `left: 329px, top: 16px` on a 393px container — equivalent). Defers to [Component 1 — Button](#1-button) `icon-primary/default`.
+- Text block: pinned to the bottom of the container; padding-block `--ct-spacing-24`; padding-inline `--ct-spacing-20`; gap `--ct-spacing-24`. No kicker row.
+- CTA: same `text/primary` geometry; container token swaps to `--ct-monitoring-container-02` (Category_TBD §9.1).
+
+*intro/identity* — overrides
+- Container: width 393px (raw); height 756px (raw); `position: relative`; `overflow: clip`.
+- Background: raw dual gradient (illustration; do not tokenize). See Tokens.
+- Photo overlay: position absolute; `left: -172px` raw; `top: 190px` raw; `width: 736px` raw; `height: 919px` raw; `mix-blend-mode: screen`; `opacity: 0.9` raw.
+- Animation video: position absolute; `left: 0`; `top: 324px` raw; `width: 393px` raw; `height: 110px` raw; `mix-blend-mode: lighten`; `<video autoPlay loop muted playsInline>`.
+- Text block: pinned to the bottom (`top: 567px` raw); padding-block `--ct-spacing-24`; padding-inline `--ct-spacing-20`; gap `--ct-spacing-24`. No kicker.
+- CTA: `text/primary` geometry; container / label resolve to inverted dark-theme values — see Tokens.
+
+*active/call-guard* — overrides
+- Container: width 394px (raw — 1px wider than the rest; preserve, do not normalize); height intrinsic; `flex-direction: column`; gap `--ct-spacing-24`; `align-items: flex-start`.
+- Header block: padding-top `--ct-spacing-24`; padding-inline `--ct-spacing-20`; padding-bottom `--ct-spacing-20`; gap `--ct-spacing-24`; full width; `flex-direction: column`.
+- Chart card: full width; padding `--ct-spacing-20`; gap `--ct-spacing-24`; `align-items: center`; `flex-direction: column`.
+  - Bar chart: 354×238px raw (illustration container); 9 bar columns at 16×{100..184}px raw (illustration heights vary per data); 8 hairline separators between bars (`--ct-divider`, 0.5px raw). Day labels (`M T W T F S S`).
+  - Segment control: width 354px raw; gap `--ct-spacing-16`; three Segment items at 107 / 108 / 107 px (raw); each item padding **10px raw** + `--ct-spacing-12` (block + inline); border-radius `--ct-spacing-16`. (No standalone Segment Control spec exists yet; geometry inlined here. When one lands, defer to it.)
+
+*active/data-removal* — overrides
+- Container: width 393px (raw); padding-block `--ct-spacing-40`; gap `--ct-spacing-40`; `align-items: center`; `flex-direction: column`.
+- Stats column: width 354px raw; gap `--ct-spacing-40`; `flex-direction: column`.
+  - Header row: full width; `flex-direction: row`; `align-items: flex-end`; `justify-content: space-between`. Title block (left): `flex-direction: column`; gap `--ct-spacing-24`; width 173px raw. Status pill (right): width 148px raw — defers to [Component 3 — Label](#3-label) `status/card`.
+  - Category bar list: gap `--ct-spacing-4`; full width. Each row: `flex-direction: row`; gap `--ct-spacing-8`; `align-items: center`. Cells: label 83px raw, bar 208×3px raw (track + fill, raw category hexes — see Tokens), count 47px raw right-aligned.
+- Stacked-area chart: full width; height 233px raw; `overflow: clip`. Inner cluster 353px raw wide (illustration). Axis labels: "Mar 1" 36.588px raw, "Today" 154.542px raw at `opacity: 0.7` raw (illustration / chart geometry; do not tokenize).
+
+*active/vpn* — overrides
+- Container: width 393px (raw); height 468px (raw); `position: relative`; `overflow: clip`.
+- Map: position absolute; `right: 0`; `top: -157px` raw; `width: 1622px` raw; `height: 1008px` raw (zoomed map detail with two `mix-blend-multiply` location markers — 50px outer pulse + 10px inner dot, raw illustration).
+- Top-right expand button: position absolute; `top: var(--ct-spacing-16)`; `right: var(--ct-spacing-16)`. Defers to [Component 1 — Button](#1-button) `icon-primary/default`.
+- Detail card: position absolute; `bottom: 0`; full width; padding-inline `--ct-spacing-20`; padding-bottom `--ct-spacing-40`; padding-top `0` (the Connected row owns its top padding); `flex-direction: column`; `align-items: flex-start`.
+  - Connected row: padding-block `--ct-spacing-24`; full width; `flex-direction: row`; `justify-content: space-between`; `align-items: center`. Right cell ("03:45:82") width 129px raw, right-aligned.
+  - Hairline divider: full width, `--ct-divider`, 0.5px raw.
+  - Service row: padding-block `--ct-spacing-20`; full width; `flex-direction: row`; `justify-content: space-between`; `align-items: center`. Right cluster 114×20px raw — text "New York" + `Avatar_Flags` instance (40×40, full round) wrapping a 34×18px raster flag asset (`flag/America`; raw illustration).
+  - CTA: defers to [Component 1 — Button](#1-button) `text/primary` ("Disconnect").
+
+*scanning/data-removal* — overrides
+- Container: width 393px (raw); height 521px (raw); `position: relative`; `overflow: clip`.
+- Photo + overlay: position absolute; `left: 0`; `top: 0`; `width: 393.333px` raw; `height: 521.111px` raw (sub-pixel offsets are illustration geometry; do not normalize). Photo is a raster asset; the orange overlay sits on top with `mix-blend-mode: multiply`.
+- Counter video: position absolute; `left: 0`; `top: 191px` raw; `width: 149px` raw; `height: 149px` raw; `mix-blend-mode: lighten`; `<video autoPlay loop muted playsInline>`.
+- Caption: position absolute; `top: 298.89px` raw; horizontally centered; `text-align: center`.
+- Footer status row: position absolute; `left: 16.67px` raw; `top: 474px` raw; `width: 360.334px` raw; `flex-direction: row`; `align-items: center`; `justify-content: space-between`. Right slot hosts a `Status` pill (Component 3) — `status/active` variant.
+
+**Tokens.**
+
+*intro/call-guard (default)*
+
+| Slot | Property | Token |
+| --- | --- | --- |
+| Container | background | `--ct-banner-container` |
+| Illustration band | background | `--ct-banner-container` (inherits from container; the asset itself is raster, not chrome) |
+| Text block | padding-block | `--ct-spacing-24` |
+| Text block | padding-inline | `--ct-spacing-20` |
+| Text block | gap | `--ct-spacing-24` |
+| Kicker label | color | `--ct-text-primary` |
+| Kicker label | font (apply all 5 sub-tokens) | `--ct-text-body-small-family`, `--ct-text-body-small-weight`, `--ct-text-body-small-size`, `--ct-text-body-small-line-height`, `--ct-text-body-small-letter-spacing` |
+| Title | color | `--ct-text-primary` |
+| Title | text-transform | `capitalize` |
+| Title | font (apply all 5 sub-tokens) | `--ct-text-h1-family`, `--ct-text-h1-weight`, `--ct-text-h1-size`, `--ct-text-h1-line-height`, `--ct-text-h1-letter-spacing` |
+| CTA | spec | defers to [Component 1 — Button](#1-button) `text/primary` |
+
+*intro/vpn* — overrides
+
+| Slot | Property | Token |
+| --- | --- | --- |
+| Container | background | `--ct-bkgd-01` |
+| Top-right expand button | spec | defers to [Component 1 — Button](#1-button) `icon-primary/default` |
+| CTA | container | `--ct-monitoring-container-02` (Category_TBD §9.1) |
+| CTA | label color | `--ct-cta-primary-text` |
+
+*intro/identity* — overrides
+
+| Slot | Property | Token |
+| --- | --- | --- |
+| Container | background | _TBD_ — raw dual gradient (`linear-gradient(180deg, #0a0a0a 8.69%, #353d45 50.30%, #ccced1 137.05%)` over `linear-gradient(90deg, #194945, #194945)`); illustration only — do not tokenize |
+| Photo overlay | mix-blend-mode | `screen` (raw — illustration) |
+| Photo overlay | opacity | `0.9` (raw — only `--ct-opacity-disabled` = 0.3 exists; no match) |
+| Video overlay | mix-blend-mode | `lighten` (raw — illustration) |
+| Title | color | `--ct-text-primary` (resolves cream when hero is in `data-theme="dark"` — see note) |
+| CTA | container | `--ct-cta-primary-container` (resolves cream under `data-theme="dark"`) |
+| CTA | label color | `--ct-cta-primary-text` (resolves dark under `data-theme="dark"`) |
+
+> _`intro/identity` requires `data-theme="dark"` on its hero root. Under light theme, `--ct-cta-primary-container` resolves to black and `--ct-text-primary` resolves to dark — both wrong against the dark gradient. The Figma master is captured under the dark-theme override; do not hard-code the cream values._
+
+*active/call-guard* — overrides
+
+| Slot | Property | Token |
+| --- | --- | --- |
+| Container | background | `--ct-bkgd-02` |
+| Container | gap (outer) | `--ct-spacing-24` |
+| Header block | padding-top | `--ct-spacing-24` |
+| Header block | padding-inline | `--ct-spacing-20` |
+| Header block | padding-bottom | `--ct-spacing-20` |
+| Header block | gap | `--ct-spacing-24` |
+| Label | color | `--ct-text-primary` |
+| Label | text-transform | `capitalize` |
+| Label | font (apply all 5 sub-tokens) | `--ct-text-h3-family`, `--ct-text-h3-weight`, `--ct-text-h3-size`, `--ct-text-h3-line-height`, `--ct-text-h3-letter-spacing` |
+| Number | color | `--ct-text-primary` |
+| Number | font (apply all 5 sub-tokens) | `--ct-text-display-1-family`, `--ct-text-display-1-weight`, `--ct-text-display-1-size`, `--ct-text-display-1-line-height`, `--ct-text-display-1-letter-spacing` |
+| Chart card | padding | `--ct-spacing-20` |
+| Chart card | gap | `--ct-spacing-24` |
+| Bar chart bars | fill | _TBD_ — color-baked in SVG; same caveat as Component 1 §icon strokes — Figma must export the bar fill as a variable for theme-aware re-color |
+| Bar separators | stroke | `--ct-divider`, 0.5px (raw) |
+| Day label | color | `--ct-text-primary` |
+| Day label | opacity | `0.6` (raw — only `--ct-opacity-disabled` = 0.3 exists; no match) |
+| Day label | font (apply all 5 sub-tokens) | `--ct-text-link-family`, `--ct-text-link-weight`, `--ct-text-link-size`, `--ct-text-link-line-height`, `--ct-text-link-letter-spacing` |
+| Segment control | gap | `--ct-spacing-16` |
+| Segment item / selected | background | `--ct-cta-primary-container` |
+| Segment item / selected | label color | `--ct-cta-primary-text` |
+| Segment item / unselected | border-color | `--ct-cta-secondary-container` |
+| Segment item / unselected | label color | `--ct-text-primary` |
+| Segment item | padding | **10px raw** + `--ct-spacing-12` (block + inline; no `--ct-spacing-10`) |
+| Segment item | border-radius | `--ct-spacing-16` |
+| Segment item | label font (apply all 5 sub-tokens) | `--ct-text-link-family`, `--ct-text-link-weight`, `--ct-text-link-size`, `--ct-text-link-line-height`, `--ct-text-link-letter-spacing` |
+
+*active/data-removal* — overrides
+
+| Slot | Property | Token |
+| --- | --- | --- |
+| Container | background | `--ct-bkgd-02` |
+| Container | padding-block | `--ct-spacing-40` |
+| Container | gap (outer) | `--ct-spacing-40` |
+| Stats column | gap | `--ct-spacing-40` |
+| Title block (left) | gap | `--ct-spacing-24` |
+| Label | color | `--ct-text-primary` |
+| Label | text-transform | `capitalize` |
+| Label | font (apply all 5 sub-tokens) | `--ct-text-h3-family`, `--ct-text-h3-weight`, `--ct-text-h3-size`, `--ct-text-h3-line-height`, `--ct-text-h3-letter-spacing` |
+| Number | color | `--ct-text-primary` |
+| Number | font (apply all 5 sub-tokens) | `--ct-text-display-1-family`, `--ct-text-display-1-weight`, `--ct-text-display-1-size`, `--ct-text-display-1-line-height`, `--ct-text-display-1-letter-spacing` |
+| Status pill | spec | defers to [Component 3 — Label](#3-label) `status/card` ("Next scan Oct 12") |
+| Category row | gap (label↔bar↔count) | `--ct-spacing-8` |
+| Category row label / count | color | `--ct-text-primary` |
+| Category row label / count | font (apply all 5 sub-tokens) | `--ct-text-body-family`, `--ct-text-body-weight`, `--ct-text-body-size`, `--ct-text-body-line-height`, `--ct-text-body-letter-spacing` |
+| Category bar track | background | `--ct-bkgd-02` |
+| Category bar fill (Email) | background | _TBD_ — raw `#00c49a` (no token; not in Category_TBD set) |
+| Category bar fill (Family) | background | _TBD_ — raw `#faa542` (no token) |
+| Category bar fill (Name) | background | _TBD_ — raw `#719a03` (no token) |
+| Category bar fill (Phone) | background | _TBD_ — raw `#e1473f` (no token) |
+| Category bar fill (Address) | background | _TBD_ — raw `#003ab8` (no token) |
+| Stacked-area chart | bands | _TBD_ — same five raw category hexes as above; chart is illustration |
+| Axis label | color | `--ct-text-primary` |
+| Axis label | opacity | `0.7` (raw — no token) |
+| Axis label | font (apply all 5 sub-tokens) | `--ct-text-link-family`, `--ct-text-link-weight`, `--ct-text-link-size`, `--ct-text-link-line-height`, `--ct-text-link-letter-spacing` |
+
+> _The five category-bar hexes (`#00c49a, #faa542, #719a03, #e1473f, #003ab8`) are not in `tokens/colors.css`, are not Category_TBD members, and are not exported as Figma variables. Per SKILL.md §2.1, do not approximate with the closest existing token; surface a request to add a category-color palette to Figma and re-export before resolving these slots._
+
+*active/vpn* — overrides
+
+| Slot | Property | Token |
+| --- | --- | --- |
+| Container | background | `--ct-bkgd-01` |
+| Map illustration | spec | raw — decorative, do not tokenize |
+| Top-right expand button | spec | defers to [Component 1 — Button](#1-button) `icon-primary/default` |
+| Detail card | background | `--ct-bkgd-02` |
+| Detail card | padding-inline | `--ct-spacing-20` |
+| Detail card | padding-bottom | `--ct-spacing-40` |
+| Connected row | padding-block | `--ct-spacing-24` |
+| Connected row label / value | color | `--ct-text-primary` |
+| Connected row label / value | font (apply all 5 sub-tokens) | `--ct-text-body-family`, `--ct-text-body-weight`, `--ct-text-body-size`, `--ct-text-body-line-height`, `--ct-text-body-letter-spacing` |
+| Hairline divider | stroke | `--ct-divider`, 0.5px (raw) |
+| Service row | padding-block | `--ct-spacing-20` |
+| Service row label / value | color | `--ct-text-primary` |
+| Service row label / value | font (apply all 5 sub-tokens) | `--ct-text-body-family`, `--ct-text-body-weight`, `--ct-text-body-size`, `--ct-text-body-line-height`, `--ct-text-body-letter-spacing` |
+| Flag avatar (`Avatar_Flags / flag/America`) | spec | raw — flag asset is raster, do not tokenize |
+| CTA | spec | defers to [Component 1 — Button](#1-button) `text/primary` ("Disconnect") |
+
+> _The Figma `active/vpn` master binds the CTA label color to `--ct-bkgd-02` (white) instead of `--ct-cta-primary-text` (also white in light theme). Both resolve to the same hex today, but the spec consumes `--ct-cta-primary-text` per the Button §1 contract — do not hard-code the surface token for the label._
+
+*scanning/data-removal* — overrides
+
+| Slot | Property | Token |
+| --- | --- | --- |
+| Container | background | _TBD_ — raw `#000`; no `--ct-bkgd-*` resolves to pure black (light `--ct-bkgd-01` = cream, dark `--ct-bkgd-01` = `grey-05` ≠ pure black). Do not substitute `--ct-color-black` (a primitive — components consume semantic tokens only per SKILL.md §4.4) |
+| Photo | spec | raw raster, illustration — do not tokenize |
+| Orange overlay | background | `--ct-brand` |
+| Orange overlay | mix-blend-mode | `multiply` (raw — illustration) |
+| Counter video | mix-blend-mode | `lighten` (raw — illustration) |
+| Caption | color | `--ct-text-primary` (resolves cream when hero is in `data-theme="dark"` — see note) |
+| Caption | text-align | `center` |
+| Caption | font (apply all 5 sub-tokens) | `--ct-text-body-family`, `--ct-text-body-weight`, `--ct-text-body-size`, `--ct-text-body-line-height`, `--ct-text-body-letter-spacing` |
+| Footer status label ("Started 10mins ago") | color | `--ct-text-primary` (cream under `data-theme="dark"`) |
+| Footer status label | font (apply all 5 sub-tokens) | `--ct-text-body-family`, `--ct-text-body-weight`, `--ct-text-body-size`, `--ct-text-body-line-height`, `--ct-text-body-letter-spacing` |
+| Status pill | spec | defers to [Component 3 — Label](#3-label) `status/active` |
+
+> _The black surface is rendered raw in Figma — there is no `--ct-bkgd-*` token that resolves to pure `#000`. Until Figma adds a primitive that maps to pure black (or a dedicated `--ct-bkgd-scanning` token), mark the surface TBD. The variant lives on a fixed-dark surface, so the hero must be wrapped in `data-theme="dark"` for `--ct-text-primary` to flip cream._
+
+**Don't.**
+- Don't reach for Simula on the `active/*` Display-1 hero numbers (324 / 276) or any title slot. Even very large numbers stay sans (SKILL.md §2.4 / §6); Simula is reserved for page titles and FAQ headlines.
+- Don't bold any title, label, or hero number to differentiate variants. All weights are 400 (SKILL.md §2.5); patterns differ by surface, layout, and visualization — never by weight.
+- Don't substitute `--ct-cta-primary-container` (black) for the `intro/vpn` CTA "to use the standard token." The brand-purple CTA is the visual signature that marks this hero as VPN; `--ct-monitoring-container-02` is the only sanctioned override (SKILL.md §9.1, §9.5).
+- Don't extend the Category_TBD pattern to a new feature (e.g. `--ct-callguard-container-02`). The closed Category_TBD set governs (SKILL.md §9.1) — surface the request.
+- Don't apply `--ct-text-ai-*` or `--ct-bkgd-ai-input` to any Hero / Feature variant. AI tokens are restricted to the AI input and the FAQ band (SKILL.md §5.2); `intro/identity` and `scanning/data-removal` flip via `data-theme="dark"`, not via AI tokens.
+- Don't tokenize the five category-bar hexes by approximating with the closest existing color. The Figma values are a separate palette; per SKILL.md §2.1 wait for the missing tokens and re-export.
+- Don't tokenize the `scanning/data-removal` black surface as `--ct-color-black`. Components consume semantic tokens, not `--ct-color-*` primitives (SKILL.md §4.4).
+- Don't render the `intro/call-guard` kicker gap, or the `active/call-guard` Segment item block-padding, as `--ct-spacing-12` (12) or `--ct-spacing-8` (8) "to use a token." The Figma value is 10px; spec it raw until a `--ct-spacing-10` lands.
+- Don't drop a shadow on any hero or wrap it in a border to separate it from the section beneath. Separation comes from the `--ct-spacing-12` cream gap (SKILL.md §9.2). Heroes ship at full bleed and butt directly into the next section.
+- Don't add a `chevron.right` to the `active/vpn` Connected or Service rows. The detail card is the affordance; the Disconnect CTA is the action (SKILL.md §9.3).
+- Don't replace the `intro/vpn` map, the `intro/call-guard` raster illustration, the `scanning/data-removal` photo, or the `intro/identity` photo+video with a generic icon. Each is the feature's visual signature and the recognition anchor for that hero (SKILL.md §9.5).
+- Don't add a static `9:41` clock or signal/wifi/battery glyphs above any hero. The map and photo backgrounds are decorative; simulated iOS chrome is forbidden (SKILL.md §9.4).
+- Don't write `"Loading…"` as the `scanning/data-removal` caption nor stack a `Loading…` label on top of the counter video. The counter + caption + active Status pill *are* the live state; replacing them with a spinner is the exact pattern §9.6 forbids.
+- Don't dim a hero or its CTA with arbitrary opacity to indicate disabled. The only sanctioned opacity is `--ct-opacity-disabled` (= 0.3); the raw `0.5 / 0.6 / 0.7 / 0.9` opacities used in this spec belong to illustration layers, not chrome (SKILL.md §4.3).
+- Don't introduce a new `Hero / Feature` variant (e.g. `intro/guard`, `active/identity`, `scanning/vpn`). The seven above are the closed set per SKILL.md §7.1 — surface the request rather than improvising; new heroes go into Figma first and re-export.
+- Don't pad the `active/vpn` detail card from above. The Connected row owns its own `--ct-spacing-24` top padding; an outer top-pad creates a second inset that breaks the row rhythm.
+- Don't render `intro/identity` under `data-theme="light"` and hard-code cream colors to compensate. The hero must sit in `data-theme="dark"` so the existing `--ct-cta-primary-*` and `--ct-text-primary` tokens flip naturally (SKILL.md §5.1).
+
+**Figma.**
+- Specimen frame: `17826:13477`
+- Variant masters: `16914:7971` (intro/call-guard), `16914:8028` (intro/vpn), `17794:9999` (intro/identity), `16914:7849` (active/call-guard), `16675:11615` (active/data-removal), `16206:3353` (active/vpn), `16206:3354` (scanning/data-removal)
+- File: Playlist — Toolkit
+- Link: https://www.figma.com/design/k0n0CNGfk4ie9Vb74byl9v/Playlist-%E2%80%94-Toolkit?node-id=17826-13477
 
 ### 14. Hero / Kit Briefing
 _TBD_
