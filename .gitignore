@@ -1,1 +1,7 @@
 _temp/
+
+# macOS metadata
+.DS_Store
+
+# Claude Code project-local state (permissions, cache)
+.claude/
