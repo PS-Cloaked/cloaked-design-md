@@ -68,6 +68,18 @@ These rules are non-negotiable. Violating any of them produces wrong-by-design o
 - **Why.** A wrong guess looks plausible and gets propagated. A clarifying question costs one message.
 - **Alternative.** Frame the question concretely: not "which theme?" but "should this card use `data-theme=\"light\"` (default app surface) or `data-theme=\"dark\"` (AI band / FAQ)?".
 
+### 2.7 Don't fabricate component variants
+
+- **Rule.** When a component is spec'd in `components.md`, the only valid choices are the variants declared in its **Variants** table. Pick from the list. Don't compose a "muted icon button," "ghost CTA," or "filled gray pill" out of bare CSS tokens. This is the in-spec counterpart to §7.2 (which forbids inventing whole components when none is spec'd).
+- **Why.** The variant list mirrors Figma. A CSS-only variant has no Figma source, will not survive the next export, and creates a quiet drift between code and design. Worse, the next agent looking at production sees a pattern they can't find in `components.md` and either copies the drift or guesses a third version.
+- **Alternative.** If none of the declared variants fit, surface the case to the user with the gap named ("the help affordance reads as a double ring because the icon draws its own circle and `icon-secondary/large` adds another"). The fix is to add the variant to Figma → `components.md` → then use it. Not to invent it locally.
+
+### 2.8 Don't compress the top header safe area
+
+- **Rule.** The first interactive row of any screen header (back button, page title, trailing action) sits at minimum `--ct-spacing-40` from the top edge of the screen surface. Buttons live in the row beneath that 40px clear band, not inside it.
+- **Why.** iOS notches, Dynamic Islands, and Android cutouts intrude on the top ~40px. Pushing the leading icon into that band hides it under system chrome at runtime — the screen looks fine in mockups and broken on device. On chromeless surfaces (e.g. modal sheets) the band still reads as breathing room before the title slot.
+- **Alternative.** If you genuinely need the band reclaimed (immersive media, in-call surfaces), surface that specific case rather than tightening the default.
+
 ---
 
 ## 3. Namespace — what `--ct-*` means

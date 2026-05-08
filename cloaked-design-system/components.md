@@ -62,11 +62,15 @@ icon-primary       ╭────╮          ╭──╮
 icon-secondary     ╭────╮          ╭──╮
                    │ →  │          │ →│   ← 1px outline circle / square
                    ╰────╯          ╰──╯      large (48) and small (24)
+
+icon-tertiary      ╭────╮          ╭──╮
+                   │ ?  │          │ ?│   ← translucent fill, no outline
+                   ╰────╯          ╰──╯      large (48) and small (24)
 ```
 - **Text/primary, text/secondary.** One slot — label only, centered. Full-width sheet CTA.
 - **Text/tertiary.** One slot — label only. Intrinsic width pill, lives inline.
 - **Text/link.** One slot — label only. No container.
-- **Icon-primary, icon-secondary.** One slot — icon only. No label.
+- **Icon-primary, icon-secondary, icon-tertiary.** One slot — icon only. No label.
 
 **Variants.**
 
@@ -80,6 +84,8 @@ icon-secondary     ╭────╮          ╭──╮
 | `icon-primary/small` | Filled `--ct-cta-primary-container`, 16×16 icon, 4px padding, 12px radius | Primary icon-only action in dense layouts |
 | `icon-secondary/large` | 48×48 circular outline, 24×24 icon centered | Secondary icon action — e.g., expand / next |
 | `icon-secondary/small` | 24×24 outline, 16×16 icon, 4px padding | Compact secondary icon in dense layouts |
+| `icon-tertiary/default` | Filled `--ct-cta-secondary-container`, 24×24 icon, 12px padding, 24px radius (no outline) | Header navigation actions (back, help, close) and any compact icon-only action where outlined would compete with adjacent icons that already enclose themselves (e.g. a `?` glyph that draws its own ring). The icon-pair to `text/tertiary`. |
+| `icon-tertiary/small` | Filled `--ct-cta-secondary-container`, 16×16 icon, 4px padding, 12px radius (no outline) | Compact tertiary icon in dense layouts |
 
 **Sizing.**
 - **`text/primary`.** Height 56px; width 100% of parent (full-width sheet CTA); padding `--ct-spacing-16`; border-radius `--ct-spacing-16`.
@@ -90,6 +96,8 @@ icon-secondary     ╭────╮          ╭──╮
 - **`icon-primary/small`.** Padding `--ct-spacing-4`; border-radius `--ct-spacing-12`; icon 16×16.
 - **`icon-secondary/large`.** Total size `--ct-spacing-48` × `--ct-spacing-48`; padding `--ct-spacing-12`; icon 24×24; circular outline (full radius).
 - **`icon-secondary/small`.** Total size `--ct-spacing-24` × `--ct-spacing-24`; padding `--ct-spacing-4`; icon 16×16.
+- **`icon-tertiary/default`.** Total size `--ct-spacing-48` × `--ct-spacing-48`; padding `--ct-spacing-12`; icon 24×24; border-radius `--ct-spacing-24`; no outline (the fill is the container).
+- **`icon-tertiary/small`.** Total size `--ct-spacing-24` × `--ct-spacing-24`; padding `--ct-spacing-4`; icon 16×16; border-radius `--ct-spacing-12`; no outline.
 
 **Tokens.**
 
@@ -113,8 +121,10 @@ icon-secondary     ╭────╮          ╭──╮
 | --- | --- | --- |
 | Container (`icon-primary/*`) | background | `--ct-cta-primary-container` |
 | Container (`icon-secondary/*`) | border / outline | _TBD_ (bundled in SVG asset — see note below) |
+| Container (`icon-tertiary/*`) | background | `--ct-cta-secondary-container` |
 | Icon (`icon-primary/*`) | stroke | _TBD_ (bundled in SVG asset; visually `--ct-cta-primary-text`) |
 | Icon (`icon-secondary/*`) | stroke | _TBD_ (bundled in SVG asset; visually `--ct-text-primary`) |
+| Icon (`icon-tertiary/*`) | stroke | _TBD_ (bundled in SVG asset; visually `--ct-text-primary`) |
 
 > _The `icon-secondary` outline and the icon strokes for both icon families are currently embedded in the SVG asset, not exported as Figma variables. This mirrors the Toggle knob caveat in §5 Control — for theme-aware fills, Figma must export them as variables and re-export. Until then, the rendered colors are visually consistent with `--ct-cta-secondary-container` (outline) and `--ct-cta-primary-text` / `--ct-text-primary` (icon strokes), but components must not hard-code those tokens against the asset._
 
@@ -125,7 +135,7 @@ icon-secondary     ╭────╮          ╭──╮
 - Don't repurpose `text/link` as a body-inline anchor inside a paragraph. It's a discrete button atom (12px, primary text, no underline), not an `<a>` inside prose.
 - Don't pair `icon-primary` with a sibling text label outside the button. If the action needs words, choose `text/primary` instead — icon-primary is icon-only by design.
 
-**Figma.** [Playlist — Toolkit](https://www.figma.com/design/k0n0CNGfk4ie9Vb74byl9v/Playlist-%E2%80%94-Toolkit?node-id=16053-7930) · Page `16053:7930` · Variant masters: text/primary `16031:7864`, text/secondary `16031:7866`, text/tertiary `16196:2699`, text/link `16960:10527`, icon-primary/default `16935:9348`, icon-primary/small `16960:10477`, icon-secondary/large `16054:8098`, icon-secondary/small `16078:12091`
+**Figma.** [Playlist — Toolkit](https://www.figma.com/design/k0n0CNGfk4ie9Vb74byl9v/Playlist-%E2%80%94-Toolkit?node-id=16053-7930) · Page `16053:7930` · Variant masters: text/primary `16031:7864`, text/secondary `16031:7866`, text/tertiary `16196:2699`, text/link `16960:10527`, icon-primary/default `16935:9348`, icon-primary/small `16960:10477`, icon-secondary/large `16054:8098`, icon-secondary/small `16078:12091`, icon-tertiary/default _TBD_ (proposed addition, not yet exported from Figma), icon-tertiary/small _TBD_
 
 ### 2. Divider
 
