@@ -15,7 +15,7 @@ Before producing output, the agent must have access to:
 | `tokens/numbers.css` | Spacing + opacity | **Source of truth** for numeric tokens |
 | `tokens/themes.css` | Light + dark semantic tokens | **Source of truth** for theme mapping |
 | `tokens/typography.css` | Text styles + `@font-face` | **Source of truth** for type tokens |
-| `components.md` | Component specs | Components rulebook (16 components, all TBD) |
+| `components.md` | Component specs | Components rulebook (15 components, fully spec'd) |
 | `examples.md` | BAD / GOOD usage examples | Currently empty |
 
 **Conflict resolution.** If two sources disagree:
@@ -252,15 +252,15 @@ Section titles render in Title Case via CSS `text-transform: capitalize`. **Sour
 
 ### 7.1 Current state
 
-`components.md` is a **rulebook with 16 component slots — all bodies TBD**. The structure is fixed: 16 component names + a `Default visual properties` baseline + a per-component schema (Use / Anatomy / Variants / Sizing / Tokens / Don't / Figma).
+`components.md` is a **rulebook with 15 fully spec'd components**. The structure is fixed: 15 component names + a `Default visual properties` baseline + a per-component schema (Use / Anatomy / Variants / Sizing / Tokens / Don't / Figma).
 
 What this means:
 
-- The **list of valid Cloaked components is closed** at those 16. Don't invent a 17th — if a request doesn't fit one of the 16, surface it to the user.
-- Each component's **body is still empty**. There is no written spec to copy from yet.
+- The **list of valid Cloaked components is closed** at those 15. Don't invent a 16th — if a request doesn't fit one of the 15, surface it to the user.
+- Each component's body is a Figma local mirror — treat it as read-only spec, not a draft.
 - Default visual properties live in `components.md` and apply unless a component explicitly overrides them.
 
-When asked to build one of the 16, you have:
+When asked to build one of the 15, you have:
 
 - Tokens (`tokens/*.css`) — definitive.
 - This document (rules, namespace, theme).

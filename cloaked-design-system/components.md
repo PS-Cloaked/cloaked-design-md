@@ -8,6 +8,32 @@
 
 ---
 
+## Quick Index — find a component by intent
+
+**Read this table before reaching for code.** Match the user's intent to a row, then jump to that section. If nothing matches, stop and ask — don't fabricate a 16th component (SKILL.md §7.2).
+
+| If you need... | Use | Variants |
+| --- | --- | --- |
+| A discrete action — CTA bar, pill, icon button, inline link | [§1 Button](#1-button) | text/primary · text/secondary · text/tertiary · text/link · icon-primary · icon-secondary · icon-tertiary |
+| A section break inside a list ("Today", "Yesterday") | [§2 Divider](#2-divider) | default |
+| A tag, status pill, or trend pill (↑ 4 Today) | [§3 Label](#3-label) | tag/* · callout · status/* · stat/up · stat/down |
+| A persistent advisory message inside a sheet | [§4 Banner](#4-banner) | info |
+| Tabs, toggle, dropdown, or segmented control | [§5 Control](#5-control) | tabs/* · toggle/* · dropdown/* · segment/* |
+| A list row — activity, contact, inbox, stat, empty state | [§6 List Item](#6-list-item) | Class A standard (with avatar) · Class B nested (stat / empty) |
+| The first row of a section — title + optional filter or "Edit" | [§7 Section Header](#7-section-header) | default · dropdown · action |
+| A vertical step-by-step progress timeline | [§8 Timeline](#8-timeline) | completed-* · current-middle · upcoming-* |
+| A page closer — "See details", impact band, or FAQ band | [§9 Footer](#9-footer) | card-section · impact · faq |
+| Top bar (page title) or bottom navigation | [§10 Navigation](#10-navigation) | top_bar/page · top_bar/home · bottom_bar · bottom_nav_item |
+| A small feature snapshot card (stat, location, FAQ, automation) | [§11 Card / Feature](#11-card--feature) | default · location · faq · automation |
+| A dashboard tile — KPI, scan, VPN status, list composite | [§12 Card / Dashboard](#12-card--dashboard) | kpi/* · intro · scanning · vpn · list/* |
+| A full-bleed feature hero at the top of a feature page | [§13 Hero / Feature](#13-hero--feature) | intro/* · active/* · scanning/* |
+| A full-screen AI/Kit moment with Simula headline + AI card | [§14 Hero / Kit Briefing](#14-hero--kit-briefing) | default |
+| A standalone AI notification card on cream (no headline) | [§15 Hero / Notification](#15-hero--notification) | default |
+
+**When in doubt, scan all 15 rows before deciding.** A common failure mode is reaching for `§11 Card / Feature` when the right answer is `§12 Card / Dashboard` (or vice versa) — read both Use lines if your tile is ambiguous.
+
+---
+
 ## Default visual properties
 
 Unless otherwise stated, every component inherits the defaults below. Each component spec lists only the properties that differ.
