@@ -50,11 +50,11 @@ These rules are non-negotiable. Violating any of them produces wrong-by-design o
 - **Why.** Specs mirror Figma. Drifting from spec drifts from Figma, then production drifts from both.
 - **Alternative.** Surface the proposed change to the user. If they agree, the change goes into Figma first, then back into `components.md`.
 
-### 2.4 Don't use Simula for body, numbers, or labels
+### 2.4 Don't use Simula outside its three sanctioned modes
 
-- **Rule.** Simula (serif) is only for page titles (`--ct-text-h2-serif-*`) and FAQ card titles (`--ct-text-h1-serif-*`). Everything else uses SF Pro (sans), even very large hero numbers.
-- **Why.** Simula is the one moment of editorial emphasis in a calm, sans-serif product. Spreading it everywhere kills the contrast it exists to create.
-- **Alternative.** Default to `--ct-font-sans` (or any non-`*-serif-*` text token). When unsure, sans is the safe choice.
+- **Rule.** Simula (serif) has exactly three sanctioned modes — see §6: **A** block editorial (page titles, FAQ headlines, product-voice copy), **B** block hero-number when the number is a story / summary / milestone (never a live tracker or chart value), and **C** inline word-highlight always paired with `--ct-brand`. Anything else uses SF Pro (sans) — including all tracking numbers, chart values, KPIs, and labels.
+- **Why.** Simula is the editorial axis of a calm, sans-serif product. Spreading it across trackers and labels kills the contrast it exists to create.
+- **Alternative.** Default to `--ct-font-sans` (or any non-`*-serif-*` text token). When the slot might qualify for §6 Mode A or B, apply §6's voice test before reaching for serif. When unsure, sans is the safe choice.
 
 ### 2.5 Don't use bold to create hierarchy
 
@@ -80,7 +80,7 @@ All Cloaked tokens use the `--ct-` prefix (Cloaked Toolkit). The next segment en
 | `--ct-bkgd-*` | Background surfaces | `tokens/themes.css` |
 | `--ct-text-primary` / `--ct-text-secondary` | Body / label text color | `tokens/themes.css` |
 | `--ct-text-ai-*` | Text on **fixed-dark** surfaces (AI input, FAQ band) — does **not** flip with theme | `tokens/themes.css` |
-| `--ct-text-<style>-{family\|weight\|size\|line-height\|letter-spacing}` | Typography. `<style>` ∈ `display-1`, `display-2`, `h1`, `h2`, `h3`, `h1-serif`, `h2-serif`, `body`, `body-small`, `link` | `tokens/typography.css` |
+| `--ct-text-<style>-{family\|weight\|size\|line-height\|letter-spacing}` | Typography. `<style>` ∈ `display-0`, `display-1`, `display-2`, `display-0-serif`, `display-1-serif`, `h1`, `h2`, `h3`, `h1-serif`, `h2-serif`, `body`, `body-small`, `link` | `tokens/typography.css` |
 | `--ct-font-{sans\|mono\|serif}` | Font-family fallback chains | `tokens/typography.css` |
 | `--ct-cta-{primary\|secondary}-{text\|container}` | CTA button color slots | `tokens/themes.css` |
 | `--ct-status-{success\|fail}-{solid\|subtle}` | Status colors (semantic) | `tokens/themes.css` |
@@ -137,11 +137,12 @@ The available styles are listed in `tokens/typography.css`. The role of each:
 
 | Style | Role |
 | --- | --- |
-| `display-1` (72px) / `display-2` (48px) | Hero numbers — SF Pro |
+| `display-0` (120px) / `display-1` (72px) / `display-2` (48px) | Sans hero numbers — SF Pro. See §6.4 |
+| `display-0-serif` (120px) / `display-1-serif` (72px) | **Simula.** Editorial / story hero numbers — see §6.2 |
 | `h1` (32px) / `h2` (24px) / `h3` (20px) | Section / sub-section titles — SF Pro |
-| `h1-serif` (32px) / `h2-serif` (24px) | **Simula only.** Page titles, FAQ headlines. See §2.4 |
+| `h1-serif` (32px) / `h2-serif` (24px) | **Simula.** Page titles, FAQ headlines, editorial headings — see §6.1 |
 | `body` (16px) / `body-small` (14px) | Body copy, labels |
-| `link` (10px) | SF Mono — small monospace meta text |
+| `link` (10px) | SF Mono — small monospace meta text (see §6.5 drift note) |
 
 ### 4.3 Opacity
 
@@ -200,35 +201,88 @@ If the user requests a component without specifying theme, **ask** (see §2.6, �
 
 ---
 
-## 6. AI Voice (Kit Voice = Simula)
+## 6. Typography Voice — three Simula modes
 
-The "Kit voice" is the editorial moment of the product. It exists in exactly two places. Use it there. Don't use it anywhere else.
+Simula is the editorial axis of the system. It has exactly three sanctioned modes. Default to sans (SF Pro); reach for Simula only when one of the three modes clearly fits. The test is **which mode**, never size or "importance."
 
-### 6.1 Use Simula for
+### 6.1 Mode A — Block editorial (the product speaks)
+
+Simula Book at heading sizes, **surface text color** (`--ct-text-primary` or `--ct-text-ai-primary` on fixed-dark). Never `--ct-brand`. For slots where the product addresses the user.
 
 | Slot | Token | Size |
 | --- | --- | --- |
 | Page title (every screen header) | `--ct-text-h2-serif-*` | 24px |
-| FAQ card title (the question itself, ending in `?`) | `--ct-text-h1-serif-*` | 32px |
+| FAQ card title (the question, ending in `?`) | `--ct-text-h1-serif-*` | 32px |
+| Home welcome message | `--ct-text-h1-serif-*` | 32px |
+| AI detail page welcome | `--ct-text-h1-serif-*` | 32px |
+| AI agent quote / pull-quote | `--ct-text-h2-serif-*` | 24px |
 
-That's the whole list. No other slot uses Simula.
+The list is **open** — onboarding intros, success heroes, and editorial empty-state kickers may also qualify. **Test:** *Is the product talking, or labeling?* If labeling, it's sans. Surface to the user when unsure (§2.6).
 
-### 6.2 Use SF Pro for everything else
+### 6.2 Mode B — Block hero-number (THE number of the screen)
+
+Simula Book at display sizes, **surface text color** (never `--ct-brand`). One dominant editorial number on a hero / scan / dashboard surface — never a tracker.
+
+| Slot | Token | Size |
+| --- | --- | --- |
+| Hero scan-result / summary number | `--ct-text-display-0-serif-*` | 120px |
+| Mid-tier editorial hero number | `--ct-text-display-1-serif-*` | 72px |
+
+**Voice test.** *Is the number a story — a summary, a milestone, the punchline the product is narrating?* → Mode B. *Or a tracker — a live KPI, chart value, or stat the user reads to monitor change?* → stay sans. Voice decides, not size.
+
+**Adjacency shortcut.** Sits next to a chart, segment control, date filter, status pill, or toggle → tracker → sans. Stands alone with a Simula or h3 caption telling its story → editorial → Mode B.
+
+| Mode B (Simula) | Sans |
+| --- | --- |
+| "you have **170 million** records protected" | KPI tile, scan %, VPN On/Off, stat row |
+| "**324** calls blocked this year" (year-end summary) | Bar / line / area chart values |
+| Editorial Home / report hero, pull-quote number | Anything paired with Stat pill / Segment / Toggle |
+
+**Cardinality.** At most one Mode B number per screen — two compete and both lose impact.
+
+### 6.3 Mode C — Inline word-highlight (one word lifted from sans)
+
+Simula Book inline within a sans sentence, **always paired with `--ct-brand`**. Simula carries the typographic shift; `--ct-brand` carries the meaning shift. Without brand, this isn't this mode.
+
+```css
+.ct-emph {
+  font-family: var(--ct-font-serif);
+  font-weight: 400;
+  font-style: normal;          /* italic is not a Cloaked axis */
+  color: var(--ct-brand);
+  /* size + line-height inherit from parent sans */
+}
+```
+
+| Rule | |
+| --- | --- |
+| Brand color always | No `--ct-brand` → not this mode |
+| Simula Book, never italic | Italic is not a Cloaked axis |
+| Inherit size from parent sans | Don't re-size the span |
+| 1–2 highlights per surface | 3+ stops reading as emphasis |
+| ≤3 words per highlight | Longer = wrong thing highlighted |
+| Inline only | Never a whole heading in Simula + brand |
+
+Define `.ct-emph` **once** in the component layer; don't inline-style swap per use. Canonical example: "170 million" inside the Footer / impact band (`components.md` §9).
+
+### 6.4 Sans (SF Pro) for everything else
 
 - All body copy, labels, captions, sublabels.
-- Section titles (`--ct-text-h3-*`, Title Case).
-- Hero numbers — `--ct-text-display-1-*` (72px), `--ct-text-display-2-*` (48px), `--ct-text-h1-*` (32px). **Even very large numbers stay sans.**
+- Section titles (`--ct-text-h3-*`, Title Case via CSS `capitalize` — see §6.7).
+- Sans hero numbers — `--ct-text-display-0-*` (120px), `--ct-text-display-1-*` (72px), `--ct-text-display-2-*` (48px), `--ct-text-h1-*` (32px). These stay sans **unless** §6.2's voice test elevates them to a `*-serif-*` display token. **Default for any tracking / data-visualization number is sans** — charts, KPIs, live counters, percentage progress, status readouts.
 - Buttons, list rows, KPI strips, status pills.
 
-### 6.3 Use SF Mono for
+### 6.5 Mono (SF Mono) for
 
-- `--ct-text-link-*` only. Small (10px) meta text — link previews, monospace tags. Not for code blocks in product UI.
+- `--ct-text-link-*` only. Small meta text — link previews, monospace tags. Not for code blocks in product UI.
 
-### 6.4 Rule of thumb
+> Drift to resolve: `tokens/typography.css` currently exports `--ct-text-link-*` as **12px sans** (`var(--ct-font-sans)`), not 10px mono. Tokens win per §1's conflict-resolution rule — fix in Figma and re-export to bring the variable into line with this scope.
 
-If unsure, sans. Simula is the rare moment, not the default. A screen with Simula in three places has lost its editorial impact — fix it by demoting two of them to SF Pro.
+### 6.6 Rule of thumb
 
-### 6.5 Section title casing
+If unsure, sans. The test is **which mode (A / B / C)**, never size or "importance." A 120px sans display is still sans if it's a tracker. A screen with Simula in three+ places has lost its editorial impact — demote most.
+
+### 6.7 Section title casing
 
 Section titles render in Title Case via CSS `text-transform: capitalize`. **Source strings must be written naturally** — `"recent locations"`, not `"RECENT LOCATIONS"` or `"Recent Locations"`. Don't hand-type the case; let CSS do it.
 

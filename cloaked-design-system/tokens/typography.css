@@ -22,12 +22,33 @@
   --ct-font-mono: ui-monospace, "SF Mono", Menlo, monospace;
   --ct-font-serif: "Simula", Georgia, serif;
 
+  /* Display 0 */
+  --ct-text-display-0-family: var(--ct-font-sans);
+  --ct-text-display-0-weight: 400;
+  --ct-text-display-0-size: 120px;
+  --ct-text-display-0-line-height: 1.05;
+  --ct-text-display-0-letter-spacing: -0.002em;
+
+  /* Display 0 Serif */
+  --ct-text-display-0-serif-family: var(--ct-font-serif);
+  --ct-text-display-0-serif-weight: 400;
+  --ct-text-display-0-serif-size: 120px;
+  --ct-text-display-0-serif-line-height: 1.05;
+  --ct-text-display-0-serif-letter-spacing: 0.005em;
+
   /* Display 1 */
   --ct-text-display-1-family: var(--ct-font-sans);
   --ct-text-display-1-weight: 400;
   --ct-text-display-1-size: 72px;
   --ct-text-display-1-line-height: 1.1;
   --ct-text-display-1-letter-spacing: -0.002em;
+
+  /* Display 1 Serif */
+  --ct-text-display-1-serif-family: var(--ct-font-serif);
+  --ct-text-display-1-serif-weight: 400;
+  --ct-text-display-1-serif-size: 72px;
+  --ct-text-display-1-serif-line-height: 1.1;
+  --ct-text-display-1-serif-letter-spacing: 0.005em;
 
   /* Display 2 */
   --ct-text-display-2-family: var(--ct-font-sans);

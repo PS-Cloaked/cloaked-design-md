@@ -13,6 +13,21 @@
 Unless otherwise stated, every component inherits the defaults below. Each component spec lists only the properties that differ.
 All tokens flip automatically with `data-theme` (light / dark).
 
+## Universal don'ts (apply to every component)
+
+These rules from `SKILL.md` apply across every component below. **Per-component "Don't" lists capture only component-specific anti-patterns or mode-specific applications of these rules** — they don't restate the rules themselves.
+
+- **Simula scope** — three sanctioned modes only: block editorial, block hero-number (editorial / story / summary, never trackers), inline word-highlight with `--ct-brand`. See `SKILL.md` §6.
+- **Weight = 400** for all type. Differentiate by size, family, color, fill, opacity — never by `font-weight`. See §2.5.
+- **No `chevron.right` on list rows.** The row is the affordance. See §9.3.
+- **No drop shadows or borders to separate sections.** Separation is the `--ct-spacing-12` cream gap. See §9.2.
+- **Category tokens (`--ct-monitoring-*` / `--ct-guard-*` / `--ct-identity-*`) are reserved for Card / Feature `automation` and the sanctioned hero / FAQ exceptions** documented per-component. Don't extend the pattern. See §9.1.
+- **No simulated iOS chrome** (`9:41`, signal / wifi / battery glyphs). The system draws those. See §9.4.
+- **No `"Loading…"` labels.** Use a status row with progress + state label. See §9.6.
+- **Don't invent components or variants** outside the closed set. Surface the request. See §7.1, §2.3.
+- **Casing** comes from CSS `text-transform: capitalize`. Source strings naturally (`"recent locations"`, not `"Recent Locations"`). See §6.7.
+- **Don't invent tokens.** Use only `--ct-*` values that already exist in `tokens/*.css`. Missing value → surface to user. See §2.1.
+
 ---
 
 ## Component schema
@@ -115,8 +130,7 @@ icon-secondary     ╭────╮          ╭──╮
 > _The `icon-secondary` outline and the icon strokes for both icon families are currently embedded in the SVG asset, not exported as Figma variables. This mirrors the Toggle knob caveat in §5 Control — for theme-aware fills, Figma must export them as variables and re-export. Until then, the rendered colors are visually consistent with `--ct-cta-secondary-container` (outline) and `--ct-cta-primary-text` / `--ct-text-primary` (icon strokes), but components must not hard-code those tokens against the asset._
 
 **Don't.**
-- Don't reach for Simula on any Button label. All variants use body (16px) or link (12px) — sans only (SKILL.md §2.4 / §6).
-- Don't bold any label. Weight is 400 across the family; differentiate `primary` / `secondary` / `tertiary` by fill, border, and color — never by weight (SKILL.md §2.5).
+- Differentiate `primary` / `secondary` / `tertiary` by fill, border, and color — never by weight.
 - Don't tint a button container with `--ct-monitoring-*`, `--ct-guard-*`, or `--ct-identity-*`. Buttons consume `--ct-cta-*` tokens only; category tokens are reserved for feature surfaces (SKILL.md §9.1).
 - Don't substitute `--ct-bkgd-*` or `--ct-status-*` for a button fill to fake a "muted" or "destructive" variant. There are four text variants and two icon variants in this spec — surface the request rather than improvising (SKILL.md §2.3).
 - Don't replace the `icon-secondary` arrow with a `chevron.right` and drop the button at the end of a list row. The list itself is the affordance there; a trailing chevron-on-row is forbidden (SKILL.md §9.3).
@@ -172,9 +186,7 @@ icon-secondary     ╭────╮          ╭──╮
 
 **Don't.**
 - Don't pair with a hairline (`--ct-divider`) above or below the band — the cream band is the separation; adding a hairline doubles the visual weight.
-- Don't use Simula for the label. Label size (12px) is outside Simula scope; per SKILL.md §2.4 / §6, Simula is reserved for page titles and FAQ headlines.
-- Don't bold the label or any other text in the slot. All weights are 400 (SKILL.md §2.5).
-- Don't replace the label with an icon, kebab menu, or chevron. The right side stays empty (SKILL.md §9.3 spirit — list-row affordance rules apply here too).
+- Don't replace the label with an icon, kebab menu, or chevron. The right side stays empty (§9.3 spirit — list-row affordance rules apply).
 - Don't shrink the band below 28px or remove the vertical padding. The rhythm of the list depends on it.
 
 **Figma.**
@@ -280,9 +292,8 @@ Stat       ╭──────────────╮
 | Label (all) | font (apply all 5 sub-tokens) | `--ct-text-link-family`, `--ct-text-link-weight`, `--ct-text-link-size`, `--ct-text-link-line-height`, `--ct-text-link-letter-spacing` |
 
 **Don't.**
-- Don't add an icon, count, or trailing element to `tag/*`. Tag is one slot — a single label, full stop. (SKILL.md §9.3 spirit — list-row affordance rules apply.)
-- Don't bold any label or counter. All weights are 400 (SKILL.md §2.5). Differentiate `success` / `on` / `alert` by color and background, never by weight.
-- Don't reach for Simula on any Label variant. Tag is 16px (body), Status `/default` and `/active` are 14px (body-small), Callout / Status `/card` / Stat are 12px (link) — all sans, all outside Simula scope (SKILL.md §2.4 / §6).
+- Don't add an icon, count, or trailing element to `tag/*`. Tag is one slot — a single label, full stop. (§9.3 spirit applies.)
+- Differentiate `success` / `on` / `alert` by color and background, never by weight.
 - Don't apply `--ct-text-ai-primary` to a Tag (or any Label) just because the Figma master references it — §5.2 restricts fixed-dark text tokens to the AI input and the FAQ band. Wait for the missing token; do not substitute by hand.
 - Don't replace the Status dot or the Stat chevron with a `chevron.right` or other navigation glyph. The leading slot is a state indicator, not an affordance (SKILL.md §9.3 spirit).
 - Don't tint `tag/*` with `--ct-monitoring-*`, `--ct-guard-*`, or `--ct-identity-*`. Category tokens are reserved for feature surfaces; Tag uses status tokens only (SKILL.md §9.1).
@@ -339,10 +350,8 @@ Stat       ╭──────────────╮
 > _Source the eyebrow string in natural case (`"what happens next"`); CSS handles uppercase. This mirrors SKILL.md §6.5's "CSS owns casing" principle — Banner eyebrow uses `uppercase` rather than `capitalize` because it's a kicker pattern, not a section title._
 
 **Don't.**
-- Don't bold the eyebrow or body. All weights are 400 (SKILL.md §2.5). Hierarchy comes from size + color, not weight.
-- Don't reach for Simula on a Banner. Eyebrow (14px) and body (16px) are both sans, both outside Simula scope (SKILL.md §2.4 / §6).
-- Don't add a trailing chevron, close X, or action button. Banner has no trailing slot — if dismissal is needed, the parent surface owns it (SKILL.md §9.3 spirit).
-- Don't drop a shadow or add a border on the container. The `--ct-banner-container` fill is the separation; cards never shadow (SKILL.md §9.2).
+- Hierarchy in Banner comes from size + color (eyebrow uppercase 14px primary, body 16px secondary), not weight.
+- Don't add a trailing chevron, close X, or action button. Banner has no trailing slot — if dismissal is needed, the parent surface owns it.
 - Don't substitute `--ct-text-primary` / `--ct-text-secondary` for Banner text. `--ct-banner-text-*` is tuned for the warm-grey container; cross-using lowers contrast.
 - Don't repurpose Banner with a status fill (e.g., `--ct-status-fail-subtle`) to fake an "alert" variant. There is no alert Banner in this spec — surface the request rather than improvising (SKILL.md §2.3).
 - Don't hand-type the eyebrow as `"WHAT HAPPENS NEXT"`. Source it naturally and let CSS uppercase it (see note above).
@@ -445,10 +454,9 @@ Segment     ╭───────╮ ╭───────╮ ╭───
 | Item label (all) | font (apply all 5 sub-tokens) | `--ct-text-link-family`, `--ct-text-link-weight`, `--ct-text-link-size`, `--ct-text-link-line-height`, `--ct-text-link-letter-spacing` |
 
 **Don't.**
-- Don't add padding-inline to Tabs items. The strip's `--ct-spacing-24` gap is the separation; the underline is the affordance (SKILL.md §9.3 spirit).
-- Don't bold any active state. Differentiate active from inactive using underline / fill / opacity, never weight (SKILL.md §2.5).
-- Don't reach for Simula on any Control label. Tabs (16px), Dropdown (14px), Segment (12px) are all sans, all outside Simula scope (SKILL.md §2.4 / §6).
-- Don't apply `--ct-color-*` primitives to Toggle. The ON track is `--ct-status-success-solid`, never `--ct-color-green-01` directly (SKILL.md §4.4).
+- Don't add padding-inline to Tabs items. The strip's `--ct-spacing-24` gap is the separation; the underline is the affordance.
+- Differentiate active from inactive using underline / fill / opacity, never weight.
+- Don't apply `--ct-color-*` primitives to Toggle. The ON track is `--ct-status-success-solid`, never `--ct-color-green-01` directly (§4.4).
 - Don't substitute `--ct-bkgd-02` for the active Segment label color. The semantically-paired text token for `--ct-cta-primary-container` is `--ct-cta-primary-text`; mismatch breaks dark-theme contrast.
 - Don't add a chevron-right or arrow to a Segment, Tab, or Toggle. The fill / underline / knob position is the affordance (SKILL.md §9.3 spirit).
 - Don't drop a shadow on Toggle, Dropdown, or Segment containers. Surfaces never shadow (SKILL.md §9.2).
@@ -696,11 +704,9 @@ action      ┌─────────────────────�
 | Action label | font (apply all 5 sub-tokens) | `--ct-text-body-family`, `--ct-text-body-weight`, `--ct-text-body-size`, `--ct-text-body-line-height`, `--ct-text-body-letter-spacing` |
 
 **Don't.**
-- Don't add a leading icon, avatar, or chevron to the title slot. Section Header has one leading slot — title only (SKILL.md §9.3 spirit).
-- Don't add a `chevron.right` or arrow after the title or trailing. The section below is the affordance; the header is not a navigation row (SKILL.md §9.3).
-- Don't reach for Simula on the title. Title is 20px H3 — sans, outside Simula scope (SKILL.md §2.4 / §6).
-- Don't bold the title or action label to differentiate variants. Variants differ by **trailing slot**, never by weight (SKILL.md §2.5).
-- Don't hand-type the title in Title Case (`"Scan History"`) or upper case (`"SCAN HISTORY"`). Source naturally and let CSS `capitalize` do the work (SKILL.md §6.5).
+- Don't add a leading icon, avatar, or chevron to the title slot. Section Header has one leading slot — title only.
+- Don't add a `chevron.right` or arrow after the title or trailing. The section below is the affordance; the header is not a navigation row.
+- Variants differ by **trailing slot**, never by weight.
 - Don't put an icon in the `action` trailing slot. Action is text-only — if a chevron is needed, the variant is `dropdown`, not `action`.
 - Don't introduce a fourth variant (e.g., `action+icon`, `link`, `more`). The three above are the closed set; surface the request rather than improvising (SKILL.md §7.1, §2.3).
 - Don't draw a hairline (`--ct-divider`) above or below the header. The row sits on the same `--ct-bkgd-02` surface as the section beneath it; separation comes from the cream gap above the section, not from a line on the header (SKILL.md §9.2).
@@ -792,10 +798,9 @@ action      ┌─────────────────────�
 | Description | overflow | single-line ellipsis |
 
 **Don't.**
-- Don't add a `chevron.right`, arrow, or any trailing affordance to a step. The shell state + connector color is the entire affordance (SKILL.md §9.3).
+- Don't add a `chevron.right`, arrow, or any trailing affordance to a step. The shell state + connector color is the entire affordance.
 - Don't draw the connector with `--ct-divider`. The connector is always `--ct-brand` (done) or `--ct-graph-background` (upcoming) — never the hairline.
-- Don't bold the title or description. All weights are 400 (SKILL.md §2.5); progression is encoded in the connector and shell, never in weight.
-- Don't reach for Simula on title or description. Title (16px body) and description (14px body-small) are both sans, both outside Simula scope (SKILL.md §2.4 / §6).
+- Progression is encoded in connector + shell, never in weight.
 - Don't tint the shell with `--ct-monitoring-*`, `--ct-guard-*`, or `--ct-identity-*`. The shell fill is `--ct-brand` (completed) or `--ct-graph-background` (current/upcoming) — category tokens are reserved for feature surfaces (SKILL.md §9.1).
 - Don't render more than one `current-middle` step in a single timeline. The "current" pointer is singular by design — two halos at once break the linear progression read.
 - Don't use `completed-first` for a non-first step, or `upcoming-last` for a non-last step. They omit one connector each; placing them mid-list breaks the visual chain.
@@ -925,7 +930,7 @@ faq           ┌─────────────────────
 - Don't extend the inline-Simula treatment from `impact` to other phrases ("170 thousand users", "join the waitlist", etc.). The slot is sanctioned for the one impact-number callout that ships with this band; new editorial Simula phrases require a Figma update first (SKILL.md §2.3, §2.4).
 - Don't substitute `--ct-bkgd-02` for the FAQ card surface or `--ct-text-primary` for the FAQ headline / Section Header title in the `faq` band. Those tokens flip with theme; the band does not. The result looks correct in dark theme and inverts to white-on-cream in light theme (SKILL.md §5.2).
 - Don't add a `chevron.right` to the `card-section` text-link or to the FAQ card. The link is the affordance on `card-section`; the trailing 48×48 icon-button on the FAQ card is the only sanctioned trailing affordance, and it carries an `arrow_right`, not a chevron (SKILL.md §9.3).
-- Don't bold the impact copy, the CTA label, the FAQ kicker, or the FAQ headline. All weights are 400 — emphasis on "170 million" comes from family change (sans → Simula) and color change (`--ct-text-primary` → `--ct-brand`), never from weight (SKILL.md §2.5).
+- Emphasis on "170 million" comes from family change (sans → Simula) and color change (`--ct-text-primary` → `--ct-brand`), never from weight.
 - Don't render the Section Header title in title case (`"Frequently Asked Questions"`) or upper case (`"FREQUENTLY ASKED QUESTIONS"`). Source the string naturally (`"frequently asked questions"`) and let the Section Header's `capitalize` rule do the work (SKILL.md §6.5).
 - Don't drop a shadow on the FAQ card or the impact CTA. Separation comes from the band background and inline padding — never from elevation (SKILL.md §9.2).
 - Don't tint the FAQ card surface with `--ct-monitoring-*`, `--ct-guard-*`, or `--ct-identity-*`. Category tokens are reserved for feature surfaces; the FAQ card sits on a neutral fixed-dark surface (SKILL.md §9.1).
@@ -1207,7 +1212,7 @@ automation    ┌─────────────────────
 **Don't.**
 - Don't reach for Simula on the Activity number, Location city, or Automation title. The 24px headline number/title is sans `--ct-text-h2-*`; Simula is reserved for the FAQ question slot only (SKILL.md §2.4 / §6).
 - Don't apply `--ct-text-h1-serif-*` (32px) to the FAQ card question. The card-scale FAQ is 24px `--ct-text-h2-serif-*`; the 32px h1-serif belongs to the band-level FAQ headline in Footer §9.
-- Don't bold any slot to differentiate variants. Variants differ by surface, anatomy, and token — never by weight (SKILL.md §2.5).
+- Variants differ by surface, anatomy, and token — never by weight.
 - Don't tint Activity, Location, or FAQ with `--ct-monitoring-*`, `--ct-guard-*`, or `--ct-identity-*`. Category container tokens belong to the Automation variant; do not extend the pattern (SKILL.md §9.1).
 - Don't invent a `--ct-newcategory-container-*` token for a fifth feature. The closed Category_TBD set governs (SKILL.md §9.1) — surface the request.
 - Don't apply `--ct-text-ai-*` to Activity, Location, or Automation. AI tokens are fixed-dark and only belong on the FAQ card (the one variant that lives on the dark FAQ band — SKILL.md §5.2).
@@ -1524,8 +1529,8 @@ list/inbox             ┌──────────────────
 | Inbox row | spec | defers to [Component 6 — List Item](#6-list-item) inbox variant |
 
 **Don't.**
-- Don't reach for Simula on any Display-2 number (KPI hero, scanning percentage, VPN On/Off, actions-taken hero). Simula is reserved for page titles and FAQ headlines (SKILL.md §2.4 / §6); even very large numbers stay sans.
-- Don't bold any title, suffix, or counter to differentiate variants. All weights are 400 (SKILL.md §2.5); variants differ by surface, layout, and visualization — never by weight.
+- Don't reach for Simula on any Display-2 number (KPI hero, scanning percentage, VPN On/Off, actions-taken hero). These are **trackers** — paired with charts, segment controls, status pills, or stat rows — so they stay sans per SKILL.md §6.2's voice test. Mode B Simula (`*-serif-*` display tokens) is reserved for editorial / story / summary numbers, not for live KPIs the user is monitoring.
+- Variants differ by surface, layout, and visualization — never by weight.
 - Don't tint any Card/Dashboard variant with `--ct-monitoring-*`, `--ct-guard-*`, or `--ct-identity-*`. Category container tokens belong to Card/Feature `automation` (SKILL.md §9.1); do not extend the pattern here.
 - Don't apply `--ct-text-ai-*` or `--ct-bkgd-ai-input` to any Card/Dashboard variant. No dashboard tile lives on a fixed-dark surface; AI tokens are restricted to the AI input and the FAQ band (SKILL.md §5.2).
 - Don't substitute `--ct-status-fail-solid` for the `list/digital-risk` risk-word color "to use a token." The Figma value (`#c90004`) is a different red than the existing fail token; per SKILL.md §2.1, wait for the missing token instead of approximating.
@@ -1857,8 +1862,8 @@ scanning/data-removal ┌──────────────────�
 > _The black surface is rendered raw in Figma — there is no `--ct-bkgd-*` token that resolves to pure `#000`. Until Figma adds a primitive that maps to pure black (or a dedicated `--ct-bkgd-scanning` token), mark the surface TBD. The variant lives on a fixed-dark surface, so the hero must be wrapped in `data-theme="dark"` for `--ct-text-primary` to flip cream._
 
 **Don't.**
-- Don't reach for Simula on the `active/*` Display-1 hero numbers (324 / 276) or any title slot. Even very large numbers stay sans (SKILL.md §2.4 / §6); Simula is reserved for page titles and FAQ headlines.
-- Don't bold any title, label, or hero number to differentiate variants. All weights are 400 (SKILL.md §2.5); patterns differ by surface, layout, and visualization — never by weight.
+- Don't reach for Simula on the `active/*` Display-1 hero numbers (324 / 276) or any title slot. Each `active/*` hero pairs the number with a chart, a Segment control, or a Status pill — that makes it a **tracker**, not a story number, so it stays sans per SKILL.md §6.2's voice test. The `*-serif-*` display tokens are reserved for editorial / scan-result / milestone heroes (e.g. a year-end summary or a Home report), not for live feature KPIs.
+- Patterns differ by surface, layout, and visualization — never by weight.
 - Don't substitute `--ct-cta-primary-container` (black) for the `intro/vpn` CTA "to use the standard token." The brand-purple CTA is the visual signature that marks this hero as VPN; `--ct-monitoring-container-02` is the only sanctioned override (SKILL.md §9.1, §9.5).
 - Don't extend the Category_TBD pattern to a new feature (e.g. `--ct-callguard-container-02`). The closed Category_TBD set governs (SKILL.md §9.1) — surface the request.
 - Don't apply `--ct-text-ai-*` or `--ct-bkgd-ai-input` to any Hero / Feature variant. AI tokens are restricted to the AI input and the FAQ band (SKILL.md §5.2); `intro/identity` and `scanning/data-removal` flip via `data-theme="dark"`, not via AI tokens.
@@ -1959,7 +1964,7 @@ scanning/data-removal ┌──────────────────�
 **Don't.**
 - Don't use Simula on the AI notification labels ("Block spam calls" / "Peace in 30 seconds") or any slot other than the headline. The notification labels are body 16px sans; per SKILL.md §2.4 / §6, Simula is the editorial moment and must stay scoped to the Kit headline here.
 - Don't extend the Simula headline to a third or fourth slot inside the hero "to match the editorial voice." One Simula moment per hero — adding a second kills the contrast it exists to create (SKILL.md §6.4).
-- Don't bold the headline, primary label, or secondary label to differentiate hierarchy. All weights are 400 (SKILL.md §2.5); hierarchy comes from family (Simula vs SF Pro) and color (`--ct-text-primary` vs `--ct-text-secondary` vs the raw `0.7` opacity on primary).
+- Hierarchy comes from family (Simula vs SF Pro) and color (`--ct-text-primary` vs `--ct-text-secondary` vs the raw `0.7` opacity on primary), never weight.
 - Don't render this hero under `data-theme="light"` and hard-code dark hex values to compensate. The hero must sit in `data-theme="dark"` so `--ct-bkgd-02` and `--ct-text-*` flip naturally (SKILL.md §5.1, §5.4).
 - Don't tokenize the primary-label `opacity: 0.7` as `--ct-opacity-disabled`. The only sanctioned opacity token is 0.3 (disabled state); `0.7` here is illustration / Figma raw, not chrome (SKILL.md §4.3).
 - Don't tokenize the backdrop-blur tint (`rgba(255, 255, 255, 0.04)`) as `--ct-color-white-05` or any `--ct-bkgd-*` token. It's a raw illustration value tuned against the orange blob behind it — see SKILL.md §2.1 / §4.4.
@@ -2035,7 +2040,7 @@ scanning/data-removal ┌──────────────────�
 **Don't.**
 - Don't reach for Simula on either label. Both the primary recommendation and the secondary tagline are body 16px sans; per SKILL.md §2.4 / §6, Simula stays scoped to page titles and FAQ headlines — and this hero has no Simula slot at all (contrast with §14, which uses Simula exactly once).
 - Don't add a Simula headline above the card "to match §14." The absence of a headline is the whole point of this variant — it's the no-headline sibling. If a headline is needed, reach for §14 Hero / Kit Briefing instead (SKILL.md §6.4, §7.1).
-- Don't bold the primary or secondary label to differentiate hierarchy. All weights are 400 (SKILL.md §2.5); hierarchy comes from color (`--ct-text-primary` vs `--ct-text-secondary`) and the raw `0.7` opacity on the primary line.
+- Hierarchy comes from color (`--ct-text-primary` vs `--ct-text-secondary`) and the raw `0.7` opacity on the primary line, never weight.
 - Don't tokenize the primary-label `opacity: 0.7` as `--ct-opacity-disabled`. The only sanctioned opacity token is 0.3 (disabled state); `0.7` here is illustration / Figma raw, not chrome (SKILL.md §4.3).
 - Don't apply `--ct-text-ai-*` to either label. Figma exports `--ct-text-primary` / `--ct-text-secondary` here (mirroring §14); the cream resolution comes from wrapping the card in local `data-theme="dark"`, not from the AI text family. AI text tokens are reserved for the AI input field surface (SKILL.md §5.2).
 - Don't render the card directly on a `data-theme="light"` surface without a local `data-theme="dark"` wrapper. Without it, `--ct-text-primary` resolves near-black on the fixed-dark card and the labels disappear (SKILL.md §5.1, §5.4).
