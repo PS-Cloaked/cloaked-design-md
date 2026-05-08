@@ -5,3 +5,6 @@ _temp/
 
 # Claude Code project-local state (permissions, cache)
 .claude/
+
+# Licensed fonts — kept locally, not redistributed
+cloaked-design-system/fonts/
