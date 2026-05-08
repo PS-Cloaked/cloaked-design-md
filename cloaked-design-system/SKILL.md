@@ -192,7 +192,9 @@ Most semantic tokens flip between light and dark. Two groups **do not flip** —
 | AI surface text | `--ct-text-ai-primary`, `--ct-text-ai-secondary` | Always sits on a dark surface (AI input field, FAQ band) |
 | AI input background | `--ct-bkgd-ai-input` | The AI input is **always** dark, even in light theme |
 
-**Rule.** Don't apply `--ct-text-ai-*` or `--ct-bkgd-ai-input` to a surface that is not the AI input or the dark FAQ band. They will look correct in dark theme and broken in light theme — the tokens are doing their job; you put them in the wrong place.
+**Rule (don't).** Don't apply `--ct-text-ai-*` or `--ct-bkgd-ai-input` to a surface that is not the AI input or the dark FAQ band. They will look correct in dark theme and broken in light theme — the tokens are doing their job; you put them in the wrong place.
+
+**Rule (do — FAQ cards).** FAQ cards (Footer §9 `faq` variant in `components.md`) **must** use AI text tokens for every text slot — `--ct-text-ai-primary` for headlines, `--ct-text-ai-secondary` where a quieter secondary line is needed. The card surface is fixed-dark (raw `#1B1B18` per `components.md` §9 — TBD `--ct-bkgd-ai-02`), so theme-flipping tokens (`--ct-text-primary`) render dark-on-dark in light theme. Frame the FAQ card as an AI-voice atom: brand kicker (`--ct-brand`) + Simula headline in `--ct-text-ai-primary` + arrow_right icon-button. If you find yourself reaching for `--ct-text-primary` on an FAQ card, you have the wrong token.
 
 ### 5.3 Light vs dark — surface mapping
 
@@ -340,12 +342,15 @@ These nine tokens are currently raw hex in `tokens/themes.css` because they are 
 
 **Rule.** Reference these by token name, not by hex. They are a known TBD — eventually they'll be wired to primitives. **Do not** invent new category tokens, do not extend the pattern (`--ct-newcategory-*`), do not write the raw hex. If a fourth category is needed, stop and ask.
 
-### 9.2 Layout — separation comes from the cream gap, not lines
+### 9.2 Layout — separation comes from the cream hairline, not lines
 
 - ❌ No drop shadows on cards.
 - ❌ No borders or rounded outlines to separate sections.
 - ❌ No cream above the page header — the header sits on the same white surface as the first section beneath it.
-- ✅ Sections separate with `--ct-spacing-12` gap of `--ct-bkgd-01` (cream) between them.
+- ✅ Sections separate with a **`1px`** gap of `--ct-bkgd-01` (cream) between them. Just enough to register as a boundary; not a band.
+- ❌ Don't use `--ct-spacing-12` (or any other token-scale gap) for inter-section separation. The previous spec called for 12px and produced over-weighted screens whenever a flow stacked many short modules — every short banner read as its own labelled island. The 1px hairline keeps modules close enough to read as one document; widening any specific seam is a per-screen call you must surface.
+
+> _Note: this rule supersedes the older `--ct-spacing-12` cream-gap pattern. References elsewhere in the system that mention "12px cream gap between page sections" are stale and should be read as 1px until they are updated. There is no `--ct-spacing-1` token — write `1px` raw (memory: missing-spacing-tokens rule)._
 
 ### 9.3 List rows
 
