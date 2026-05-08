@@ -435,7 +435,9 @@ Segment     ╭───────╮ ╭───────╮ ╭───
 - Title: `var(--ct-text-body-*)` + `--ct-text-primary`, single-line ellipsis
 - Meta: `var(--ct-text-body-small-*)` + `--ct-text-secondary`, single-line ellipsis
 - Trailing: optional, variant-dependent (see Trailing slot section below)
-- Divider: 0.5pt hairline at bottom, `--ct-divider`. The row owns its own divider — do not draw it externally. Inset behavior depends on Mode A vs Mode B (see *Composition — modes × containers* below).
+- Divider: 0.5pt `--ct-divider` at row bottom. Row owns its own divider — never drawn externally.
+  - **Tappable → full-bleed** (Mode A, default). Hairline reaches container edges. Put horizontal padding on the row, not the parent.
+  - **Read-only → inset** (Mode B). Hairline inset by `--ct-spacing-20`. See *Composition — modes × containers*.
 
 **Anatomy — Class B (Nested).**
 
@@ -536,7 +538,7 @@ Activities answers *what happened*. Detail answers *who/where*. Meta fills in th
 - Avatar: 40×40 (`--ct-spacing-40`)
 - Avatar ↔ Body gap: `--ct-spacing-12`
 - Body ↔ Trailing gap: `--ct-spacing-8` (default), or fixed-width split
-- Title ↔ Meta gap: `--ct-spacing-8`
+- Title ↔ Meta gap: `0` (flush — meta sits directly below title with no gap; line-height alone provides separation. No `--ct-spacing-*` token matches; written as raw `0`.)
 
 **Tokens.**
 - Background: `--ct-bkgd-02`
