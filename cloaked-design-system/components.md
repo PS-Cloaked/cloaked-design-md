@@ -13,6 +13,8 @@
 Unless otherwise stated, every component inherits the defaults below. Each component spec lists only the properties that differ.
 All tokens flip automatically with `data-theme` (light / dark).
 
+> **Font shorthand.** When the Tokens table shows `font (apply all 5) | --ct-text-<style>-*`, apply **all five** sub-tokens of that style: `-family`, `-weight`, `-size`, `-line-height`, `-letter-spacing`. Never cherry-pick. (See SKILL.md §4.2.)
+
 ---
 
 ## Component schema
@@ -102,8 +104,8 @@ icon-secondary     ╭────╮          ╭──╮
 | Label (`text/primary`) | color | `--ct-cta-primary-text` |
 | Label (`text/secondary`) | color | `--ct-cta-secondary-text` |
 | Label (`text/tertiary`, `text/link`) | color | `--ct-text-primary` |
-| Label (`text/primary`, `text/secondary`, `text/tertiary`) | font (apply all 5 sub-tokens) | `--ct-text-body-family`, `--ct-text-body-weight`, `--ct-text-body-size`, `--ct-text-body-line-height`, `--ct-text-body-letter-spacing` |
-| Label (`text/link`) | font (apply all 5 sub-tokens) | `--ct-text-link-family`, `--ct-text-link-weight`, `--ct-text-link-size`, `--ct-text-link-line-height`, `--ct-text-link-letter-spacing` |
+| Label (`text/primary`, `text/secondary`, `text/tertiary`) | font (apply all 5) | `--ct-text-body-*` |
+| Label (`text/link`) | font (apply all 5) | `--ct-text-link-*` |
 
 *Icon variants*
 
@@ -123,13 +125,7 @@ icon-secondary     ╭────╮          ╭──╮
 - Don't repurpose `text/link` as a body-inline anchor inside a paragraph. It's a discrete button atom (12px, primary text, no underline), not an `<a>` inside prose.
 - Don't pair `icon-primary` with a sibling text label outside the button. If the action needs words, choose `text/primary` instead — icon-primary is icon-only by design.
 
-**Figma.**
-- Page node: `16053:7930`
-- Text masters: `16031:7864` (primary), `16031:7866` (secondary), `16196:2699` (tertiary), `16960:10527` (link)
-- Icon-primary masters: `16935:9348` (default), `16960:10477` (small)
-- Icon-secondary masters: `16054:8098` (large), `16078:12091` (small)
-- File: Playlist — Toolkit
-- Link: https://www.figma.com/design/k0n0CNGfk4ie9Vb74byl9v/Playlist-%E2%80%94-Toolkit?node-id=16053-7930
+**Figma.** [Playlist — Toolkit](https://www.figma.com/design/k0n0CNGfk4ie9Vb74byl9v/Playlist-%E2%80%94-Toolkit?node-id=16053-7930) · Page `16053:7930` · Variant masters: text/primary `16031:7864`, text/secondary `16031:7866`, text/tertiary `16196:2699`, text/link `16960:10527`, icon-primary/default `16935:9348`, icon-primary/small `16960:10477`, icon-secondary/large `16054:8098`, icon-secondary/small `16078:12091`
 
 ### 2. Divider
 
@@ -165,17 +161,14 @@ icon-secondary     ╭────╮          ╭──╮
 | Container | padding-inline | `--ct-spacing-20` |
 | Container | padding-block | `--ct-spacing-8` |
 | Label | color | `--ct-text-primary` |
-| Label | font (apply all 5 sub-tokens) | `--ct-text-link-family`, `--ct-text-link-weight`, `--ct-text-link-size`, `--ct-text-link-line-height`, `--ct-text-link-letter-spacing` |
+| Label | font (apply all 5) | `--ct-text-link-*` |
 
 **Don't.**
 - Don't pair with a hairline (`--ct-divider`) above or below the band — the cream band is the separation; adding a hairline doubles the visual weight.
 - Don't replace the label with an icon, kebab menu, or chevron. The right side stays empty (SKILL.md §9.3 spirit — list-row affordance rules apply here too).
 - Don't shrink the band below 28px or remove the vertical padding. The rhythm of the list depends on it.
 
-**Figma.**
-- Master component node: `15978:2923`
-- File: Playlist — Toolkit
-- Link: https://www.figma.com/design/k0n0CNGfk4ie9Vb74byl9v/Playlist-%E2%80%94-Toolkit?node-id=15978-2923
+**Figma.** [Playlist — Toolkit](https://www.figma.com/design/k0n0CNGfk4ie9Vb74byl9v/Playlist-%E2%80%94-Toolkit?node-id=15978-2923) · Master component `15978:2923`
 
 ### 3. Label
 
@@ -241,7 +234,7 @@ Stat       ╭──────────────╮
 | Label (`tag/success`) | color | `--ct-status-success-solid` |
 | Label (`tag/on`) | color | _TBD_ |
 | Label (`tag/alert`) | color | _TBD_ |
-| Label (all) | font (apply all 5 sub-tokens) | `--ct-text-body-family`, `--ct-text-body-weight`, `--ct-text-body-size`, `--ct-text-body-line-height`, `--ct-text-body-letter-spacing` |
+| Label (all) | font (apply all 5) | `--ct-text-body-*` |
 
 > _`tag/on` and `tag/alert` label colors have no fitting token in the current system. The closest visual fit, `--ct-text-ai-primary`, is restricted by SKILL.md §5.2 to AI surfaces only. Add a fixed-cream-on-status-solid token in Figma and re-export before resolving these slots._
 
@@ -251,7 +244,7 @@ Stat       ╭──────────────╮
 | --- | --- | --- |
 | Container | background | `--ct-bkgd-01` |
 | Label | color | `--ct-text-primary` |
-| Label | font (apply all 5 sub-tokens) | `--ct-text-link-family`, `--ct-text-link-weight`, `--ct-text-link-size`, `--ct-text-link-line-height`, `--ct-text-link-letter-spacing` |
+| Label | font (apply all 5) | `--ct-text-link-*` |
 
 *Status*
 
@@ -261,8 +254,8 @@ Stat       ╭──────────────╮
 | Container (`/active`) | background | `--ct-divider` |
 | Dot | fill | `--ct-text-primary` |
 | Label | color | `--ct-text-primary` |
-| Label (`/card`) | font (apply all 5 sub-tokens) | `--ct-text-link-family`, `--ct-text-link-weight`, `--ct-text-link-size`, `--ct-text-link-line-height`, `--ct-text-link-letter-spacing` |
-| Label (`/default`, `/active`) | font (apply all 5 sub-tokens) | `--ct-text-body-small-family`, `--ct-text-body-small-weight`, `--ct-text-body-small-size`, `--ct-text-body-small-line-height`, `--ct-text-body-small-letter-spacing` |
+| Label (`/card`) | font (apply all 5) | `--ct-text-link-*` |
+| Label (`/default`, `/active`) | font (apply all 5) | `--ct-text-body-small-*` |
 
 *Stat*
 
@@ -272,21 +265,14 @@ Stat       ╭──────────────╮
 | Container (`stat/down`) | background | `--ct-status-fail-subtle` |
 | Chevron + Label (`stat/up`) | color | `--ct-status-success-solid` |
 | Chevron + Label (`stat/down`) | color | `--ct-status-fail-solid` |
-| Label (all) | font (apply all 5 sub-tokens) | `--ct-text-link-family`, `--ct-text-link-weight`, `--ct-text-link-size`, `--ct-text-link-line-height`, `--ct-text-link-letter-spacing` |
+| Label (all) | font (apply all 5) | `--ct-text-link-*` |
 
 **Don't.**
 - Don't add an icon, count, or trailing element to `tag/*`. Tag is one slot — a single label, full stop. (SKILL.md §9.3 spirit — list-row affordance rules apply.)
 - Don't replace the Status dot or the Stat chevron with a `chevron.right` or other navigation glyph. The leading slot is a state indicator, not an affordance (SKILL.md §9.3 spirit).
 - Don't shrink Tag / Stat below `--ct-spacing-32` height, or remove their inline padding. The 32px row keeps Label aligned with the rest of the system's inline rhythm.
 
-**Figma.**
-- Page node: `16082:15637`
-- Tag masters: `16015:3815` (default), `16084:18864` (success), `16084:18884` (on), `16015:3814` (alert)
-- Callout master: `16910:7736`
-- Status masters: `16608:7532` (card), `16169:2623` (default), `16169:2618` (active)
-- Stat masters: `17384:8700` (up), `17384:8699` (down)
-- File: Playlist — Toolkit
-- Link: https://www.figma.com/design/k0n0CNGfk4ie9Vb74byl9v/Playlist-%E2%80%94-Toolkit?node-id=16082-15637
+**Figma.** [Playlist — Toolkit](https://www.figma.com/design/k0n0CNGfk4ie9Vb74byl9v/Playlist-%E2%80%94-Toolkit?node-id=16082-15637) · Page `16082:15637` · Variant masters: tag/default `16015:3815`, tag/success `16084:18864`, tag/on `16084:18884`, tag/alert `16015:3814`, callout `16910:7736`, status/card `16608:7532`, status/default `16169:2623`, status/active `16169:2618`, stat/up `17384:8700`, stat/down `17384:8699`
 
 ### 4. Banner
 
@@ -323,9 +309,9 @@ Stat       ╭──────────────╮
 | Container | background | `--ct-banner-container` |
 | Eyebrow | color | `--ct-banner-text-primary` |
 | Eyebrow | text-transform | `uppercase` |
-| Eyebrow | font (apply all 5 sub-tokens) | `--ct-text-body-small-family`, `--ct-text-body-small-weight`, `--ct-text-body-small-size`, `--ct-text-body-small-line-height`, `--ct-text-body-small-letter-spacing` |
+| Eyebrow | font (apply all 5) | `--ct-text-body-small-*` |
 | Body | color | `--ct-banner-text-secondary` |
-| Body | font (apply all 5 sub-tokens) | `--ct-text-body-family`, `--ct-text-body-weight`, `--ct-text-body-size`, `--ct-text-body-line-height`, `--ct-text-body-letter-spacing` |
+| Body | font (apply all 5) | `--ct-text-body-*` |
 
 > _Source the eyebrow string in natural case (`"what happens next"`); CSS handles uppercase. This mirrors SKILL.md §6.5's "CSS owns casing" principle — Banner eyebrow uses `uppercase` rather than `capitalize` because it's a kicker pattern, not a section title._
 
@@ -335,11 +321,7 @@ Stat       ╭──────────────╮
 - Don't repurpose Banner with a status fill (e.g., `--ct-status-fail-subtle`) to fake an "alert" variant. There is no alert Banner in this spec — surface the request rather than improvising (SKILL.md §2.3).
 - Don't hand-type the eyebrow as `"WHAT HAPPENS NEXT"`. Source it naturally and let CSS uppercase it (see note above).
 
-**Figma.**
-- Master component node: `16061:8388`
-- Page node: `16953:9417`
-- File: Playlist — Toolkit
-- Link: https://www.figma.com/design/k0n0CNGfk4ie9Vb74byl9v/Playlist-%E2%80%94-Toolkit?node-id=16953-9417
+**Figma.** [Playlist — Toolkit](https://www.figma.com/design/k0n0CNGfk4ie9Vb74byl9v/Playlist-%E2%80%94-Toolkit?node-id=16953-9417) · Page `16953:9417` · Variant masters: info `16061:8388`
 
 ### 5. Control
 
@@ -400,7 +382,7 @@ Segment     ╭───────╮ ╭───────╮ ╭───
 | Strip | backdrop-filter | `blur(16px)` (no token — pending) |
 | Strip | border-bottom | `1px solid --ct-divider` |
 | Item label | color | `--ct-text-primary` |
-| Item label | font (apply all 5 sub-tokens) | `--ct-text-body-family`, `--ct-text-body-weight`, `--ct-text-body-size`, `--ct-text-body-line-height`, `--ct-text-body-letter-spacing` |
+| Item label | font (apply all 5) | `--ct-text-body-*` |
 | Item (`tabs/active`) | border-bottom | `1px solid --ct-cta-primary-container` |
 | Item (`tabs/inactive`) | opacity | `--ct-opacity-disabled` |
 
@@ -418,7 +400,7 @@ Segment     ╭───────╮ ╭───────╮ ╭───
 | --- | --- | --- |
 | Container | background | `--ct-bkgd-01` |
 | Label | color | `--ct-text-primary` |
-| Label | font (apply all 5 sub-tokens) | `--ct-text-body-small-family`, `--ct-text-body-small-weight`, `--ct-text-body-small-size`, `--ct-text-body-small-line-height`, `--ct-text-body-small-letter-spacing` |
+| Label | font (apply all 5) | `--ct-text-body-small-*` |
 | Chevron | color | inherits from `--ct-text-primary` |
 
 *Segment*
@@ -430,23 +412,14 @@ Segment     ╭───────╮ ╭───────╮ ╭───
 | Item (`segment/inactive`) | border | `1px solid --ct-cta-secondary-container` |
 | Item (`segment/inactive`) | background | `transparent` |
 | Item (`segment/inactive`) label | color | `--ct-text-primary` |
-| Item label (all) | font (apply all 5 sub-tokens) | `--ct-text-link-family`, `--ct-text-link-weight`, `--ct-text-link-size`, `--ct-text-link-line-height`, `--ct-text-link-letter-spacing` |
+| Item label (all) | font (apply all 5) | `--ct-text-link-*` |
 
 **Don't.**
 - Don't add padding-inline to Tabs items. The strip's `--ct-spacing-24` gap is the separation; the underline is the affordance (SKILL.md §9.3 spirit).
 - Don't substitute `--ct-bkgd-02` for the active Segment label color. The semantically-paired text token for `--ct-cta-primary-container` is `--ct-cta-primary-text`; mismatch breaks dark-theme contrast.
 - Don't add a chevron-right or arrow to a Segment, Tab, or Toggle. The fill / underline / knob position is the affordance (SKILL.md §9.3 spirit).
 
-**Figma.**
-- Page node: `16022:7383`
-- Tabs item: `16022:7486`
-- Tabs strip: `16022:7491` (3-tap), `16022:7499` (5-tap). Master is named "Taps" in Figma — likely a typo for "Tabs".
-- Toggle: `16031:7853` (on), `16031:7854` (off)
-- Dropdown: `16767:13472` (collapsed), `16767:13477` (expanded)
-- Segment item: `16054:8063` (active), `16960:10261` and `16960:10262` (inactive)
-- Segment strip: `16960:10273`
-- File: Playlist — Toolkit
-- Link: https://www.figma.com/design/k0n0CNGfk4ie9Vb74byl9v/Playlist-%E2%80%94-Toolkit?node-id=16022-7383
+**Figma.** [Playlist — Toolkit](https://www.figma.com/design/k0n0CNGfk4ie9Vb74byl9v/Playlist-%E2%80%94-Toolkit?node-id=16022-7383) · Page `16022:7383` · Variant masters: tabs/item `16022:7486`, tabs/strip-3-tap `16022:7491`, tabs/strip-5-tap `16022:7499` (master named "Taps" in Figma — likely typo for "Tabs"), toggle/on `16031:7853`, toggle/off `16031:7854`, dropdown/collapsed `16767:13472`, dropdown/expanded `16767:13477`, segment/item-active `16054:8063`, segment/item-inactive `16960:10261` and `16960:10262`, segment/strip `16960:10273`
 
 ### 6. List Item
 
@@ -664,7 +637,7 @@ action      ┌─────────────────────�
 | --- | --- | --- |
 | Title | color | `--ct-text-primary` |
 | Title | text-transform | `capitalize` |
-| Title | font (apply all 5 sub-tokens) | `--ct-text-h3-family`, `--ct-text-h3-weight`, `--ct-text-h3-size`, `--ct-text-h3-line-height`, `--ct-text-h3-letter-spacing` |
+| Title | font (apply all 5) | `--ct-text-h3-*` |
 
 > _Source the title string in natural case (`"scan history"`); CSS handles the capitalization (SKILL.md §6.5). Figma renders the title at line-height 1 / letter-spacing 0.1px, while `--ct-text-h3-*` is line-height 1.15 / letter-spacing -0.003em — known token-export drift; reference the H3 token as the only 20px sans token, and resolve the drift in Figma._
 
@@ -675,7 +648,7 @@ action      ┌─────────────────────�
 | Slot | Property | Token |
 | --- | --- | --- |
 | Action label | color | `--ct-text-primary` |
-| Action label | font (apply all 5 sub-tokens) | `--ct-text-body-family`, `--ct-text-body-weight`, `--ct-text-body-size`, `--ct-text-body-line-height`, `--ct-text-body-letter-spacing` |
+| Action label | font (apply all 5) | `--ct-text-body-*` |
 
 **Don't.**
 - Don't add a leading icon, avatar, or chevron to the title slot. Section Header has one leading slot — title only (SKILL.md §9.3 spirit).
@@ -684,11 +657,7 @@ action      ┌─────────────────────�
 - Don't draw a hairline (`--ct-divider`) above or below the header. The row sits on the same `--ct-bkgd-02` surface as the section beneath it; separation comes from the cream gap above the section, not from a line on the header (SKILL.md §9.2).
 - Don't substitute `--ct-bkgd-01` for the container background. The header shares the white sheet with the rows it labels — a cream container would re-introduce the band-style separation the system avoids.
 
-**Figma.**
-- Master component node: `16206:3359`
-- Variants: `17492:13415` (default), `17826:13427` (dropdown — chip `17826:13429`), `17826:13433` (action — label `17826:13450`)
-- File: Playlist — Toolkit
-- Link: https://www.figma.com/design/k0n0CNGfk4ie9Vb74byl9v/Playlist-%E2%80%94-Toolkit?node-id=16206-3359
+**Figma.** [Playlist — Toolkit](https://www.figma.com/design/k0n0CNGfk4ie9Vb74byl9v/Playlist-%E2%80%94-Toolkit?node-id=16206-3359) · Master component `16206:3359` · Variant masters: default `17492:13415`, dropdown `17826:13427` (chip `17826:13429`), action `17826:13433` (label `17826:13450`)
 
 ### 8. Timeline
 
@@ -763,10 +732,10 @@ action      ┌─────────────────────�
 | Slot | Property | Token |
 | --- | --- | --- |
 | Title | color | `--ct-text-primary` |
-| Title | font (apply all 5 sub-tokens) | `--ct-text-body-family`, `--ct-text-body-weight`, `--ct-text-body-size`, `--ct-text-body-line-height`, `--ct-text-body-letter-spacing` |
+| Title | font (apply all 5) | `--ct-text-body-*` |
 | Title | overflow | single-line ellipsis |
 | Description | color | `--ct-text-secondary` |
-| Description | font (apply all 5 sub-tokens) | `--ct-text-body-small-family`, `--ct-text-body-small-weight`, `--ct-text-body-small-size`, `--ct-text-body-small-line-height`, `--ct-text-body-small-letter-spacing` |
+| Description | font (apply all 5) | `--ct-text-body-small-*` |
 | Description | overflow | single-line ellipsis |
 
 **Don't.**
@@ -775,11 +744,7 @@ action      ┌─────────────────────�
 - Don't use `completed-first` for a non-first step, or `upcoming-last` for a non-last step. They omit one connector each; placing them mid-list breaks the visual chain.
 - Don't put a check icon on a `current-*` or `upcoming-*` step, or a timer / feature icon on a `completed-*` step. Icon ↔ state is paired 1:1.
 
-**Figma.**
-- Page node: `17651:5332`
-- Step masters: `17612:3213` (completed-first), `17612:3249` (completed-middle), `17612:3212` (current-middle), `17612:3211` (upcoming-middle), `17612:3227` (upcoming-last)
-- File: Playlist — Toolkit
-- Link: https://www.figma.com/design/k0n0CNGfk4ie9Vb74byl9v/Playlist-%E2%80%94-Toolkit?node-id=17651-5332
+**Figma.** [Playlist — Toolkit](https://www.figma.com/design/k0n0CNGfk4ie9Vb74byl9v/Playlist-%E2%80%94-Toolkit?node-id=17651-5332) · Page `17651:5332` · Variant masters: completed-first `17612:3213`, completed-middle `17612:3249`, current-middle `17612:3212`, upcoming-middle `17612:3211`, upcoming-last `17612:3227`
 
 ### 9. Footer
 
@@ -854,7 +819,7 @@ faq           ┌─────────────────────
 | --- | --- | --- |
 | Container | top border | `--ct-divider` |
 | Text link | color | `--ct-text-primary` |
-| Text link | font (apply all 5 sub-tokens) | `--ct-text-link-family`, `--ct-text-link-weight`, `--ct-text-link-size`, `--ct-text-link-line-height`, `--ct-text-link-letter-spacing` |
+| Text link | font (apply all 5) | `--ct-text-link-*` |
 
 *`impact`*
 
@@ -863,14 +828,14 @@ faq           ┌─────────────────────
 | Container | background | `--ct-bkgd-01` |
 | Copy line 1 / line 3 (sans) | color | `--ct-text-primary` |
 | Copy line 1 / line 3 (sans) | text-transform | `capitalize` |
-| Copy line 1 / line 3 (sans) | font (apply all 5 sub-tokens) | `--ct-text-h3-family`, `--ct-text-h3-weight`, `--ct-text-h3-size`, `--ct-text-h3-line-height`, `--ct-text-h3-letter-spacing` |
+| Copy line 1 / line 3 (sans) | font (apply all 5) | `--ct-text-h3-*` |
 | Copy "have removed" (sans, inline on line 2) | color | `--ct-text-primary` |
-| Copy "have removed" (sans, inline on line 2) | font (apply all 5 sub-tokens) | `--ct-text-h3-family`, `--ct-text-h3-weight`, `--ct-text-h3-size`, `--ct-text-h3-line-height`, `--ct-text-h3-letter-spacing` |
+| Copy "have removed" (sans, inline on line 2) | font (apply all 5) | `--ct-text-h3-*` |
 | Copy "170 million" (Simula, inline on line 2) | color | `--ct-brand` |
-| Copy "170 million" (Simula, inline on line 2) | font (apply all 5 sub-tokens) | `--ct-text-h2-serif-family`, `--ct-text-h2-serif-weight`, `--ct-text-h2-serif-size`, `--ct-text-h2-serif-line-height`, `--ct-text-h2-serif-letter-spacing` |
+| Copy "170 million" (Simula, inline on line 2) | font (apply all 5) | `--ct-text-h2-serif-*` |
 | CTA container | background | `--ct-cta-secondary-container` |
 | CTA label | color | `--ct-cta-secondary-text` |
-| CTA label | font (apply all 5 sub-tokens) | `--ct-text-body-family`, `--ct-text-body-weight`, `--ct-text-body-size`, `--ct-text-body-line-height`, `--ct-text-body-letter-spacing` |
+| CTA label | font (apply all 5) | `--ct-text-body-*` |
 
 > _The inline Simula on "170 million" is the **only** sanctioned editorial inline-Simula slot in the system. SKILL.md §2.4 / §6 limits Simula to page titles and FAQ headlines; this slot is an explicit exception ratified by the Figma master to render the impact band as designed. Don't extend the pattern to other inline phrases (see Don't)._
 
@@ -884,9 +849,9 @@ faq           ┌─────────────────────
 | FAQ card | background | fixed-dark surface — no token yet; raw `#1B1B18` (= `--ct-color-grey-04` value). The card sits on the fixed-dark band via `--ct-bkgd-ai-input`, so it cannot use `--ct-bkgd-02` (which flips). Add a `--ct-bkgd-ai-02` token in Figma and re-spec when it lands. |
 | FAQ card | border-radius | `--ct-spacing-20` |
 | FAQ card kicker | color | `--ct-brand` |
-| FAQ card kicker | font (apply all 5 sub-tokens) | `--ct-text-body-small-family`, `--ct-text-body-small-weight`, `--ct-text-body-small-size`, `--ct-text-body-small-line-height`, `--ct-text-body-small-letter-spacing` |
+| FAQ card kicker | font (apply all 5) | `--ct-text-body-small-*` |
 | FAQ card headline | color | `--ct-text-ai-primary` |
-| FAQ card headline | font (apply all 5 sub-tokens) | `--ct-text-h2-serif-family`, `--ct-text-h2-serif-weight`, `--ct-text-h2-serif-size`, `--ct-text-h2-serif-line-height`, `--ct-text-h2-serif-letter-spacing` |
+| FAQ card headline | font (apply all 5) | `--ct-text-h2-serif-*` |
 
 > _FAQ headline renders at `--ct-text-h2-serif-*` (24px) per the Figma master, not `--ct-text-h1-serif-*` (32px) as SKILL.md §6.1 currently states — known SKILL.md drift; resolve in a follow-up edit to SKILL.md, not by changing this table or the Figma spec._
 >
@@ -900,11 +865,7 @@ faq           ┌─────────────────────
 - Don't render the Section Header title in title case (`"Frequently Asked Questions"`) or upper case (`"FREQUENTLY ASKED QUESTIONS"`). Source the string naturally (`"frequently asked questions"`) and let the Section Header's `capitalize` rule do the work (SKILL.md §6.5).
 - Don't replace the `impact` CTA pill with a primary CTA, a text link, or an icon button. The variant ships with `--ct-cta-secondary-container` for a reason — the pill sits on `--ct-bkgd-01`, where a primary container (`--ct-cta-primary-container` = near-black) would over-weight the band against the editorial copy.
 
-**Figma.**
-- Page node: `17826:13511`
-- Variant nodes: `16053:8037` (`card-section`), `16196:2887` (`impact`), `17826:15487` (`faq`)
-- File: Playlist — Toolkit
-- Link: https://www.figma.com/design/k0n0CNGfk4ie9Vb74byl9v/Playlist-%E2%80%94-Toolkit?node-id=17826-13511
+**Figma.** [Playlist — Toolkit](https://www.figma.com/design/k0n0CNGfk4ie9Vb74byl9v/Playlist-%E2%80%94-Toolkit?node-id=17826-13511) · Page `17826:13511` · Variant masters: card-section `16053:8037`, impact `16196:2887`, faq `17826:15487`
 
 ### 10. Navigation
 
@@ -990,9 +951,9 @@ top_bar / home    ┌───────────────────�
 | Container | padding-inline | `--ct-spacing-16` |
 | Container | gap | `--ct-spacing-16` |
 | Title (`page`) | color | `--ct-text-primary` |
-| Title (`page`) | font (apply all 5 sub-tokens) | `--ct-text-h2-serif-family`, `--ct-text-h2-serif-weight`, `--ct-text-h2-serif-size`, `--ct-text-h2-serif-line-height`, `--ct-text-h2-serif-letter-spacing` |
+| Title (`page`) | font (apply all 5) | `--ct-text-h2-serif-*` |
 | Trailing (`home`) | color | `--ct-text-primary` |
-| Trailing (`home`) | font (apply all 5 sub-tokens) | `--ct-text-body-family`, `--ct-text-body-weight`, `--ct-text-body-size`, `--ct-text-body-line-height`, `--ct-text-body-letter-spacing` |
+| Trailing (`home`) | font (apply all 5) | `--ct-text-body-*` |
 
 > _Source the page title naturally (`"Activities"`) — `--ct-text-h2-serif-*` does not apply a `text-transform`; the title is rendered as-typed. This is the **page-title slot** sanctioned for Simula in SKILL.md §6.1; do not extend Simula to the `home` Profile label._
 >
@@ -1008,13 +969,7 @@ top_bar / home    ┌───────────────────�
 - Don't introduce a fourth Navigation family member (e.g., `sidebar`, `drawer`, `tabstrip`). The three above are the closed set; `tabstrip` already lives in [Component 5 — Control](#5-control) as `tabs/*` (SKILL.md §7.1, §2.3).
 - Don't repurpose `top_bar/home` as a "trailing-only page" template for non-Home screens. The `home` variant is anchored to the Home screen specifically; other screens with a single trailing affordance use a `page` title plus a Section Header action row beneath, not a title-less top bar.
 
-**Figma.**
-- Page node: `16064:10186`
-- `bottom_nav_item` master: `16896:6372`
-- `bottom_bar` master: `16896:6679`
-- `top_bar` master: `16206:3431` (`page`), `16206:3443` (`home`)
-- File: Playlist — Toolkit
-- Link: https://www.figma.com/design/k0n0CNGfk4ie9Vb74byl9v/Playlist-%E2%80%94-Toolkit?node-id=16064-10186
+**Figma.** [Playlist — Toolkit](https://www.figma.com/design/k0n0CNGfk4ie9Vb74byl9v/Playlist-%E2%80%94-Toolkit?node-id=16064-10186) · Page `16064:10186` · Variant masters: bottom_nav_item `16896:6372`, bottom_bar `16896:6679`, top_bar/page `16206:3431`, top_bar/home `16206:3443`
 
 ### 11. Card / Feature
 
@@ -1108,9 +1063,9 @@ automation    ┌─────────────────────
 | Container | border-radius | `--ct-spacing-20` |
 | Number | color | `--ct-text-primary` |
 | Number | text-transform | `capitalize` |
-| Number | font (apply all 5 sub-tokens) | `--ct-text-h2-family`, `--ct-text-h2-weight`, `--ct-text-h2-size`, `--ct-text-h2-line-height`, `--ct-text-h2-letter-spacing` |
+| Number | font (apply all 5) | `--ct-text-h2-*` |
 | Label | color | `--ct-text-primary` |
-| Label | font (apply all 5 sub-tokens) | `--ct-text-body-small-family`, `--ct-text-body-small-weight`, `--ct-text-body-small-size`, `--ct-text-body-small-line-height`, `--ct-text-body-small-letter-spacing` |
+| Label | font (apply all 5) | `--ct-text-body-small-*` |
 
 *location* — overrides
 
@@ -1120,10 +1075,10 @@ automation    ┌─────────────────────
 | Container | gap (outer) | `--ct-spacing-12` |
 | Body block | gap | `--ct-spacing-4` |
 | City | color | `--ct-text-primary` |
-| City | font (apply all 5 sub-tokens) | `--ct-text-body-family`, `--ct-text-body-weight`, `--ct-text-body-size`, `--ct-text-body-line-height`, `--ct-text-body-letter-spacing` |
+| City | font (apply all 5) | `--ct-text-body-*` |
 | Descriptor | color | `--ct-text-primary` |
 | Descriptor | opacity | `0.5` (raw — only `--ct-opacity-disabled` = 0.3 exists; no match) |
-| Descriptor | font (apply all 5 sub-tokens) | `--ct-text-body-small-family`, `--ct-text-body-small-weight`, `--ct-text-body-small-size`, `--ct-text-body-small-line-height`, `--ct-text-body-small-letter-spacing` |
+| Descriptor | font (apply all 5) | `--ct-text-body-small-*` |
 
 *faq* — overrides
 
@@ -1135,9 +1090,9 @@ automation    ┌─────────────────────
 | Container | padding-inline | `--ct-spacing-16` |
 | Container | gap | `--ct-spacing-16` |
 | Kicker | color | `--ct-brand` |
-| Kicker | font (apply all 5 sub-tokens) | `--ct-text-body-small-family`, `--ct-text-body-small-weight`, `--ct-text-body-small-size`, `--ct-text-body-small-line-height`, `--ct-text-body-small-letter-spacing` |
+| Kicker | font (apply all 5) | `--ct-text-body-small-*` |
 | Question | color | `--ct-text-ai-primary` |
-| Question | font (apply all 5 sub-tokens) | `--ct-text-h2-serif-family`, `--ct-text-h2-serif-weight`, `--ct-text-h2-serif-size`, `--ct-text-h2-serif-line-height`, `--ct-text-h2-serif-letter-spacing` |
+| Question | font (apply all 5) | `--ct-text-h2-serif-*` |
 | CTA | container | `--ct-cta-secondary-container` |
 | CTA | icon color | `--ct-cta-secondary-text` |
 | CTA | padding | `--ct-spacing-12` |
@@ -1153,18 +1108,18 @@ automation    ┌─────────────────────
 | Header | padding | `--ct-spacing-16` |
 | Header | gap (between kicker row and title) | `--ct-spacing-24` |
 | Kicker label | color | `--ct-text-primary` |
-| Kicker label | font (apply all 5 sub-tokens) | `--ct-text-body-family`, `--ct-text-body-weight`, `--ct-text-body-size`, `--ct-text-body-line-height`, `--ct-text-body-letter-spacing` |
+| Kicker label | font (apply all 5) | `--ct-text-body-*` |
 | Counter | color | `--ct-text-primary` |
 | Counter | text-align | `right` |
-| Counter | font (apply all 5 sub-tokens) | `--ct-text-body-small-family`, `--ct-text-body-small-weight`, `--ct-text-body-small-size`, `--ct-text-body-small-line-height`, `--ct-text-body-small-letter-spacing` |
+| Counter | font (apply all 5) | `--ct-text-body-small-*` |
 | Title | color | `--ct-text-primary` |
 | Title | text-transform | `capitalize` |
-| Title | font (apply all 5 sub-tokens) | `--ct-text-h2-family`, `--ct-text-h2-weight`, `--ct-text-h2-size`, `--ct-text-h2-line-height`, `--ct-text-h2-letter-spacing` |
+| Title | font (apply all 5) | `--ct-text-h2-*` |
 | Contact row | padding | `--ct-spacing-20` |
 | Contact row | gap (avatar ↔ label) | `--ct-spacing-12` |
 | Contact row | bottom hairline | `--ct-divider`, 0.5px (raw) |
 | Contact label | color | `--ct-text-primary` |
-| Contact label | font (apply all 5 sub-tokens) | `--ct-text-body-family`, `--ct-text-body-weight`, `--ct-text-body-size`, `--ct-text-body-line-height`, `--ct-text-body-letter-spacing` |
+| Contact label | font (apply all 5) | `--ct-text-body-*` |
 | Footer | spec | defers to [Component 9 — Footer](#9-footer) `card-section` variant |
 
 > _On `automation`, `--ct-text-primary` resolves to the cream value because the card sits in a dark-themed context — the category container is fixed dark per §9.1, but text tokens still come from the active theme._
@@ -1176,11 +1131,7 @@ automation    ┌─────────────────────
 - Don't pad the Automation outer container directly. Padding lives on the three child sections; an outer padding adds a second inset that breaks the contact-row's full-width hairline.
 - Note: among the four variants, only the FAQ card consumes `--ct-text-ai-*` (it lives on the dark FAQ band); only Automation consumes `--ct-monitoring-/guard-/identity-container-*`. Activity and Location are neutral. (Universal preamble §9.1, §5.2 still applies — these are the sanctioned exceptions for this component.)
 
-**Figma.**
-- Page node: `16953:9994`
-- Variant masters: `16061:8390` (default / activity), `16061:8391` (location), `16914:7835` (faq), `16061:8386` (automation)
-- File: Playlist — Toolkit
-- Link: https://www.figma.com/design/k0n0CNGfk4ie9Vb74byl9v/Playlist-%E2%80%94-Toolkit?node-id=16953-9994
+**Figma.** [Playlist — Toolkit](https://www.figma.com/design/k0n0CNGfk4ie9Vb74byl9v/Playlist-%E2%80%94-Toolkit?node-id=16953-9994) · Page `16953:9994` · Variant masters: default/activity `16061:8390`, location `16061:8391`, faq `16914:7835`, automation `16061:8386`
 
 ### 12. Card / Dashboard
 
@@ -1351,9 +1302,9 @@ list/inbox             ┌──────────────────
 | Header block | padding | `--ct-spacing-16` |
 | Header block | gap | `--ct-spacing-12` |
 | Title | color | `--ct-text-primary` |
-| Title | font (apply all 5 sub-tokens) | `--ct-text-body-family`, `--ct-text-body-weight`, `--ct-text-body-size`, `--ct-text-body-line-height`, `--ct-text-body-letter-spacing` |
+| Title | font (apply all 5) | `--ct-text-body-*` |
 | Number | color | `--ct-text-primary` |
-| Number | font (apply all 5 sub-tokens) | `--ct-text-display-2-family`, `--ct-text-display-2-weight`, `--ct-text-display-2-size`, `--ct-text-display-2-line-height`, `--ct-text-display-2-letter-spacing` |
+| Number | font (apply all 5) | `--ct-text-display-2-*` |
 | Visualization slot | padding-inline | `--ct-spacing-16` |
 | Visualization slot | padding-block | `--ct-spacing-20` |
 | Visualization slot | gap | `--ct-spacing-8` |
@@ -1365,7 +1316,7 @@ list/inbox             ┌──────────────────
 | Slot | Property | Token |
 | --- | --- | --- |
 | Suffix word | color | `--ct-text-primary` |
-| Suffix word | font (apply all 5 sub-tokens) | `--ct-text-body-family`, `--ct-text-body-weight`, `--ct-text-body-size`, `--ct-text-body-line-height`, `--ct-text-body-letter-spacing` |
+| Suffix word | font (apply all 5) | `--ct-text-body-*` |
 | Status pill block | padding | `--ct-spacing-16` |
 | Status pill block | gap | `--ct-spacing-12` |
 | Status pill | spec | defers to [Component 3 — Label](#3-label) `status/card` variant |
@@ -1376,9 +1327,9 @@ list/inbox             ┌──────────────────
 | --- | --- | --- |
 | Container | background | `--ct-banner-container` |
 | Title | color | `--ct-text-primary` |
-| Title | font (apply all 5 sub-tokens) | `--ct-text-body-family`, `--ct-text-body-weight`, `--ct-text-body-size`, `--ct-text-body-line-height`, `--ct-text-body-letter-spacing` |
+| Title | font (apply all 5) | `--ct-text-body-*` |
 | Caption | color | `--ct-text-primary` |
-| Caption | font (apply all 5 sub-tokens) | `--ct-text-body-family`, `--ct-text-body-weight`, `--ct-text-body-size`, `--ct-text-body-line-height`, `--ct-text-body-letter-spacing` |
+| Caption | font (apply all 5) | `--ct-text-body-*` |
 | Primary icon CTA | container | `--ct-cta-primary-container` |
 | Primary icon CTA | icon color | `--ct-cta-primary-text` |
 | Primary icon CTA | padding | `--ct-spacing-4` |
@@ -1391,11 +1342,11 @@ list/inbox             ┌──────────────────
 | Container | gap | `--ct-spacing-8` |
 | Brand stripe | background | `--ct-brand` |
 | Title | color | `--ct-text-primary` |
-| Title | font (apply all 5 sub-tokens) | `--ct-text-body-family`, `--ct-text-body-weight`, `--ct-text-body-size`, `--ct-text-body-line-height`, `--ct-text-body-letter-spacing` |
+| Title | font (apply all 5) | `--ct-text-body-*` |
 | Number | color | `--ct-text-primary` |
-| Number | font (apply all 5 sub-tokens) | `--ct-text-display-2-family`, `--ct-text-display-2-weight`, `--ct-text-display-2-size`, `--ct-text-display-2-line-height`, `--ct-text-display-2-letter-spacing` |
+| Number | font (apply all 5) | `--ct-text-display-2-*` |
 | ETA | color | `--ct-text-primary` |
-| ETA | font (apply all 5 sub-tokens) | `--ct-text-body-family`, `--ct-text-body-weight`, `--ct-text-body-size`, `--ct-text-body-line-height`, `--ct-text-body-letter-spacing` |
+| ETA | font (apply all 5) | `--ct-text-body-*` |
 
 *vpn* — overrides
 
@@ -1403,8 +1354,8 @@ list/inbox             ┌──────────────────
 | --- | --- | --- |
 | Container | padding | `--ct-spacing-16` |
 | Container | gap | `--ct-spacing-8` |
-| Title | font (apply all 5 sub-tokens) | `--ct-text-body-family`, `--ct-text-body-weight`, `--ct-text-body-size`, `--ct-text-body-line-height`, `--ct-text-body-letter-spacing` |
-| Number ("On" / "Off") | font (apply all 5 sub-tokens) | `--ct-text-display-2-family`, `--ct-text-display-2-weight`, `--ct-text-display-2-size`, `--ct-text-display-2-line-height`, `--ct-text-display-2-letter-spacing` |
+| Title | font (apply all 5) | `--ct-text-body-*` |
+| Number ("On" / "Off") | font (apply all 5) | `--ct-text-display-2-*` |
 | Toggle | spec | defers to [Component 5 — Control](#5-control); on-state container resolves to `--ct-status-success-solid` |
 | Map illustration column | background | `--ct-bkgd-01` |
 
@@ -1418,9 +1369,9 @@ list/inbox             ┌──────────────────
 | Container | padding-inline | `--ct-spacing-16` |
 | Container | gap | `--ct-spacing-20` |
 | Title | color | `--ct-text-primary` |
-| Title | font (apply all 5 sub-tokens) | `--ct-text-body-family`, `--ct-text-body-weight`, `--ct-text-body-size`, `--ct-text-body-line-height`, `--ct-text-body-letter-spacing` |
+| Title | font (apply all 5) | `--ct-text-body-*` |
 | Risk word | color | _TBD_ |
-| Risk word | font (apply all 5 sub-tokens) | `--ct-text-body-family`, `--ct-text-body-weight`, `--ct-text-body-size`, `--ct-text-body-line-height`, `--ct-text-body-letter-spacing` |
+| Risk word | font (apply all 5) | `--ct-text-body-*` |
 | Footer | spec | defers to [Component 9 — Footer](#9-footer) `card-section` variant |
 
 > _Risk-word color in Figma is raw `#c90004`. The closest existing token, `--ct-status-fail-solid` (`#b83100`), does not match — it's a different red. Add a darker fail-status token in Figma and re-export before resolving this slot. Per SKILL.md §2.1, do not substitute the closest token by hand._
@@ -1433,7 +1384,7 @@ list/inbox             ┌──────────────────
 | Header | padding-inline | `--ct-spacing-16` |
 | Header | gap | `--ct-spacing-24` |
 | Title | color | `--ct-text-primary` |
-| Title | font (apply all 5 sub-tokens) | `--ct-text-body-family`, `--ct-text-body-weight`, `--ct-text-body-size`, `--ct-text-body-line-height`, `--ct-text-body-letter-spacing` |
+| Title | font (apply all 5) | `--ct-text-body-*` |
 | Date band | spec | defers to [Component 2 — Divider](#2-divider) |
 | Progress row | spec | defers to [Component 6 — List Item](#6-list-item) progress variant |
 | Footer | spec | defers to [Component 9 — Footer](#9-footer) `card-section` variant |
@@ -1447,10 +1398,10 @@ list/inbox             ┌──────────────────
 | Header | padding-inline | `--ct-spacing-16` |
 | Header | gap (between title and hero row) | `--ct-spacing-24` |
 | Title | color | `--ct-text-primary` |
-| Title | font (apply all 5 sub-tokens) | `--ct-text-body-family`, `--ct-text-body-weight`, `--ct-text-body-size`, `--ct-text-body-line-height`, `--ct-text-body-letter-spacing` |
+| Title | font (apply all 5) | `--ct-text-body-*` |
 | Hero row | gap (between number and Stat) | `--ct-spacing-16` |
 | Number | color | `--ct-text-primary` |
-| Number | font (apply all 5 sub-tokens) | `--ct-text-display-2-family`, `--ct-text-display-2-weight`, `--ct-text-display-2-size`, `--ct-text-display-2-line-height`, `--ct-text-display-2-letter-spacing` |
+| Number | font (apply all 5) | `--ct-text-display-2-*` |
 | Stat pill | spec | defers to [Component 3 — Label](#3-label) `stat/up` variant |
 | Stat row | padding-block | `--ct-spacing-16` |
 | Stat row | bottom hairline | `--ct-divider`, 0.5px (raw) |
@@ -1465,7 +1416,7 @@ list/inbox             ┌──────────────────
 | Header bar | background | `--ct-bkgd-02` |
 | Header bar | padding | `--ct-spacing-16` |
 | Header label | color | `--ct-text-primary` |
-| Header label | font (apply all 5 sub-tokens) | `--ct-text-body-family`, `--ct-text-body-weight`, `--ct-text-body-size`, `--ct-text-body-line-height`, `--ct-text-body-letter-spacing` |
+| Header label | font (apply all 5) | `--ct-text-body-*` |
 | Inbox row | background | `--ct-bkgd-02` |
 | Inbox row | padding | `--ct-spacing-20` |
 | Inbox row | spec | defers to [Component 6 — List Item](#6-list-item) inbox variant |
@@ -1475,11 +1426,7 @@ list/inbox             ┌──────────────────
 - Don't replace the `intro` banner background with `--ct-bkgd-02` "for consistency." The `--ct-banner-container` cream tint is the visual signature that marks `intro` as the unconfigured-feature lure (SKILL.md §9.5 spirit).
 - Don't pad the `list/inbox` outer container directly. Padding lives on the header bar and on each inbox row; an outer pad creates a second inset that breaks the row's full-width hairline.
 
-**Figma.**
-- Page node: `16063:9308`
-- Variant masters: `16906:7329` (kpi/avators), `16906:7234` (kpi/bars), `16901:7057` (kpi/line), `16906:7386` (kpi/pay), `16901:7027` (kpi/status), `16022:5191` (intro), `16910:7549` (scanning), `16910:7499` (vpn / off), `16910:7500` (vpn / on), `17384:8997` (list/digital-risk), `17384:8995` (list/recent-activity), `17384:8996` (list/actions-taken), `16238:5139` (list/inbox)
-- File: Playlist — Toolkit
-- Link: https://www.figma.com/design/k0n0CNGfk4ie9Vb74byl9v/Playlist-%E2%80%94-Toolkit?node-id=16063-9308
+**Figma.** [Playlist — Toolkit](https://www.figma.com/design/k0n0CNGfk4ie9Vb74byl9v/Playlist-%E2%80%94-Toolkit?node-id=16063-9308) · Page `16063:9308` · Variant masters: kpi/avators `16906:7329`, kpi/bars `16906:7234`, kpi/line `16901:7057`, kpi/pay `16906:7386`, kpi/status `16901:7027`, intro `16022:5191`, scanning `16910:7549`, vpn/off `16910:7499`, vpn/on `16910:7500`, list/digital-risk `17384:8997`, list/recent-activity `17384:8995`, list/actions-taken `17384:8996`, list/inbox `16238:5139`
 
 ### 13. Hero / Feature
 
@@ -1661,10 +1608,10 @@ scanning/data-removal ┌──────────────────�
 | Text block | padding-inline | `--ct-spacing-20` |
 | Text block | gap | `--ct-spacing-24` |
 | Kicker label | color | `--ct-text-primary` |
-| Kicker label | font (apply all 5 sub-tokens) | `--ct-text-body-small-family`, `--ct-text-body-small-weight`, `--ct-text-body-small-size`, `--ct-text-body-small-line-height`, `--ct-text-body-small-letter-spacing` |
+| Kicker label | font (apply all 5) | `--ct-text-body-small-*` |
 | Title | color | `--ct-text-primary` |
 | Title | text-transform | `capitalize` |
-| Title | font (apply all 5 sub-tokens) | `--ct-text-h1-family`, `--ct-text-h1-weight`, `--ct-text-h1-size`, `--ct-text-h1-line-height`, `--ct-text-h1-letter-spacing` |
+| Title | font (apply all 5) | `--ct-text-h1-*` |
 | CTA | spec | defers to [Component 1 — Button](#1-button) `text/primary` |
 
 *intro/vpn* — overrides
@@ -1702,16 +1649,16 @@ scanning/data-removal ┌──────────────────�
 | Header block | gap | `--ct-spacing-24` |
 | Label | color | `--ct-text-primary` |
 | Label | text-transform | `capitalize` |
-| Label | font (apply all 5 sub-tokens) | `--ct-text-h3-family`, `--ct-text-h3-weight`, `--ct-text-h3-size`, `--ct-text-h3-line-height`, `--ct-text-h3-letter-spacing` |
+| Label | font (apply all 5) | `--ct-text-h3-*` |
 | Number | color | `--ct-text-primary` |
-| Number | font (apply all 5 sub-tokens) | `--ct-text-display-1-family`, `--ct-text-display-1-weight`, `--ct-text-display-1-size`, `--ct-text-display-1-line-height`, `--ct-text-display-1-letter-spacing` |
+| Number | font (apply all 5) | `--ct-text-display-1-*` |
 | Chart card | padding | `--ct-spacing-20` |
 | Chart card | gap | `--ct-spacing-24` |
 | Bar chart bars | fill | _TBD_ — color-baked in SVG; same caveat as Component 1 §icon strokes — Figma must export the bar fill as a variable for theme-aware re-color |
 | Bar separators | stroke | `--ct-divider`, 0.5px (raw) |
 | Day label | color | `--ct-text-primary` |
 | Day label | opacity | `0.6` (raw — only `--ct-opacity-disabled` = 0.3 exists; no match) |
-| Day label | font (apply all 5 sub-tokens) | `--ct-text-link-family`, `--ct-text-link-weight`, `--ct-text-link-size`, `--ct-text-link-line-height`, `--ct-text-link-letter-spacing` |
+| Day label | font (apply all 5) | `--ct-text-link-*` |
 | Segment control | gap | `--ct-spacing-16` |
 | Segment item / selected | background | `--ct-cta-primary-container` |
 | Segment item / selected | label color | `--ct-cta-primary-text` |
@@ -1719,7 +1666,7 @@ scanning/data-removal ┌──────────────────�
 | Segment item / unselected | label color | `--ct-text-primary` |
 | Segment item | padding | **10px raw** + `--ct-spacing-12` (block + inline; no `--ct-spacing-10`) |
 | Segment item | border-radius | `--ct-spacing-16` |
-| Segment item | label font (apply all 5 sub-tokens) | `--ct-text-link-family`, `--ct-text-link-weight`, `--ct-text-link-size`, `--ct-text-link-line-height`, `--ct-text-link-letter-spacing` |
+| Segment item | label font (apply all 5) | `--ct-text-link-*` |
 
 *active/data-removal* — overrides
 
@@ -1732,13 +1679,13 @@ scanning/data-removal ┌──────────────────�
 | Title block (left) | gap | `--ct-spacing-24` |
 | Label | color | `--ct-text-primary` |
 | Label | text-transform | `capitalize` |
-| Label | font (apply all 5 sub-tokens) | `--ct-text-h3-family`, `--ct-text-h3-weight`, `--ct-text-h3-size`, `--ct-text-h3-line-height`, `--ct-text-h3-letter-spacing` |
+| Label | font (apply all 5) | `--ct-text-h3-*` |
 | Number | color | `--ct-text-primary` |
-| Number | font (apply all 5 sub-tokens) | `--ct-text-display-1-family`, `--ct-text-display-1-weight`, `--ct-text-display-1-size`, `--ct-text-display-1-line-height`, `--ct-text-display-1-letter-spacing` |
+| Number | font (apply all 5) | `--ct-text-display-1-*` |
 | Status pill | spec | defers to [Component 3 — Label](#3-label) `status/card` ("Next scan Oct 12") |
 | Category row | gap (label↔bar↔count) | `--ct-spacing-8` |
 | Category row label / count | color | `--ct-text-primary` |
-| Category row label / count | font (apply all 5 sub-tokens) | `--ct-text-body-family`, `--ct-text-body-weight`, `--ct-text-body-size`, `--ct-text-body-line-height`, `--ct-text-body-letter-spacing` |
+| Category row label / count | font (apply all 5) | `--ct-text-body-*` |
 | Category bar track | background | `--ct-bkgd-02` |
 | Category bar fill (Email) | background | _TBD_ — raw `#00c49a` (no token; not in Category_TBD set) |
 | Category bar fill (Family) | background | _TBD_ — raw `#faa542` (no token) |
@@ -1748,7 +1695,7 @@ scanning/data-removal ┌──────────────────�
 | Stacked-area chart | bands | _TBD_ — same five raw category hexes as above; chart is illustration |
 | Axis label | color | `--ct-text-primary` |
 | Axis label | opacity | `0.7` (raw — no token) |
-| Axis label | font (apply all 5 sub-tokens) | `--ct-text-link-family`, `--ct-text-link-weight`, `--ct-text-link-size`, `--ct-text-link-line-height`, `--ct-text-link-letter-spacing` |
+| Axis label | font (apply all 5) | `--ct-text-link-*` |
 
 > _The five category-bar hexes (`#00c49a, #faa542, #719a03, #e1473f, #003ab8`) are not in `tokens/colors.css`, are not Category_TBD members, and are not exported as Figma variables. Per SKILL.md §2.1, do not approximate with the closest existing token; surface a request to add a category-color palette to Figma and re-export before resolving these slots._
 
@@ -1764,11 +1711,11 @@ scanning/data-removal ┌──────────────────�
 | Detail card | padding-bottom | `--ct-spacing-40` |
 | Connected row | padding-block | `--ct-spacing-24` |
 | Connected row label / value | color | `--ct-text-primary` |
-| Connected row label / value | font (apply all 5 sub-tokens) | `--ct-text-body-family`, `--ct-text-body-weight`, `--ct-text-body-size`, `--ct-text-body-line-height`, `--ct-text-body-letter-spacing` |
+| Connected row label / value | font (apply all 5) | `--ct-text-body-*` |
 | Hairline divider | stroke | `--ct-divider`, 0.5px (raw) |
 | Service row | padding-block | `--ct-spacing-20` |
 | Service row label / value | color | `--ct-text-primary` |
-| Service row label / value | font (apply all 5 sub-tokens) | `--ct-text-body-family`, `--ct-text-body-weight`, `--ct-text-body-size`, `--ct-text-body-line-height`, `--ct-text-body-letter-spacing` |
+| Service row label / value | font (apply all 5) | `--ct-text-body-*` |
 | Flag avatar (`Avatar_Flags / flag/America`) | spec | raw — flag asset is raster, do not tokenize |
 | CTA | spec | defers to [Component 1 — Button](#1-button) `text/primary` ("Disconnect") |
 
@@ -1785,9 +1732,9 @@ scanning/data-removal ┌──────────────────�
 | Counter video | mix-blend-mode | `lighten` (raw — illustration) |
 | Caption | color | `--ct-text-primary` (resolves cream when hero is in `data-theme="dark"` — see note) |
 | Caption | text-align | `center` |
-| Caption | font (apply all 5 sub-tokens) | `--ct-text-body-family`, `--ct-text-body-weight`, `--ct-text-body-size`, `--ct-text-body-line-height`, `--ct-text-body-letter-spacing` |
+| Caption | font (apply all 5) | `--ct-text-body-*` |
 | Footer status label ("Started 10mins ago") | color | `--ct-text-primary` (cream under `data-theme="dark"`) |
-| Footer status label | font (apply all 5 sub-tokens) | `--ct-text-body-family`, `--ct-text-body-weight`, `--ct-text-body-size`, `--ct-text-body-line-height`, `--ct-text-body-letter-spacing` |
+| Footer status label | font (apply all 5) | `--ct-text-body-*` |
 | Status pill | spec | defers to [Component 3 — Label](#3-label) `status/active` |
 
 > _The black surface is rendered raw in Figma — there is no `--ct-bkgd-*` token that resolves to pure `#000`. Until Figma adds a primitive that maps to pure black (or a dedicated `--ct-bkgd-scanning` token), mark the surface TBD. The variant lives on a fixed-dark surface, so the hero must be wrapped in `data-theme="dark"` for `--ct-text-primary` to flip cream._
@@ -1798,11 +1745,7 @@ scanning/data-removal ┌──────────────────�
 - Don't pad the `active/vpn` detail card from above. The Connected row owns its own `--ct-spacing-24` top padding; an outer top-pad creates a second inset that breaks the row rhythm.
 - Don't render `intro/identity` under `data-theme="light"` and hard-code cream colors to compensate. The hero must sit in `data-theme="dark"` so the existing `--ct-cta-primary-*` and `--ct-text-primary` tokens flip naturally (SKILL.md §5.1).
 
-**Figma.**
-- Specimen frame: `17826:13477`
-- Variant masters: `16914:7971` (intro/call-guard), `16914:8028` (intro/vpn), `17794:9999` (intro/identity), `16914:7849` (active/call-guard), `16675:11615` (active/data-removal), `16206:3353` (active/vpn), `16206:3354` (scanning/data-removal)
-- File: Playlist — Toolkit
-- Link: https://www.figma.com/design/k0n0CNGfk4ie9Vb74byl9v/Playlist-%E2%80%94-Toolkit?node-id=17826-13477
+**Figma.** [Playlist — Toolkit](https://www.figma.com/design/k0n0CNGfk4ie9Vb74byl9v/Playlist-%E2%80%94-Toolkit?node-id=17826-13477) · Specimen frame `17826:13477` · Variant masters: intro/call-guard `16914:7971`, intro/vpn `16914:8028`, intro/identity `17794:9999`, active/call-guard `16914:7849`, active/data-removal `16675:11615`, active/vpn `16206:3353`, scanning/data-removal `16206:3354`
 
 ### 14. Hero / Kit Briefing
 
@@ -1862,7 +1805,7 @@ scanning/data-removal ┌──────────────────�
 | Content frame | left | `--ct-spacing-16` |
 | Content frame | gap | `--ct-spacing-32` |
 | Headline | color | `--ct-text-primary` (resolves cream under `data-theme="dark"`) |
-| Headline | font (apply all 5 sub-tokens) | `--ct-text-h1-serif-family`, `--ct-text-h1-serif-weight`, `--ct-text-h1-serif-size`, `--ct-text-h1-serif-line-height`, `--ct-text-h1-serif-letter-spacing` |
+| Headline | font (apply all 5) | `--ct-text-h1-serif-*` |
 | AI notification card | background | `--ct-bkgd-ai-input` |
 | AI notification card | padding-inline | `--ct-spacing-24` |
 | AI notification card | padding-block | `--ct-spacing-20` |
@@ -1873,9 +1816,9 @@ scanning/data-removal ┌──────────────────�
 | Avatar video overlay | mix-blend-mode | `lighten` (raw — illustration) |
 | Primary label | color | `--ct-text-primary` (resolves cream under `data-theme="dark"`) |
 | Primary label | opacity | `0.7` (raw — only `--ct-opacity-disabled` = 0.3 exists; no match) |
-| Primary label | font (apply all 5 sub-tokens) | `--ct-text-body-family`, `--ct-text-body-weight`, `--ct-text-body-size`, `--ct-text-body-line-height`, `--ct-text-body-letter-spacing` |
+| Primary label | font (apply all 5) | `--ct-text-body-*` |
 | Secondary label | color | `--ct-text-secondary` |
-| Secondary label | font (apply all 5 sub-tokens) | `--ct-text-body-family`, `--ct-text-body-weight`, `--ct-text-body-size`, `--ct-text-body-line-height`, `--ct-text-body-letter-spacing` |
+| Secondary label | font (apply all 5) | `--ct-text-body-*` |
 
 > _The Components sheet uses `--ct-bkgd-02`, which flips with theme. Under `data-theme="light"` it resolves to white and the dark-mode aesthetic (orange blob bloom, cream Simula, fixed-dark notification) breaks. The hero must be wrapped in `data-theme="dark"` so `--ct-bkgd-02`, `--ct-text-primary`, and `--ct-text-secondary` resolve to their dark-theme values. The outer floor (`--ct-bkgd-ai-input`) and the inner notification card both use AI tokens, which are pinned dark per SKILL.md §5.2 and do not flip._
 
@@ -1888,12 +1831,7 @@ scanning/data-removal ┌──────────────────�
 - Don't replace the decorative orange blob with a flat color, a generic gradient, or `--ct-brand` painted across the sheet. The blurred orange blob *is* the Kit moment's visual signature — any substitution generic-ifies the hero (SKILL.md §9.5).
 - Don't apply `--ct-text-ai-*` to the headline or the notification labels. This hero uses `--ct-text-primary` / `--ct-text-secondary` flipped via `data-theme="dark"`, not AI text tokens (SKILL.md §5.2).
 
-**Figma.**
-- Specimen frame: `17826:13504`
-- Variant master: `16196:2888` (Kit Briefing)
-- Inner nodes: `16147:4373` (Components sheet), `16147:4374` (Orange blob), `16147:4375` (Backdrop blur), `16147:4586` (content frame), `16147:4376` (headline), `16147:4578` (AI notification card)
-- File: Playlist — Toolkit
-- Link: https://www.figma.com/design/k0n0CNGfk4ie9Vb74byl9v/Playlist-%E2%80%94-Toolkit?node-id=17826-13504
+**Figma.** [Playlist — Toolkit](https://www.figma.com/design/k0n0CNGfk4ie9Vb74byl9v/Playlist-%E2%80%94-Toolkit?node-id=17826-13504) · Specimen frame `17826:13504` · Variant master: Kit Briefing `16196:2888`
 
 ### 15. Hero / Notification
 
@@ -1941,9 +1879,9 @@ scanning/data-removal ┌──────────────────�
 | Celebration avatar | spec | _TBD_ — SVG asset bakes the green ellipse fill (visually `--ct-status-success-solid`) and the numeric glyph (same caveat as §1 icon strokes and §14 Guard avatar — Figma must export the fill as a variable for theme-aware re-color) |
 | Primary label | color | `--ct-text-primary` (resolves cream when the card is wrapped in local `data-theme="dark"` — see note) |
 | Primary label | opacity | `0.7` (raw — only `--ct-opacity-disabled` = 0.3 exists; no match) |
-| Primary label | font (apply all 5 sub-tokens) | `--ct-text-body-family`, `--ct-text-body-weight`, `--ct-text-body-size`, `--ct-text-body-line-height`, `--ct-text-body-letter-spacing` |
+| Primary label | font (apply all 5) | `--ct-text-body-*` |
 | Secondary label | color | `--ct-text-secondary` |
-| Secondary label | font (apply all 5 sub-tokens) | `--ct-text-body-family`, `--ct-text-body-weight`, `--ct-text-body-size`, `--ct-text-body-line-height`, `--ct-text-body-letter-spacing` |
+| Secondary label | font (apply all 5) | `--ct-text-body-*` |
 
 > _Unlike §14 Hero / Kit Briefing — where the whole hero sits in `data-theme="dark"` so its `--ct-bkgd-02` sheet flips dark — this hero's outer surface is cream (`--ct-bkgd-01`) and must remain on `data-theme="light"`. The fixed-dark notification card therefore needs a local `data-theme="dark"` wrapper around the card itself so its `--ct-text-primary` and `--ct-text-secondary` resolve cream over the fixed-dark fill, while the surrounding cream surface stays unchanged. The card background (`--ct-bkgd-ai-input`) is pinned dark per SKILL.md §5.2 and does not flip._
 
@@ -1954,11 +1892,6 @@ scanning/data-removal ┌──────────────────�
 - Don't repaint the celebration avatar's green circle by binding `--ct-status-success-solid` to a CSS fill. The fill is baked into the SVG asset; theme-aware re-color requires re-export from Figma (same caveat as §1 icon strokes and §14 Guard avatar — SKILL.md §2.1).
 - Don't replace the celebration avatar with a generic icon (e.g. `bell`, `info`, `confetti`, `check`) or with the §14 Guard avatar. The green-circle-plus-numeric-glyph is this notification's visual signature; swapping it generic-ifies the moment and breaks the recognition contract with §14 (SKILL.md §9.5).
 
-**Figma.**
-- Specimen frame: `16978:11906`
-- Variant master: `16081:12390` (ai-notification)
-- Inner nodes: `16081:12386` (Avatar_Celebration), `16081:12379` (avatar ellipse), `16081:12380` (numeric glyph "1"), `16081:12359` (text column), `16072:11494` (primary label), `16072:11495` (secondary label)
-- File: Playlist — Toolkit
-- Link: https://www.figma.com/design/k0n0CNGfk4ie9Vb74byl9v/Playlist-%E2%80%94-Toolkit?node-id=16978-11906
+**Figma.** [Playlist — Toolkit](https://www.figma.com/design/k0n0CNGfk4ie9Vb74byl9v/Playlist-%E2%80%94-Toolkit?node-id=16978-11906) · Specimen frame `16978:11906` · Variant master: ai-notification `16081:12390`
 
 ---
