@@ -40,6 +40,7 @@ cloaked-design-md/
     ├── SKILL.md                  # AI rules (read by LLMs)
     ├── components.md             # Component specs — currently TBD
     ├── examples.md               # BAD / GOOD usage — currently TBD
+    ├── motion.md                 # Motion system rules
     ├── tokens/
     │   ├── colors.css            # 16 color primitives
     │   ├── numbers.css           # Spacing scale + opacity

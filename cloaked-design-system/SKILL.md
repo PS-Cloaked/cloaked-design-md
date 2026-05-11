@@ -17,6 +17,7 @@ Before producing output, the agent must have access to:
 | `tokens/typography.css` | Text styles + `@font-face` | **Source of truth** for type tokens |
 | `components.md` | Component specs | Components rulebook (15 components, fully spec'd) |
 | `examples.md` | BAD / GOOD usage examples | Currently empty |
+| `motion.md` | Motion system (easings, durations, transitions, sequence, component recipes) | Motion rulebook |
 
 **Conflict resolution.** If two sources disagree:
 
