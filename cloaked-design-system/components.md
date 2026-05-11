@@ -29,8 +29,9 @@
 | A full-bleed feature hero at the top of a feature page | [§13 Hero / Feature](#13-hero--feature) | intro/* · active/* · scanning/* |
 | A full-screen AI/Kit moment with Simula headline + AI card | [§14 Hero / Kit Briefing](#14-hero--kit-briefing) | default |
 | A standalone AI notification card on cream (no headline) | [§15 Hero / Notification](#15-hero--notification) | default |
+| A choosable option card with a checkbox tile (settings, onboarding) | [§16 Selection card](#16-selection-card) | default · selected |
 
-**When in doubt, scan all 15 rows before deciding.** A common failure mode is reaching for `§11 Card / Feature` when the right answer is `§12 Card / Dashboard` (or vice versa) — read both Use lines if your tile is ambiguous.
+**When in doubt, scan all 16 rows before deciding.** A common failure mode is reaching for `§11 Card / Feature` when the right answer is `§12 Card / Dashboard` (or vice versa) — read both Use lines if your tile is ambiguous.
 
 ---
 
@@ -1931,5 +1932,72 @@ scanning/data-removal ┌──────────────────�
 - Don't replace the celebration avatar with a generic icon (e.g. `bell`, `info`, `confetti`, `check`) or with the §14 Guard avatar. The green-circle-plus-numeric-glyph is this notification's visual signature; swapping it generic-ifies the moment and breaks the recognition contract with §14 (SKILL.md §9.5).
 
 **Figma.** [Playlist — Toolkit](https://www.figma.com/design/k0n0CNGfk4ie9Vb74byl9v/Playlist-%E2%80%94-Toolkit?node-id=16978-11906) · Specimen frame `16978:11906` · Variant master: ai-notification `16081:12390`
+
+---
+
+### 16. Selection card
+
+**Use.** A choosable option presented as a card — a 2-line label stack on the left, a checkbox tile on the right. Reach for it when the user picks between a small set of mutually-exclusive (or multi-select) options that each need a sentence of context, not a single-word toggle. Typical surfaces: onboarding step-pickers, settings prompts ("which protections should be on?"), feature-tour acknowledgements.
+
+**Anatomy.**
+```
+default (unselected)              selected
+╭────────────────────────────╮    ┌────────────────────────────┐
+│                            │    │                            │
+│  Stop spam calls           │    │  Stop spam calls           │
+│  Lorem ipsum               │    │  Lorem ipsum               │
+│                       ╭──╮ │    │                       ┌──┐ │
+│                       │  │ │    │                       │✓ │ │
+│                       ╰──╯ │    │                       └──┘ │
+╰────────────────────────────╯    └────────────────────────────┘
+   white sheet, no border           white sheet, 1px primary border
+   quiet checkbox tile               filled-black checkbox + check
+```
+- **Card surface.** White sheet (`--ct-bkgd-02`) with `--ct-spacing-20` radius. Two slots in a row: text column (leading) + checkbox tile (trailing).
+- **Text column.** Stacked primary label (body, `--ct-text-primary`) over secondary label (body-small, `--ct-text-secondary`). Width 289px raw so the checkbox tile aligns flush-right inside the 361px card.
+- **Checkbox tile.** A 24×24 rounded square (`--ct-spacing-12` radius) with `--ct-spacing-4` inner padding. In `default` it is a quiet `--ct-graph-background` fill, empty. In `selected` it flips to `--ct-cta-primary-container` and reveals a 16×16 white check glyph (SVG asset; stroke baked into the asset).
+
+**Variants.**
+
+| Variant | Visual | When |
+| --- | --- | --- |
+| `default` | 361px-wide white card with 2-line text column and quiet 24×24 checkbox tile (no border, no glyph) | An option the user has not yet chosen |
+| `selected` | Same card with 1px `--ct-text-primary` border + checkbox tile filled near-black with white check glyph | The user has chosen this option |
+
+**Sizing.**
+- Card: width 361px (raw — no matching `--ct-spacing-*`); `flex-direction: row`; `align-items: center`; gap `--ct-spacing-16`; padding-inline `--ct-spacing-16`; padding-block `--ct-spacing-32`; border-radius `--ct-spacing-20`.
+  - Text column: width 289px raw; `flex-direction: column`; gap `--ct-spacing-4`; `align-items: flex-start`.
+  - Checkbox tile: `--ct-spacing-24` × `--ct-spacing-24`; padding `--ct-spacing-4`; border-radius `--ct-spacing-12`.
+  - Check glyph (selected only): `--ct-spacing-16` × `--ct-spacing-16` inside the tile; stroke baked into the SVG asset.
+- `selected` adds a `1px` solid border (raw — no `--ct-spacing-1` token; SKILL.md §9.2 note). The border draws inside the same 361px footprint as `default` — do not grow the card to accommodate it.
+
+**Tokens.**
+
+| Slot | Property | Token |
+| --- | --- | --- |
+| Card | background | `--ct-bkgd-02` |
+| Card | padding-inline | `--ct-spacing-16` |
+| Card | padding-block | `--ct-spacing-32` |
+| Card | gap | `--ct-spacing-16` |
+| Card | border-radius | `--ct-spacing-20` |
+| Card (`selected` only) | border | `1px` solid `--ct-text-primary` |
+| Primary label | color | `--ct-text-primary` |
+| Primary label | font (apply all 5) | `--ct-text-body-*` |
+| Secondary label | color | `--ct-text-secondary` |
+| Secondary label | font (apply all 5) | `--ct-text-body-small-*` |
+| Checkbox tile | padding | `--ct-spacing-4` |
+| Checkbox tile | border-radius | `--ct-spacing-12` |
+| Checkbox tile (`default`) | background | `--ct-graph-background` |
+| Checkbox tile (`selected`) | background | `--ct-cta-primary-container` |
+| Check glyph (`selected` only) | spec | _TBD_ — SVG asset bakes the white stroke (same caveat as §1 icon strokes, §14 Guard avatar, §15 celebration avatar — Figma must export the stroke as a variable for theme-aware re-color) |
+
+**Don't.**
+- Don't apply `--ct-text-ai-*` to either label. The card sits on `--ct-bkgd-02` (white) under `data-theme="light"`, not the AI input or FAQ band — `--ct-text-ai-*` would render cream-on-white and the labels disappear (SKILL.md §5.2).
+- Don't swap the 1px primary border on `selected` for a card shadow, a colored border, or a thicker outline. Separation in this system is never a shadow (SKILL.md §9.2), and the 1px primary border is the entire selection signal — escalating it breaks the contract with every other "selected" surface.
+- Don't repaint the white check glyph by binding a token to its stroke. The stroke is baked into the SVG asset; theme-aware re-color requires re-export from Figma (same caveat as §1 icon strokes, §14 Guard avatar, §15 celebration avatar — SKILL.md §2.1).
+- Don't add a `chevron.right` or any trailing affordance "to indicate selectability." The checkbox tile is the affordance — a chevron either duplicates it or contradicts it (SKILL.md §9.3).
+- Don't extend selection to a third state (`indeterminate`, `disabled-selected`, `error`, etc.) by recoloring the checkbox tile locally. The spec is closed at `default` / `selected`; a third state goes into Figma first and re-exports (SKILL.md §2.7, §7.1).
+
+**Figma.** [Playlist — Toolkit](https://www.figma.com/design/k0n0CNGfk4ie9Vb74byl9v/Playlist-%E2%80%94-Toolkit?node-id=18548-1905) · Specimen frame `18548:1905` · Variant master: selection-card `18549:1986`
 
 ---
