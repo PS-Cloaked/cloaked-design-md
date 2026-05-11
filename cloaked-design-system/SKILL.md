@@ -15,7 +15,7 @@ Before producing output, the agent must have access to:
 | `tokens/numbers.css` | Spacing + opacity | **Source of truth** for numeric tokens |
 | `tokens/themes.css` | Light + dark semantic tokens | **Source of truth** for theme mapping |
 | `tokens/typography.css` | Text styles + `@font-face` | **Source of truth** for type tokens |
-| `components.md` | Component specs | Components rulebook (15 components, fully spec'd) |
+| `components.md` | Component specs | Components rulebook (16 components, fully spec'd) |
 | `examples.md` | BAD / GOOD usage examples | Currently empty |
 | `motion.md` | Motion system (easings, durations, transitions, sequence, component recipes) | Motion rulebook |
 
@@ -253,15 +253,15 @@ Section titles render in Title Case via CSS `text-transform: capitalize`. **Sour
 
 ### 7.1 Current state
 
-`components.md` is a **rulebook with 15 fully spec'd components**. The structure is fixed: 15 component names + a `Default visual properties` baseline + a per-component schema (Use / Anatomy / Variants / Sizing / Tokens / Don't / Figma).
+`components.md` is a **rulebook with 16 fully spec'd components**. The structure is fixed: a numbered list of component names + a `Default visual properties` baseline + a per-component schema (Use / Anatomy / Variants / Sizing / Tokens / Don't / Figma).
 
 What this means:
 
-- The **list of valid Cloaked components is closed** at those 15. Don't invent a 16th — if a request doesn't fit one of the 15, surface it to the user.
+- The **list of valid Cloaked components is closed at whatever components.md currently spec's**. Don't fabricate a new one locally — if a request doesn't fit any of the spec'd components, surface it to the user. The list grows only when Figma exports a new component and it lands in `components.md`; treat any addition as a Figma-first event, not a CSS-only invention.
 - Each component's body is a Figma local mirror — treat it as read-only spec, not a draft.
 - Default visual properties live in `components.md` and apply unless a component explicitly overrides them.
 
-When asked to build one of the 15, you have:
+When asked to build one of the spec'd components, you have:
 
 - Tokens (`tokens/*.css`) — definitive.
 - This document (rules, namespace, theme).
