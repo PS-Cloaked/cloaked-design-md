@@ -10,7 +10,7 @@
 
 ## Quick Index — find a component by intent
 
-**Read this table before reaching for code.** Match the user's intent to a row, then jump to that section. If nothing matches, stop and ask — don't fabricate a 16th component (SKILL.md §7.2).
+**Read this table before reaching for code.** Match the user's intent to a row, then jump to that section. If nothing matches, stop and ask — don't fabricate a new component (SKILL.md §7.2).
 
 | If you need... | Use | Variants |
 | --- | --- | --- |
