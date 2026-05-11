@@ -18,7 +18,7 @@
 | A section break inside a list ("Today", "Yesterday") | [§2 Divider](#2-divider) | default |
 | A tag, status pill, or trend pill (↑ 4 Today) | [§3 Label](#3-label) | tag/* · callout · status/* · stat/up · stat/down |
 | A persistent advisory message inside a sheet | [§4 Banner](#4-banner) | info |
-| Tabs, toggle, dropdown, or segmented control | [§5 Control](#5-control) | tabs/* · toggle/* · dropdown/* · segment/* |
+| Tabs, toggle, dropdown, segmented control, or checkbox | [§5 Control](#5-control) | tabs/* · toggle/* · dropdown/* · segment/* · checkbox/* |
 | A list row — activity, contact, inbox, stat, empty state | [§6 List Item](#6-list-item) | Class A standard (with avatar) · Class B nested (stat / empty) |
 | The first row of a section — title + optional filter or "Edit" | [§7 Section Header](#7-section-header) | default · dropdown · action |
 | A vertical step-by-step progress timeline | [§8 Timeline](#8-timeline) | completed-* · current-middle · upcoming-* |
@@ -362,7 +362,7 @@ Stat       ╭──────────────╮
 
 ### 5. Control
 
-**Use.** Stateful interactive control — switches a state, picks one value from a small set, or moves between top-level views. Four families share the *Control* schema: Tabs (top-nav strip), Toggle (boolean), Dropdown (picker), Segment (mutually-exclusive set).
+**Use.** Stateful interactive control — switches a state, picks one value from a small set, or moves between top-level views. Five families share the *Control* schema: Tabs (top-nav strip), Toggle (boolean), Dropdown (picker), Segment (mutually-exclusive set), Checkbox (boolean tile).
 
 **Anatomy.**
 ```
@@ -382,11 +382,17 @@ Dropdown    ╭──────────────╮
 Segment     ╭───────╮ ╭───────╮ ╭───────╮
             │ Week  │ │ Month │ │ Year  │       ← strip; one item filled (active), others outlined
             ╰───────╯ ╰───────╯ ╰───────╯
+
+Checkbox    ╭──╮               ┌──┐
+            │  │               │✓ │            ← 24×24 tile; fill flips and check glyph appears
+            ╰──╯               └──┘
+             unchecked          checked
 ```
 - **Tabs** — strip of items, one underlined. Items have no inline padding; the strip's gap is the separation.
 - **Toggle** — pill track + circular knob. Position is the affordance.
 - **Dropdown** — single pill; label + trailing chevron flips on expand.
 - **Segment** — strip of items, one filled. Container gap is the separation.
+- **Checkbox** — 24×24 rounded tile. The fill flips and a check glyph appears; presence of the glyph is the affordance.
 
 **Variants.**
 
@@ -400,6 +406,8 @@ Segment     ╭───────╮ ╭───────╮ ╭───
 | `dropdown/expanded` | Cream pill, body-small label + chevron-up | Picker, open |
 | `segment/active` | `--ct-cta-primary-container` fill, link label in `--ct-cta-primary-text` | Selected option in a 2–3 segment row |
 | `segment/inactive` | 1px `--ct-cta-secondary-container` border, no fill, link label in `--ct-text-primary` | Unselected segments in same row |
+| `checkbox/unchecked` | 24×24 rounded tile, `--ct-graph-background` fill, empty | Option not yet chosen |
+| `checkbox/checked` | 24×24 rounded tile, `--ct-cta-primary-container` fill, white 16×16 check glyph | Option chosen |
 
 **Sizing.**
 - **Tabs item** — padding-block `--ct-spacing-20`; underline 1px solid (active only). No padding-inline.
@@ -408,6 +416,7 @@ Segment     ╭───────╮ ╭───────╮ ╭───
 - **Dropdown** — padding-left `--ct-spacing-16`; padding-right `--ct-spacing-12`; padding-block `--ct-spacing-8`; gap `--ct-spacing-4`; border-radius `--ct-spacing-24`; chevron 16×16; overflow-clip.
 - **Segment item** — width = equal share of `(strip-width − sum-of-gaps) / count`; padding-block `--ct-spacing-12`; padding-inline `10px` (no matching `--ct-spacing-10` in current system; left as raw value until a token lands); border-radius `--ct-spacing-16`.
 - **Segment strip** — gap `--ct-spacing-16`.
+- **Checkbox** — `--ct-spacing-24` × `--ct-spacing-24`; padding `--ct-spacing-4`; border-radius `--ct-spacing-12`. Check glyph (`checkbox/checked` only) `--ct-spacing-16` × `--ct-spacing-16`, white stroke baked into SVG asset (no token for the stroke; theme-aware re-color requires Figma re-export — same caveat as the toggle knob and the §16 selection-card glyph).
 
 **Tokens.**
 
@@ -451,12 +460,26 @@ Segment     ╭───────╮ ╭───────╮ ╭───
 | Item (`segment/inactive`) label | color | `--ct-text-primary` |
 | Item label (all) | font (apply all 5) | `--ct-text-link-*` |
 
+*Checkbox*
+
+| Slot | Property | Token |
+| --- | --- | --- |
+| Tile (`checkbox/unchecked`) | background | `--ct-graph-background` |
+| Tile (`checkbox/checked`) | background | `--ct-cta-primary-container` |
+| Tile (all) | padding | `--ct-spacing-4` |
+| Tile (all) | border-radius | `--ct-spacing-12` |
+| Check glyph | spec | _TBD_ — stroke baked in SVG asset (see Sizing) |
+
 **Don't.**
 - Don't add padding-inline to Tabs items. The strip's `--ct-spacing-24` gap is the separation; the underline is the affordance (SKILL.md §9.3 spirit).
 - Don't substitute `--ct-bkgd-02` for the active Segment label color. The semantically-paired text token for `--ct-cta-primary-container` is `--ct-cta-primary-text`; mismatch breaks dark-theme contrast.
 - Don't add a chevron-right or arrow to a Segment, Tab, or Toggle. The fill / underline / knob position is the affordance (SKILL.md §9.3 spirit).
+- Don't substitute `--ct-cta-secondary-container` for `--ct-graph-background` on `checkbox/unchecked`. Toggle uses `--ct-cta-secondary-container` for its off-state; checkbox uses the quieter `--ct-graph-background` (= 5% black). The two are semantically distinct and resolve differently across theme — pick the spec'd token, not the closest-looking one (SKILL.md §4.4).
+- Don't add a third checkbox fill (red error, orange indeterminate, etc.) to mark a non-boolean state. Figma exports only `checkbox/unchecked` and `checkbox/checked`; a third state goes into Figma first and re-exports (SKILL.md §2.7).
+- Don't repaint the white check glyph by binding a token to its stroke. The stroke is baked into the SVG asset; theme-aware re-color requires re-export from Figma (same caveat as the toggle knob and the §16 selection-card glyph — SKILL.md §2.1).
+- Don't pair the checkbox with a `chevron.right` or any trailing arrow on a list row. The checkbox is itself the affordance — duplicating it confuses the row (SKILL.md §9.3).
 
-**Figma.** [Playlist — Toolkit](https://www.figma.com/design/k0n0CNGfk4ie9Vb74byl9v/Playlist-%E2%80%94-Toolkit?node-id=16022-7383) · Page `16022:7383` · Variant masters: tabs/item `16022:7486`, tabs/strip-3-tap `16022:7491`, tabs/strip-5-tap `16022:7499` (master named "Taps" in Figma — likely typo for "Tabs"), toggle/on `16031:7853`, toggle/off `16031:7854`, dropdown/collapsed `16767:13472`, dropdown/expanded `16767:13477`, segment/item-active `16054:8063`, segment/item-inactive `16960:10261` and `16960:10262`, segment/strip `16960:10273`
+**Figma.** [Playlist — Toolkit](https://www.figma.com/design/k0n0CNGfk4ie9Vb74byl9v/Playlist-%E2%80%94-Toolkit?node-id=16022-7383) · Page `16022:7383` · Variant masters: tabs/item `16022:7486`, tabs/strip-3-tap `16022:7491`, tabs/strip-5-tap `16022:7499` (master named "Taps" in Figma — likely typo for "Tabs"), toggle/on `16031:7853`, toggle/off `16031:7854`, dropdown/collapsed `16767:13472`, dropdown/expanded `16767:13477`, segment/item-active `16054:8063`, segment/item-inactive `16960:10261` and `16960:10262`, segment/strip `16960:10273`, checkbox/unchecked `18548:1879`, checkbox/checked `18548:1880`
 
 ### 6. List Item
 
