@@ -38,17 +38,17 @@ cloaked-design-md/
 ├── README.md                     # This file (humans)
 └── cloaked-design-system/        # The skill (deployable unit)
     ├── SKILL.md                  # AI rules (read by LLMs)
-    ├── components.md             # Component specs — currently TBD
-    ├── examples.md               # BAD / GOOD usage — currently TBD
-    ├── tokens/
-    │   ├── colors.css            # 16 color primitives
-    │   ├── numbers.css           # Spacing scale + opacity
-    │   ├── themes.css            # Light + Dark semantic tokens
-    │   └── typography.css        # Text styles + @font-face
-    └── fonts/
-        ├── Simula-Book.otf
-        └── Simula-Italic.otf
+    ├── components.md             # Component specs (16 components, fully spec'd)
+    ├── examples.md               # Real screen examples (composition + tokens + decisions)
+    ├── motion.md                 # Motion system rules
+    └── tokens/
+        ├── colors.css            # 16 color primitives
+        ├── numbers.css           # Spacing scale + opacity
+        ├── themes.css            # Light + Dark semantic tokens
+        └── typography.css        # Text styles + @font-face
 ```
+
+> **Fonts.** Simula is a licensed typeface and is **not bundled** in this repo (see `.gitignore`). `tokens/typography.css` references `Simula-Book.otf` / `Simula-Italic.otf` via `@font-face`; supply the files locally under `cloaked-design-system/fonts/` if you need to render previews. The system falls back to sans where Simula is absent.
 
 ---
 
@@ -78,4 +78,4 @@ Hand-edits to `cloaked-design-system/tokens/*.css` will be overwritten on the ne
 
 ## License
 
-Simula is a licensed typeface. The `.otf` files in `cloaked-design-system/fonts/` are bundled for use within Cloaked products only. Do not redistribute the fonts as part of forks or external projects.
+Simula is a licensed typeface and is not bundled in this repository. If you obtain the `.otf` files (Cloaked-internal only), keep them under `cloaked-design-system/fonts/` locally and do not redistribute as part of forks or external projects.

@@ -10,7 +10,7 @@
 
 ## Quick Index — find a component by intent
 
-**Read this table before reaching for code.** Match the user's intent to a row, then jump to that section. If nothing matches, stop and ask — don't fabricate a 16th component (SKILL.md §7.2).
+**Read this table before reaching for code.** Match the user's intent to a row, then jump to that section. If nothing matches, stop and ask — don't fabricate a new component (SKILL.md §7.2).
 
 | If you need... | Use | Variants |
 | --- | --- | --- |
@@ -18,7 +18,7 @@
 | A section break inside a list ("Today", "Yesterday") | [§2 Divider](#2-divider) | default |
 | A tag, status pill, or trend pill (↑ 4 Today) | [§3 Label](#3-label) | tag/* · callout · status/* · stat/up · stat/down |
 | A persistent advisory message inside a sheet | [§4 Banner](#4-banner) | info |
-| Tabs, toggle, dropdown, or segmented control | [§5 Control](#5-control) | tabs/* · toggle/* · dropdown/* · segment/* |
+| Tabs, toggle, dropdown, segmented control, or checkbox | [§5 Control](#5-control) | tabs/* · toggle/* · dropdown/* · segment/* · checkbox/* |
 | A list row — activity, contact, inbox, stat, empty state | [§6 List Item](#6-list-item) | Class A standard (with avatar) · Class B nested (stat / empty) |
 | The first row of a section — title + optional filter or "Edit" | [§7 Section Header](#7-section-header) | default · dropdown · action |
 | A vertical step-by-step progress timeline | [§8 Timeline](#8-timeline) | completed-* · current-middle · upcoming-* |
@@ -29,8 +29,9 @@
 | A full-bleed feature hero at the top of a feature page | [§13 Hero / Feature](#13-hero--feature) | intro/* · active/* · scanning/* |
 | A full-screen AI/Kit moment with Simula headline + AI card | [§14 Hero / Kit Briefing](#14-hero--kit-briefing) | default |
 | A standalone AI notification card on cream (no headline) | [§15 Hero / Notification](#15-hero--notification) | default |
+| A choosable option card with a checkbox tile (settings, onboarding) | [§16 Selection card](#16-selection-card) | default · selected |
 
-**When in doubt, scan all 15 rows before deciding.** A common failure mode is reaching for `§11 Card / Feature` when the right answer is `§12 Card / Dashboard` (or vice versa) — read both Use lines if your tile is ambiguous.
+**When in doubt, scan all 16 rows before deciding.** A common failure mode is reaching for `§11 Card / Feature` when the right answer is `§12 Card / Dashboard` (or vice versa) — read both Use lines if your tile is ambiguous.
 
 ---
 
@@ -361,7 +362,7 @@ Stat       ╭──────────────╮
 
 ### 5. Control
 
-**Use.** Stateful interactive control — switches a state, picks one value from a small set, or moves between top-level views. Four families share the *Control* schema: Tabs (top-nav strip), Toggle (boolean), Dropdown (picker), Segment (mutually-exclusive set).
+**Use.** Stateful interactive control — switches a state, picks one value from a small set, or moves between top-level views. Five families share the *Control* schema: Tabs (top-nav strip), Toggle (boolean), Dropdown (picker), Segment (mutually-exclusive set), Checkbox (boolean tile).
 
 **Anatomy.**
 ```
@@ -381,11 +382,17 @@ Dropdown    ╭──────────────╮
 Segment     ╭───────╮ ╭───────╮ ╭───────╮
             │ Week  │ │ Month │ │ Year  │       ← strip; one item filled (active), others outlined
             ╰───────╯ ╰───────╯ ╰───────╯
+
+Checkbox    ╭──╮               ┌──┐
+            │  │               │✓ │            ← 24×24 tile; fill flips and check glyph appears
+            ╰──╯               └──┘
+             unchecked          checked
 ```
 - **Tabs** — strip of items, one underlined. Items have no inline padding; the strip's gap is the separation.
 - **Toggle** — pill track + circular knob. Position is the affordance.
 - **Dropdown** — single pill; label + trailing chevron flips on expand.
 - **Segment** — strip of items, one filled. Container gap is the separation.
+- **Checkbox** — 24×24 rounded tile. The fill flips and a check glyph appears; presence of the glyph is the affordance.
 
 **Variants.**
 
@@ -399,6 +406,8 @@ Segment     ╭───────╮ ╭───────╮ ╭───
 | `dropdown/expanded` | Cream pill, body-small label + chevron-up | Picker, open |
 | `segment/active` | `--ct-cta-primary-container` fill, link label in `--ct-cta-primary-text` | Selected option in a 2–3 segment row |
 | `segment/inactive` | 1px `--ct-cta-secondary-container` border, no fill, link label in `--ct-text-primary` | Unselected segments in same row |
+| `checkbox/unchecked` | 24×24 rounded tile, `--ct-graph-background` fill, empty | Option not yet chosen |
+| `checkbox/checked` | 24×24 rounded tile, `--ct-cta-primary-container` fill, white 16×16 check glyph | Option chosen |
 
 **Sizing.**
 - **Tabs item** — padding-block `--ct-spacing-20`; underline 1px solid (active only). No padding-inline.
@@ -407,6 +416,7 @@ Segment     ╭───────╮ ╭───────╮ ╭───
 - **Dropdown** — padding-left `--ct-spacing-16`; padding-right `--ct-spacing-12`; padding-block `--ct-spacing-8`; gap `--ct-spacing-4`; border-radius `--ct-spacing-24`; chevron 16×16; overflow-clip.
 - **Segment item** — width = equal share of `(strip-width − sum-of-gaps) / count`; padding-block `--ct-spacing-12`; padding-inline `10px` (no matching `--ct-spacing-10` in current system; left as raw value until a token lands); border-radius `--ct-spacing-16`.
 - **Segment strip** — gap `--ct-spacing-16`.
+- **Checkbox** — `--ct-spacing-24` × `--ct-spacing-24`; padding `--ct-spacing-4`; border-radius `--ct-spacing-12`. Check glyph (`checkbox/checked` only) `--ct-spacing-16` × `--ct-spacing-16`, white stroke baked into SVG asset (no token for the stroke; theme-aware re-color requires Figma re-export — same caveat as the toggle knob and the §16 selection-card glyph).
 
 **Tokens.**
 
@@ -450,12 +460,26 @@ Segment     ╭───────╮ ╭───────╮ ╭───
 | Item (`segment/inactive`) label | color | `--ct-text-primary` |
 | Item label (all) | font (apply all 5) | `--ct-text-link-*` |
 
+*Checkbox*
+
+| Slot | Property | Token |
+| --- | --- | --- |
+| Tile (`checkbox/unchecked`) | background | `--ct-graph-background` |
+| Tile (`checkbox/checked`) | background | `--ct-cta-primary-container` |
+| Tile (all) | padding | `--ct-spacing-4` |
+| Tile (all) | border-radius | `--ct-spacing-12` |
+| Check glyph | spec | _TBD_ — stroke baked in SVG asset (see Sizing) |
+
 **Don't.**
 - Don't add padding-inline to Tabs items. The strip's `--ct-spacing-24` gap is the separation; the underline is the affordance (SKILL.md §9.3 spirit).
 - Don't substitute `--ct-bkgd-02` for the active Segment label color. The semantically-paired text token for `--ct-cta-primary-container` is `--ct-cta-primary-text`; mismatch breaks dark-theme contrast.
 - Don't add a chevron-right or arrow to a Segment, Tab, or Toggle. The fill / underline / knob position is the affordance (SKILL.md §9.3 spirit).
+- Don't substitute `--ct-cta-secondary-container` for `--ct-graph-background` on `checkbox/unchecked`. Toggle uses `--ct-cta-secondary-container` for its off-state; checkbox uses the quieter `--ct-graph-background` (= 5% black). The two are semantically distinct and resolve differently across theme — pick the spec'd token, not the closest-looking one (SKILL.md §4.4).
+- Don't add a third checkbox fill (red error, orange indeterminate, etc.) to mark a non-boolean state. Figma exports only `checkbox/unchecked` and `checkbox/checked`; a third state goes into Figma first and re-exports (SKILL.md §2.7).
+- Don't repaint the white check glyph by binding a token to its stroke. The stroke is baked into the SVG asset; theme-aware re-color requires re-export from Figma (same caveat as the toggle knob and the §16 selection-card glyph — SKILL.md §2.1).
+- Don't pair the checkbox with a `chevron.right` or any trailing arrow on a list row. The checkbox is itself the affordance — duplicating it confuses the row (SKILL.md §9.3).
 
-**Figma.** [Playlist — Toolkit](https://www.figma.com/design/k0n0CNGfk4ie9Vb74byl9v/Playlist-%E2%80%94-Toolkit?node-id=16022-7383) · Page `16022:7383` · Variant masters: tabs/item `16022:7486`, tabs/strip-3-tap `16022:7491`, tabs/strip-5-tap `16022:7499` (master named "Taps" in Figma — likely typo for "Tabs"), toggle/on `16031:7853`, toggle/off `16031:7854`, dropdown/collapsed `16767:13472`, dropdown/expanded `16767:13477`, segment/item-active `16054:8063`, segment/item-inactive `16960:10261` and `16960:10262`, segment/strip `16960:10273`
+**Figma.** [Playlist — Toolkit](https://www.figma.com/design/k0n0CNGfk4ie9Vb74byl9v/Playlist-%E2%80%94-Toolkit?node-id=16022-7383) · Page `16022:7383` · Variant masters: tabs/item `16022:7486`, tabs/strip-3-tap `16022:7491`, tabs/strip-5-tap `16022:7499` (master named "Taps" in Figma — likely typo for "Tabs"), toggle/on `16031:7853`, toggle/off `16031:7854`, dropdown/collapsed `16767:13472`, dropdown/expanded `16767:13477`, segment/item-active `16054:8063`, segment/item-inactive `16960:10261` and `16960:10262`, segment/strip `16960:10273`, checkbox/unchecked `18548:1879`, checkbox/checked `18548:1880`
 
 ### 6. List Item
 
@@ -1931,5 +1955,72 @@ scanning/data-removal ┌──────────────────�
 - Don't replace the celebration avatar with a generic icon (e.g. `bell`, `info`, `confetti`, `check`) or with the §14 Guard avatar. The green-circle-plus-numeric-glyph is this notification's visual signature; swapping it generic-ifies the moment and breaks the recognition contract with §14 (SKILL.md §9.5).
 
 **Figma.** [Playlist — Toolkit](https://www.figma.com/design/k0n0CNGfk4ie9Vb74byl9v/Playlist-%E2%80%94-Toolkit?node-id=16978-11906) · Specimen frame `16978:11906` · Variant master: ai-notification `16081:12390`
+
+---
+
+### 16. Selection card
+
+**Use.** A choosable option presented as a card — a 2-line label stack on the left, a checkbox tile on the right. Reach for it when the user picks between a small set of mutually-exclusive (or multi-select) options that each need a sentence of context, not a single-word toggle. Typical surfaces: onboarding step-pickers, settings prompts ("which protections should be on?"), feature-tour acknowledgements.
+
+**Anatomy.**
+```
+default (unselected)              selected
+╭────────────────────────────╮    ┌────────────────────────────┐
+│                            │    │                            │
+│  Stop spam calls           │    │  Stop spam calls           │
+│  Lorem ipsum               │    │  Lorem ipsum               │
+│                       ╭──╮ │    │                       ┌──┐ │
+│                       │  │ │    │                       │✓ │ │
+│                       ╰──╯ │    │                       └──┘ │
+╰────────────────────────────╯    └────────────────────────────┘
+   white sheet, no border           white sheet, 1px primary border
+   quiet checkbox tile               filled-black checkbox + check
+```
+- **Card surface.** White sheet (`--ct-bkgd-02`) with `--ct-spacing-20` radius. Two slots in a row: text column (leading) + checkbox tile (trailing).
+- **Text column.** Stacked primary label (body, `--ct-text-primary`) over secondary label (body-small, `--ct-text-secondary`). Width 289px raw so the checkbox tile aligns flush-right inside the 361px card.
+- **Checkbox tile.** A 24×24 rounded square (`--ct-spacing-12` radius) with `--ct-spacing-4` inner padding. In `default` it is a quiet `--ct-graph-background` fill, empty. In `selected` it flips to `--ct-cta-primary-container` and reveals a 16×16 white check glyph (SVG asset; stroke baked into the asset).
+
+**Variants.**
+
+| Variant | Visual | When |
+| --- | --- | --- |
+| `default` | 361px-wide white card with 2-line text column and quiet 24×24 checkbox tile (no border, no glyph) | An option the user has not yet chosen |
+| `selected` | Same card with 1px `--ct-text-primary` border + checkbox tile filled near-black with white check glyph | The user has chosen this option |
+
+**Sizing.**
+- Card: width 361px (raw — no matching `--ct-spacing-*`); `flex-direction: row`; `align-items: center`; gap `--ct-spacing-16`; padding-inline `--ct-spacing-16`; padding-block `--ct-spacing-32`; border-radius `--ct-spacing-20`.
+  - Text column: width 289px raw; `flex-direction: column`; gap `--ct-spacing-4`; `align-items: flex-start`.
+  - Checkbox tile: `--ct-spacing-24` × `--ct-spacing-24`; padding `--ct-spacing-4`; border-radius `--ct-spacing-12`.
+  - Check glyph (selected only): `--ct-spacing-16` × `--ct-spacing-16` inside the tile; stroke baked into the SVG asset.
+- `selected` adds a `1px` solid border (raw — no `--ct-spacing-1` token; SKILL.md §9.2 note). The border draws inside the same 361px footprint as `default` — do not grow the card to accommodate it.
+
+**Tokens.**
+
+| Slot | Property | Token |
+| --- | --- | --- |
+| Card | background | `--ct-bkgd-02` |
+| Card | padding-inline | `--ct-spacing-16` |
+| Card | padding-block | `--ct-spacing-32` |
+| Card | gap | `--ct-spacing-16` |
+| Card | border-radius | `--ct-spacing-20` |
+| Card (`selected` only) | border | `1px` solid `--ct-text-primary` |
+| Primary label | color | `--ct-text-primary` |
+| Primary label | font (apply all 5) | `--ct-text-body-*` |
+| Secondary label | color | `--ct-text-secondary` |
+| Secondary label | font (apply all 5) | `--ct-text-body-small-*` |
+| Checkbox tile | padding | `--ct-spacing-4` |
+| Checkbox tile | border-radius | `--ct-spacing-12` |
+| Checkbox tile (`default`) | background | `--ct-graph-background` |
+| Checkbox tile (`selected`) | background | `--ct-cta-primary-container` |
+| Check glyph (`selected` only) | spec | _TBD_ — SVG asset bakes the white stroke (same caveat as §1 icon strokes, §14 Guard avatar, §15 celebration avatar — Figma must export the stroke as a variable for theme-aware re-color) |
+
+**Don't.**
+- Don't apply `--ct-text-ai-*` to either label. The card sits on `--ct-bkgd-02` (white) under `data-theme="light"`, not the AI input or FAQ band — `--ct-text-ai-*` would render cream-on-white and the labels disappear (SKILL.md §5.2).
+- Don't swap the 1px primary border on `selected` for a card shadow, a colored border, or a thicker outline. Separation in this system is never a shadow (SKILL.md §9.2), and the 1px primary border is the entire selection signal — escalating it breaks the contract with every other "selected" surface.
+- Don't repaint the white check glyph by binding a token to its stroke. The stroke is baked into the SVG asset; theme-aware re-color requires re-export from Figma (same caveat as §1 icon strokes, §14 Guard avatar, §15 celebration avatar — SKILL.md §2.1).
+- Don't add a `chevron.right` or any trailing affordance "to indicate selectability." The checkbox tile is the affordance — a chevron either duplicates it or contradicts it (SKILL.md §9.3).
+- Don't extend selection to a third state (`indeterminate`, `disabled-selected`, `error`, etc.) by recoloring the checkbox tile locally. The spec is closed at `default` / `selected`; a third state goes into Figma first and re-exports (SKILL.md §2.7, §7.1).
+
+**Figma.** [Playlist — Toolkit](https://www.figma.com/design/k0n0CNGfk4ie9Vb74byl9v/Playlist-%E2%80%94-Toolkit?node-id=18548-1905) · Specimen frame `18548:1905` · Variant master: selection-card `18549:1986`
 
 ---

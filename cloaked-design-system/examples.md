@@ -606,6 +606,41 @@ States of the same feature are placed **together** so the evolution is visible.
 
 **Refs**: → `components.md`
 
+### Guard — setup (call protection)
+
+**Figma**: https://www.figma.com/design/k0n0CNGfk4ie9Vb74byl9v/Playlist-%E2%80%94-Toolkit?node-id=18556-7255&m=dev
+
+**Composition (stack)**
+```
+1. ┌─ Progress row ───────────────────────────────────
+   │  - Progress bar  (7-segment, seg 1 filled)        ← undocumented; see Decisions
+   │  - Button  `icon-secondary/small`  `action/close` (48×48 trailing, right-aligned via space-between)
+2. Title block                                         ← H1 "Choose your call protection" + body subtitle
+3. ┌─ Group: Protection options ───────────────────────
+   │  - Selection card  `selected`   (Full Protection · Forward all calls for maximum protection)
+   │  - Selection card  `default`    (Smart Protection · Only forward when busy or unavailable)
+4. Button  `text/primary`  "Continue"                  ← full-width, pinned near bottom (56px tall)
+```
+
+**Tokens**
+- Outer surface: `--ct-bkgd-01` (resolves dark #141410 under `data-theme="dark"` — the whole screen is dark).
+- Progress row: padding-top `--ct-spacing-48`, padding-bottom `--ct-spacing-8`, padding-inline `--ct-spacing-16`; row gap `--ct-spacing-4` between segments; segment height 4px raw (no `--ct-spacing-4` line-height token — 4px is the spacing value used as a height); each segment width `flex: 1` across a 305px raw track. Active segment fill `--ct-text-primary` (cream); inactive segments fill `--ct-graph-background` (white-05 in dark).
+- Close button: defers to §1 `icon-secondary` 48×48 round, glyph `action/close`. The stroke is bundled in the SVG asset per §1's icon-stroke caveat.
+- Title block: width 361px raw; internal gap `--ct-spacing-24`. Title (`H1`) `--ct-text-h1-*` capitalize, `--ct-text-primary`. Subtitle (`body`) `--ct-text-body-*` `--ct-text-secondary`, width 268px raw.
+- Title-block-to-selection-card-group gap: 78px raw (computed from Figma's absolute layout — title block ends ~404, selection cards begin at 482; no matching `--ct-spacing-*` token, so raw).
+- Selection card group: width 361px raw; gap `--ct-spacing-16`. Both cards defer to Selection card §16 — surface `--ct-bkgd-02` (resolves #1b1b18 in dark), padding-inline `--ct-spacing-16`, padding-block `--ct-spacing-32`, gap `--ct-spacing-16`, border-radius `--ct-spacing-20`. `selected` card adds `1px` solid `--ct-text-primary` border + checkbox tile `--ct-cta-primary-container` (cream in dark) with white 16×16 check glyph. `default` card has no border + checkbox tile `--ct-graph-background`, empty.
+- Continue CTA: defers to §1 `text/primary`. Container `--ct-cta-primary-container` (cream in dark), label `--ct-cta-primary-text` (resolves near-black #141410 — paired-for-contrast under dark theme), padding `--ct-spacing-16`, border-radius `--ct-spacing-16`. Height 56px raw, width 361px raw.
+
+**Decisions**
+- **Progress bar is undocumented in components.md.** This is the first explicit sighting of the 7-segment onboarding progress bar (segments are `flex: 1` width × 4px height, gap `--ct-spacing-4`, active fill `--ct-text-primary` / inactive `--ct-graph-background`). The earlier attempt to spec it via Figma node `15996:3532` failed (`get_design_context` errored on that node). _Question for the user: promote the progress bar to a new component spec — likely under §10 Navigation alongside `top_bar/*` — or accept inline for now and revisit?_
+- **No `top_bar` chrome.** Setup screens replace the page header with the progress row + close button. The close (×) is the only escape affordance — there is no Simula page title and no "Back" arrow. This is a deliberate onboarding-flow pattern (steps own the chrome, not navigation).
+- **Pre-selection is intentional.** The first card (`Full Protection`) is `selected` on entry; the user dissents by tapping `Smart Protection` rather than affirming the default. Don't flip this to no-selection on render — the spec is opinionated.
+- **Cards are mutually exclusive (radio behavior, checkbox UI).** Selection card §16 has no `radio` variant; it uses the checkbox tile as the affordance, and the surrounding flow enforces single-select. Don't substitute a radio component — the visual signature is the checkbox + border swap (per §16's selected-vs-default treatment).
+- **No closer band (no `Footer / faq`, no `Footer / impact`).** Cross-cutting #3 ("every page ends with one closer — faq OR impact") is scoped to main-nav screens. Setup screens close with the primary CTA — the "Continue" button is the closer.
+- **Outer surface is dark, not feature-tinted.** Even though this is Call Guard's onboarding, the surface is `--ct-bkgd-01` resolved dark, not `--ct-guard-container-*`. Feature identity appears later (day 1 hero / FAQ band); the setup flow is neutral chrome so steps from any feature can share the same shell.
+
+**Refs**: → `components.md`
+
 ---
 
 ## Sub-screens
