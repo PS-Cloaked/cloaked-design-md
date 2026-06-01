@@ -159,7 +159,7 @@ States of the same feature are placed **together** so the evolution is visible.
 - **Dashboard tiles are `list/*` variants, never `kpi/*`.** Each composite tile (`list/digital-risk`, `list/actions-taken`, `list/recent-activity`) owns its own `card-section` footer ("See Details" / "See all activities") — those are component-internal per components.md §12, not stack-level group footers.
 - **Group footer = "Add to dashboard" Button (Secondary).** This is the only stack-level footer for the Dashboard group, sitting inside the cream panel before the FAQ band.
 - **FAQ accent = `--ct-brand`.** Home has no feature color (cross-cutting #2 → warm neutral), so its FAQ accent inherits the brand. Don't introduce a Home-only accent token.
-- **Inline "Dashboard / Edit" panel header is one-off, not Section Header §7.** Body 16px on `--ct-bkgd-01` cream; §7 spec is H3 20px on `--ct-bkgd-02`. Code it inline here — do not promote to a Section Header variant.
+- **Inline "Dashboard / Edit" panel header is one-off, not Section Header §7.** Body 16px on `--ct-bkgd-01` cream; §7 spec is H4 20px on `--ct-bkgd-02`. Code it inline here — do not promote to a Section Header variant.
 
 **Refs**: → `components.md`
 
@@ -188,11 +188,11 @@ States of the same feature are placed **together** so the evolution is visible.
 - Hero surface: raw `#000` (per components.md §13 — no `--ct-bkgd-*` resolves to pure black; TBD). Orange overlay: `--ct-brand` with `mix-blend-mode: multiply`. Wrapped in `data-theme="dark"` so caption + status text resolve cream.
 - Counter video & footer Status pill: video raw illustration; pill defers to Label §3 `status/active`.
 - Navigation overlaid: Simula H2 (`--ct-text-h2-serif-*`), text `--ct-text-primary` (cream via inherited `data-theme="dark"`).
-- Section Header `default`: surface `--ct-bkgd-02`, title `--ct-text-h3-*` capitalize, padding-top `--ct-spacing-40`, padding-bottom `--ct-spacing-12`, padding-inline `--ct-spacing-16`.
+- Section Header `default`: surface `--ct-bkgd-02`, title `--ct-text-h4-*` capitalize, padding-top `--ct-spacing-40`, padding-bottom `--ct-spacing-12`, padding-inline `--ct-spacing-16`.
 - List Item `progress`: surface `--ct-bkgd-02`, padding `--ct-spacing-20`, gap `--ct-spacing-12`, leading 40×40 `Default_monitoring/Data Removal` avatar, title `--ct-text-body-*` + meta `--ct-text-body-small-*` `--ct-text-secondary`, bottom hairline `--ct-divider`. Progress bar 8px raw; track `--ct-bkgd-01`.
   - **Progress fill on this screen = `--ct-status-success-solid`** (deviates from List Item §6 spec, which mandates `--ct-brand` — see Decisions).
 - List Item `empty`: surface `--ct-bkgd-02`, height 240px raw, copy `--ct-text-body-*` `--ct-text-primary`, centered.
-- Footer / `impact`: surface `--ct-bkgd-01`, height 550px raw, inner stack 271px raw centered. Copy at `--ct-text-h3-*` capitalize; inline Simula on "170 million" via `--ct-text-h2-serif-*` colored `--ct-brand`. CTA pill `--ct-cta-secondary-container`, label `--ct-text-body-*`.
+- Footer / `impact`: surface `--ct-bkgd-01`, height 550px raw, inner stack 271px raw centered. Copy at `--ct-text-h4-*` capitalize; inline Simula on "170 million" via `--ct-text-h2-serif-*` colored `--ct-brand`. CTA pill `--ct-cta-secondary-container`, label `--ct-text-body-*`.
 
 **Decisions**
 - **Hero is `scanning/data-removal`, not a static-number hero.** No Display-1 number on this screen — the live counter video is the visualization, captioned by "Places data is exposed". The orange identity comes from `--ct-brand` mix-blend-multiply over a black surface, not a feature gradient.
@@ -232,9 +232,9 @@ States of the same feature are placed **together** so the evolution is visible.
 
 **Tokens**
 - Hero KPI block: surface `--ct-bkgd-02`. Kicker `--ct-text-body-small-*` `--ct-text-primary`. Number `--ct-text-display-2-*`. Stat pill defers to Label §3 `stat/up` (`--ct-status-success-subtle` container, `--ct-status-success-solid` text).
-- 3-tile breakout (Card / Feature `default`, category-tinted): tile surfaces `--ct-monitoring-container-02` (#5936c1), `--ct-guard-container-02` (#d78e20), `--ct-identity-container-02` (#379aad). Number `--ct-text-display-2-*`, label `--ct-text-body-small-*`. Tile text resolves cream via local `data-theme="dark"` (the category container is fixed-dark per Card / Feature §11 / SKILL.md §9.1).
+- 3-tile breakout (Card / Feature `default`, category-tinted): tile surfaces `--ct-monitoring-container-02` (#291132), `--ct-guard-container-02` (#5B3B0D), `--ct-identity-container-02` (#0E1F31). Number `--ct-text-display-2-*`, label `--ct-text-body-small-*`. Tile text resolves cream via local `data-theme="dark"` (the category container is fixed-dark per Card / Feature §11 / SKILL.md §9.1).
 - "Since" caption: `--ct-text-body-small-*` `--ct-text-secondary`.
-- Section Header `default` and `dropdown`: surface `--ct-bkgd-02`, title `--ct-text-h3-*` capitalize, padding-top `--ct-spacing-40`, padding-bottom `--ct-spacing-12`, padding-inline `--ct-spacing-16`. Dropdown chip defers to Control §5 `dropdown/collapsed`.
+- Section Header `default` and `dropdown`: surface `--ct-bkgd-02`, title `--ct-text-h4-*` capitalize, padding-top `--ct-spacing-40`, padding-bottom `--ct-spacing-12`, padding-inline `--ct-spacing-16`. Dropdown chip defers to Control §5 `dropdown/collapsed`.
 - List Item `progress` (Activities rule): surface `--ct-bkgd-02`, padding `--ct-spacing-20`, gap `--ct-spacing-12`, leading 40×40 `Default_monitoring/Data Removal`, title `--ct-text-body-*` + meta `--ct-text-body-small-*` `--ct-text-secondary`, bottom hairline `--ct-divider`. Progress bar 8px raw, track `--ct-bkgd-01`, **fill `--ct-status-success-solid`** (Activities-screen rule, see Decisions).
 - Time-band Divider rows: defer to Divider §2 (cream band, `--ct-bkgd-01`, body-small label).
 - Footer `card-section`: top hairline `--ct-divider`, link `--ct-text-link-*` `--ct-text-primary`, height 50px raw.
@@ -268,7 +268,7 @@ States of the same feature are placed **together** so the evolution is visible.
 - Navigation `top_bar/page`: title "Safety Monitoring", `--ct-text-h2-serif-*` (Simula 24), `--ct-text-primary` (resolves dark on the cream `--ct-bkgd-01` outer surface).
 - Tabs: backdrop-blur 16px raw, bottom border `--ct-divider`, padding-top `--ct-spacing-48`, padding-inline `--ct-spacing-16`, gap 10px raw. Each Tap_item: `--ct-text-body-*` `--ct-text-primary`, padding-block `--ct-spacing-20`. Selected: bottom-border `--ct-cta-primary-container`. Inactive: `opacity: var(--ct-opacity-disabled)` (0.3).
 - Hero `intro/vpn` (defers to Hero / Feature §13): container `--ct-bkgd-01`. Top-right Button defers to `icon-primary/default`. Title `--ct-text-h1-*` capitalize `--ct-text-primary`. CTA: container `--ct-monitoring-container-02`, label `--ct-cta-primary-text`.
-- Footer / `faq` (feature-tinted): container `--ct-monitoring-container-02` (#291132). FAQ cards: surface `--ct-monitoring-container-01` (#411d50). Section title "Frequently Asked Questions": `--ct-text-h3-*` capitalize, `--ct-text-primary` cream via local `data-theme="dark"`. FAQ card kicker: `--ct-text-body-small-*` `--ct-text-ai-secondary` (#dcd8cf) — **not `--ct-brand`**. FAQ card headline: `--ct-text-h2-serif-*` `--ct-text-ai-primary`. Trailing icon button: `Button_Icon/Secondary` (48×48 round, `action/arrow_right`). Container padding-bottom `--ct-spacing-240`.
+- Footer / `faq` (feature-tinted): container `--ct-monitoring-container-02` (#291132). FAQ cards: surface `--ct-monitoring-container-01` (#411d50). Section title "Frequently Asked Questions": `--ct-text-h4-*` capitalize, `--ct-text-primary` cream via local `data-theme="dark"`. FAQ card kicker: `--ct-text-body-small-*` `--ct-text-ai-secondary` (#dcd8cf) — **not `--ct-brand`**. FAQ card headline: `--ct-text-h2-serif-*` `--ct-text-ai-primary`. Trailing icon button: `Button_Icon/Secondary` (48×48 round, `action/arrow_right`). Container padding-bottom `--ct-spacing-240`.
 
 **Decisions**
 - **Hero matches Hero / Feature §13 `intro/vpn` exactly.** The brand-purple Primary CTA (`--ct-monitoring-container-02`) is the visual signature of the VPN moment; per §13 it is the only sanctioned override of `--ct-cta-primary-container`. Cream surface + 11 dot markers on the world map + the expand `ButtonIconPrimary` are part of the variant — don't substitute a generic illustration.
@@ -305,7 +305,7 @@ States of the same feature are placed **together** so the evolution is visible.
 **Tokens**
 - Navigation, Tabs: same as Monitoring (VPN) — day 1.
 - Hero `active/vpn` (defers to Hero / Feature §13): container `--ct-bkgd-01`. Map illustration raw. Top-right Button defers to `icon-primary/default`. Detail card surface `--ct-bkgd-02`, padding-inline `--ct-spacing-20`, padding-bottom `--ct-spacing-40`. Connected row + Service row body 16 `--ct-text-primary`; hairline `--ct-divider`. Flag avatar 40×40 raw illustration. Disconnect CTA defers to Button `text/primary` — uses **default `--ct-cta-primary-container`** (dark), NOT `--ct-monitoring-container-02` (see Decisions).
-- Locations group: Section Header `default` (`--ct-bkgd-02`, H3 capitalize). Card / Feature `location` ×3: cream surface `--ct-bkgd-01`, padding `--ct-spacing-16`, gap `--ct-spacing-12`, radius `--ct-spacing-20`. Flag avatar 40×40. City: `--ct-text-body-*` `--ct-text-primary`. Descriptor at raw `opacity: 0.5` per §11.
+- Locations group: Section Header `default` (`--ct-bkgd-02`, H4 capitalize). Card / Feature `location` ×3: cream surface `--ct-bkgd-01`, padding `--ct-spacing-16`, gap `--ct-spacing-12`, radius `--ct-spacing-20`. Flag avatar 40×40. City: `--ct-text-body-*` `--ct-text-primary`. Descriptor at raw `opacity: 0.5` per §11.
 - Total Average stat trio: surface `--ct-bkgd-02`, 353px raw row width. Number `--ct-text-h1-*` (32px, letter-spacing 0.5 — note: §13 active heroes use Display-1, but this stat trio uses H1, smaller). Label `--ct-text-link-*` (12px) `--ct-text-primary`. Two vertical dividers 72px raw, `--ct-divider`.
 - Recent session: Section Header `dropdown` — Dropdown chip defers to Control §5 `dropdown/collapsed` (cream pill on `--ct-bkgd-01`, radius `--ct-spacing-24`). Date Dividers defer to Divider §2 (cream band, body-small label). List Item_VPN: surface `--ct-bkgd-02`, padding `--ct-spacing-20`. Leading 40×40 flag avatar. Title body `--ct-text-primary` + meta body-small `--ct-text-secondary`. Trailing 2-line text block per List Item §6 (duration body primary + data body-small secondary, right-aligned). Bottom hairline `--ct-divider`. Footer `card-section`: top hairline + body-link "See all".
 - Footer / `faq` (feature-tinted): same monitoring tokens as VPN — day 1 (`--ct-monitoring-container-02` band, `--ct-monitoring-container-01` cards, `--ct-text-ai-secondary` kicker, `--ct-text-ai-primary` Simula H2 headline). 4 cards.
@@ -372,7 +372,7 @@ States of the same feature are placed **together** so the evolution is visible.
 ```
 1. Navigation  `top_bar/page`                          ← title "Safety Monitoring"
 2. Tabs (sticky)                                       ← VPN / Data Removal (selected) / Dark Web Monitoring
-3. Hero / Feature  `active/data-removal`               ← H3 label "Total Removed" + Display-1 "276" + Status pill "Next scan Oct 12" + 5-row category bar list + stacked-area chart
+3. Hero / Feature  `active/data-removal`               ← H4 label "Total Removed" + Display-1 "276" + Status pill "Next scan Oct 12" + 5-row category bar list + stacked-area chart
 4. ┌─ Group: Automation Packs ───────────────────────
    │  Section Header  `default`
    │  - Card / Feature  `automation` ×2                (Essential · Remove from major brokers — Lexisnexis.com + The Real Yellowpages — caption "3,232 users use this pack" below each card)
@@ -387,7 +387,7 @@ States of the same feature are placed **together** so the evolution is visible.
 
 **Tokens**
 - Navigation, Tabs: same as Monitoring (VPN) — day 1.
-- Hero `active/data-removal` (defers to Hero / Feature §13): container `--ct-bkgd-02`, padding-block `--ct-spacing-40`, gap `--ct-spacing-40`. Stats column 354px raw. Label `--ct-text-h3-*` capitalize. Number `--ct-text-display-1-*` (72px). Status pill defers to Label §3 `status/card`. Category bar list 5 rows: label `--ct-text-body-*`, bar 208×3px raw with raw category hexes (`#00c49a, #faa542, #719a03, #e1473f, #003ab8`) — no tokens (see Decisions / §13). Stacked-area chart h-233px raw, same 5 raw hexes.
+- Hero `active/data-removal` (defers to Hero / Feature §13): container `--ct-bkgd-02`, padding-block `--ct-spacing-40`, gap `--ct-spacing-40`. Stats column 354px raw. Label `--ct-text-h4-*` capitalize. Number `--ct-text-display-1-*` (72px). Status pill defers to Label §3 `status/card`. Category bar list 5 rows: label `--ct-text-body-*`, bar 208×3px raw with raw category hexes (`#00c49a, #faa542, #719a03, #e1473f, #003ab8`) — no tokens (see Decisions / §13). Stacked-area chart h-233px raw, same 5 raw hexes.
 - Automation Packs (Card / Feature §11 `automation`): card surface `--ct-monitoring-container-02` (#291132), radius `--ct-spacing-20`, width 314px raw, horizontal scroll with `--ct-spacing-8` gap. Header: pack name `--ct-text-body-*` `--ct-text-primary` (cream via local `data-theme="dark"`); right-aligned counter "3 automations" `--ct-text-body-small-*`. Title `--ct-text-h2-serif-*`?? — wait, §11 automation says title is body 16px capitalized 2-line — verify against §11. Two `contact` rows with 40×40 Brand Logo avatars. Footer `card-section` "See Details". Caption below each card: `--ct-text-body-small-*` `--ct-text-secondary`, "3,232 users use this pack".
 - Scan History: Section Header `default`. Date Dividers (`In Progress`, `Yesterday`) defer to Divider §2 (`--ct-bkgd-01` band, body-small label). List Item `progress` rows defer to §6: surface `--ct-bkgd-02`, padding `--ct-spacing-20`, leading 40×40 brand-logo avatar (Hinge), title body + meta body-small `--ct-text-secondary`. Progress bar 8px raw, track `--ct-bkgd-01`, **fill `--ct-brand`** (#ff550c — the §6 spec; NOT `--ct-status-success-solid` like Activities).
 - Footer `card-section`: top hairline `--ct-divider`, body-link "See all" / "See all history".
@@ -439,7 +439,7 @@ States of the same feature are placed **together** so the evolution is visible.
 ```
 1. Navigation  `top_bar/page`                          ← title "Spam Guard"
 2. Tabs (sticky)                                       ← Call Guard (selected) / SMS Guard / Email Guard
-3. Hero / Feature  `active/call-guard`                 ← H3 label "Calls Blocked" + Display-1 "324" + 9-bar bar chart card + Segment control (Week / Month / Year — Week selected)
+3. Hero / Feature  `active/call-guard`                 ← H4 label "Calls Blocked" + Display-1 "324" + 9-bar bar chart card + Segment control (Week / Month / Year — Week selected)
 4. ┌─ Group: Recent History ─────────────────────────
    │  Section Header  `default`
    │  Divider "Today"        + List Item `event` ×1   (Cloaked Support · CS initial avatar · Label "Voicemail")
@@ -452,8 +452,8 @@ States of the same feature are placed **together** so the evolution is visible.
 
 **Tokens**
 - Navigation, Tabs: same as Guard — day 1 (page title "Spam Guard").
-- Hero `active/call-guard` (defers to Hero / Feature §13): container `--ct-bkgd-02`, **width 394px raw — 1px wider than the rest, preserve per §13**. Label `--ct-text-h3-*` capitalize. Number `--ct-text-display-1-*` (72px sans). Chart card: padding `--ct-spacing-20`, gap `--ct-spacing-24`. Bar chart 354×238px raw, 9 bars at 16×{100..184}px raw (illustration), 8 hairlines `--ct-divider` 0.5px raw between bars. Day labels (M T W T F S S): `--ct-text-link-*` `--ct-text-primary` at raw `opacity: 0.6` (no `--ct-opacity-*` match). Segment control: gap `--ct-spacing-16`, three items at 107/108/107 px raw, padding 10px raw + `--ct-spacing-12` block/inline, radius `--ct-spacing-16`. Selected: `--ct-cta-primary-container` + `--ct-cta-primary-text`; unselected: `--ct-cta-secondary-container` border + `--ct-text-primary` label.
-- Recent History: Section Header `default` (`--ct-bkgd-02`, H3 capitalize). Date Dividers defer to Divider §2 (`--ct-bkgd-01` 28px band, body-small label). List Item `event` rows defer to §6: surface `--ct-bkgd-02`, padding `--ct-spacing-20`, gap `--ct-spacing-8`, leading 40×40 avatar (`Avatar_default_caller initicial` for Cloaked Support / U / M, `Brand Logo_Hinge` for the Hinge rows). Title body + meta body-small `--ct-text-secondary`. Trailing: Label badge per §6 ("Voicemail" / "Missed Call") — cream pill `--ct-bkgd-01`, h-32, padding `--ct-spacing-12`/`--ct-spacing-4`, radius `--ct-spacing-4`, body 16 `--ct-text-primary`. Bottom hairline `--ct-divider` between rows.
+- Hero `active/call-guard` (defers to Hero / Feature §13): container `--ct-bkgd-02`, **width 394px raw — 1px wider than the rest, preserve per §13**. Label `--ct-text-h4-*` capitalize. Number `--ct-text-display-1-*` (72px sans). Chart card: padding `--ct-spacing-20`, gap `--ct-spacing-24`. Bar chart 354×238px raw, 9 bars at 16×{100..184}px raw (illustration), 8 hairlines `--ct-divider` 0.5px raw between bars. Day labels (M T W T F S S): `--ct-text-link-*` `--ct-text-primary` at raw `opacity: 0.6` (no `--ct-opacity-*` match). Segment control: gap `--ct-spacing-16`, three items at 107/108/107 px raw, padding 10px raw + `--ct-spacing-12` block/inline, radius `--ct-spacing-16`. Selected: `--ct-cta-primary-container` + `--ct-cta-primary-text`; unselected: `--ct-cta-secondary-container` border + `--ct-text-primary` label.
+- Recent History: Section Header `default` (`--ct-bkgd-02`, H4 capitalize). Date Dividers defer to Divider §2 (`--ct-bkgd-01` 28px band, body-small label). List Item `event` rows defer to §6: surface `--ct-bkgd-02`, padding `--ct-spacing-20`, gap `--ct-spacing-8`, leading 40×40 avatar (`Avatar_default_caller initicial` for Cloaked Support / U / M, `Brand Logo_Hinge` for the Hinge rows). Title body + meta body-small `--ct-text-secondary`. Trailing: Label badge per §6 ("Voicemail" / "Missed Call") — cream pill `--ct-bkgd-01`, h-32, padding `--ct-spacing-12`/`--ct-spacing-4`, radius `--ct-spacing-4`, body 16 `--ct-text-primary`. Bottom hairline `--ct-divider` between rows.
 - Footer `card-section` "See all": top hairline + body-link.
 - Footer / `faq` (feature-tinted): same Guard tokens as day 1 (`--ct-guard-container-02` band, `--ct-guard-container-01` cards, `--ct-text-ai-secondary` kicker).
 
@@ -532,7 +532,7 @@ States of the same feature are placed **together** so the evolution is visible.
 **Tokens**
 - Navigation, Tabs: same chrome as Identity — day 1, but Tabs now sit on the cream `--ct-bkgd-01` page surface (no dark hero behind them) — title and tab labels resolve `--ct-text-primary` dark in light theme.
 - Outer page surface: `--ct-bkgd-01` (cream). Section groups separated by `--ct-spacing-12` cream gaps.
-- Section Header `default` (×5): surface `--ct-bkgd-02`, title `--ct-text-h3-*` capitalize, padding-top `--ct-spacing-40`, padding-bottom `--ct-spacing-12`, padding-inline `--ct-spacing-16`.
+- Section Header `default` (×5): surface `--ct-bkgd-02`, title `--ct-text-h4-*` capitalize, padding-top `--ct-spacing-40`, padding-bottom `--ct-spacing-12`, padding-inline `--ct-spacing-16`.
 - List Item `contact` (Phone Numbers row): surface `--ct-bkgd-02`, padding `--ct-spacing-20`, gap `--ct-spacing-12`, leading 40×40 `Brand Logo_Hinge` avatar, title body + meta body-small `--ct-text-secondary`, trailing plain-text 172px raw right-aligned ("342-231-1234"), bottom hairline `--ct-divider`.
 - "+ Create new X" Button `text/secondary` (×5): width 353px raw, height 56px raw, padding 10px raw, radius `--ct-spacing-16`, border `--ct-cta-secondary-container`, label `--ct-cta-secondary-text` body sans. Container surface `--ct-bkgd-02`, padding-block `--ct-spacing-16`.
 - Footer / `faq` (feature-tinted Identity): same tokens as Identity — day 1 — `--ct-identity-container-02` band, `--ct-identity-container-01` cards, `--ct-text-ai-secondary` kicker.
@@ -588,7 +588,7 @@ States of the same feature are placed **together** so the evolution is visible.
 
 **Tokens**
 - Navigation, Tabs: same chrome as Identity — activated. Outer page surface `--ct-bkgd-01` (cream); section group surfaces `--ct-bkgd-02`.
-- Section Header `default` ×6: surface `--ct-bkgd-02`, title `--ct-text-h3-*` capitalize.
+- Section Header `default` ×6: surface `--ct-bkgd-02`, title `--ct-text-h4-*` capitalize.
 - List Item `inbox` (Inbox group, ×3): surface `--ct-bkgd-02`, padding `--ct-spacing-20`. Leading 40×40 `Avatar_Category` SVG. Title body + meta body-small `--ct-text-secondary`. Trailing 24×24 type icon (`feature/identity/sms` or `feature/identity/email`) per List Item §6 trailing-icon slot.
 - List Item `contact` (Phone Numbers / Emails / Accounts): surface `--ct-bkgd-02`, padding `--ct-spacing-20`. Leading 40×40 — Brand Logo avatar (Phone Numbers, Accounts) or `Default_Identity/Authenticator` icon avatar (Emails). Title body + meta body-small `--ct-text-secondary` (or single-line for Accounts). Trailing plain-text right-aligned per §6.
 - Button `text/secondary` (×5 "+ Create new X"): width 353px raw, height 56px raw, padding 10px raw, radius `--ct-spacing-16`, border `--ct-cta-secondary-container`, label `--ct-cta-secondary-text` body sans. Wrapper padding-block `--ct-spacing-16`.

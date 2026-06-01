@@ -93,7 +93,7 @@ All Cloaked tokens use the `--ct-` prefix (Cloaked Toolkit). The next segment en
 | `--ct-bkgd-*` | Background surfaces | `tokens/themes.css` |
 | `--ct-text-primary` / `--ct-text-secondary` | Body / label text color | `tokens/themes.css` |
 | `--ct-text-ai-*` | Text on **fixed-dark** surfaces (AI input, FAQ band) — does **not** flip with theme | `tokens/themes.css` |
-| `--ct-text-<style>-{family\|weight\|size\|line-height\|letter-spacing}` | Typography. `<style>` ∈ `display-1`, `display-2`, `h1`, `h2`, `h3`, `h1-serif`, `h2-serif`, `body`, `body-small`, `link` | `tokens/typography.css` |
+| `--ct-text-<style>-{family\|weight\|size\|line-height\|letter-spacing}` | Typography. `<style>` ∈ `display-1`, `display-2`, `h1`, `h2`, `h3`, `h4`, `h1-serif`, `h2-serif`, `body`, `body-small`, `link` | `tokens/typography.css` |
 | `--ct-font-{sans\|mono\|serif}` | Font-family fallback chains | `tokens/typography.css` |
 | `--ct-cta-{primary\|secondary}-{text\|container}` | CTA button color slots | `tokens/themes.css` |
 | `--ct-status-{success\|fail}-{solid\|subtle}` | Status colors (semantic) | `tokens/themes.css` |
@@ -151,7 +151,7 @@ The available styles are listed in `tokens/typography.css`. The role of each:
 | Style | Role |
 | --- | --- |
 | `display-1` (72px) / `display-2` (48px) | Hero numbers — SF Pro |
-| `h1` (32px) / `h2` (24px) / `h3` (20px) | Section / sub-section titles — SF Pro |
+| `h1` (32px) / `h2` (24px) / `h3` (24px) / `h4` (20px) | Section / sub-section titles — SF Pro. `h3` and `h2` share 24px but differ in family/spacing |
 | `h1-serif` (32px) / `h2-serif` (24px) | **Simula only.** Page titles, FAQ headlines. See §2.4 |
 | `body` (16px) / `body-small` (14px) | Body copy, labels |
 | `link` (10px) | SF Mono — small monospace meta text |
@@ -199,7 +199,7 @@ Most semantic tokens flip between light and dark. Two groups **do not flip** —
 
 ### 5.3 Light vs dark — surface mapping
 
-| Token | Light (`grey-01` / `white`) | Dark (`grey-05` / `grey-04`) |
+| Token | Light (`grey-01` / `white`) | Dark (`grey-06` / `grey-05`) |
 | --- | --- | --- |
 | `--ct-bkgd-01` | Page floor (cream) | Page floor (near-black) |
 | `--ct-bkgd-02` | Sheet / card on top | Sheet / card on top |
@@ -231,7 +231,7 @@ That's the whole list. No other slot uses Simula.
 ### 6.2 Use SF Pro for everything else
 
 - All body copy, labels, captions, sublabels.
-- Section titles (`--ct-text-h3-*`, Title Case).
+- Section titles (`--ct-text-h4-*`, Title Case).
 - Hero numbers — `--ct-text-display-1-*` (72px), `--ct-text-display-2-*` (48px), `--ct-text-h1-*` (32px). **Even very large numbers stay sans.**
 - Buttons, list rows, KPI strips, status pills.
 
