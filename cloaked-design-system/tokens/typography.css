@@ -67,9 +67,16 @@
   /* H3 */
   --ct-text-h3-family: var(--ct-font-sans);
   --ct-text-h3-weight: 400;
-  --ct-text-h3-size: 20px;
-  --ct-text-h3-line-height: 1.15;
-  --ct-text-h3-letter-spacing: -0.003em;
+  --ct-text-h3-size: 24px;
+  --ct-text-h3-line-height: 1.1;
+  --ct-text-h3-letter-spacing: 0;
+
+  /* H4 */
+  --ct-text-h4-family: var(--ct-font-sans);
+  --ct-text-h4-weight: 400;
+  --ct-text-h4-size: 20px;
+  --ct-text-h4-line-height: 1.2;
+  --ct-text-h4-letter-spacing: -0.003em;
 
   /* Body */
   --ct-text-body-family: var(--ct-font-sans);

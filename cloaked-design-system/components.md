@@ -699,9 +699,9 @@ action      ┌─────────────────────�
 | --- | --- | --- |
 | Title | color | `--ct-text-primary` |
 | Title | text-transform | `capitalize` |
-| Title | font (apply all 5) | `--ct-text-h3-*` |
+| Title | font (apply all 5) | `--ct-text-h4-*` |
 
-> _Source the title string in natural case (`"scan history"`); CSS handles the capitalization (SKILL.md §6.5). Figma renders the title at line-height 1 / letter-spacing 0.1px, while `--ct-text-h3-*` is line-height 1.15 / letter-spacing -0.003em — known token-export drift; reference the H3 token as the only 20px sans token, and resolve the drift in Figma._
+> _Source the title string in natural case (`"scan history"`); CSS handles the capitalization (SKILL.md §6.5). Figma renders the title at line-height 1 / letter-spacing 0.1px, while `--ct-text-h4-*` is line-height 1.2 / letter-spacing -0.003em — known token-export drift; reference the H4 token as the only 20px sans token, and resolve the drift in Figma._
 
 *Trailing (`dropdown`)* — see [Component 5 — Control](#5-control) Tokens / Dropdown.
 
@@ -821,9 +821,9 @@ card-section  ┌─────────────────────
 
 impact        ┌─────────────────────────────────────────────────┐
               │                                                 │
-              │              Together, Cloaked users            │   ← line 1, h3 sans
+              │              Together, Cloaked users            │   ← line 1, h4 sans
               │           have removed 170 million              │   ← inline Simula on the number, --ct-brand
-              │           records from the internet.            │   ← line 3, h3 sans
+              │           records from the internet.            │   ← line 3, h4 sans
               │                                                 │
               │             ╭──────────────────╮                │
               │             │  Explore tools   │                │   ← tertiary CTA pill, body sans
@@ -890,9 +890,9 @@ faq           ┌─────────────────────
 | Container | background | `--ct-bkgd-01` |
 | Copy line 1 / line 3 (sans) | color | `--ct-text-primary` |
 | Copy line 1 / line 3 (sans) | text-transform | `capitalize` |
-| Copy line 1 / line 3 (sans) | font (apply all 5) | `--ct-text-h3-*` |
+| Copy line 1 / line 3 (sans) | font (apply all 5) | `--ct-text-h4-*` |
 | Copy "have removed" (sans, inline on line 2) | color | `--ct-text-primary` |
-| Copy "have removed" (sans, inline on line 2) | font (apply all 5) | `--ct-text-h3-*` |
+| Copy "have removed" (sans, inline on line 2) | font (apply all 5) | `--ct-text-h4-*` |
 | Copy "170 million" (Simula, inline on line 2) | color | `--ct-brand` |
 | Copy "170 million" (Simula, inline on line 2) | font (apply all 5) | `--ct-text-h2-serif-*` |
 | CTA container | background | `--ct-cta-secondary-container` |
@@ -908,7 +908,7 @@ faq           ┌─────────────────────
 | Container | background | `--ct-bkgd-ai-input` |
 | Section Header container | background | `transparent` (override of [Component 7](#7-section-header) default `--ct-bkgd-02`) |
 | Section Header title | color | `--ct-text-ai-primary` (override of [Component 7](#7-section-header) default `--ct-text-primary`) |
-| FAQ card | background | fixed-dark surface — no token yet; raw `#1B1B18` (= `--ct-color-grey-04` value). The card sits on the fixed-dark band via `--ct-bkgd-ai-input`, so it cannot use `--ct-bkgd-02` (which flips). Add a `--ct-bkgd-ai-02` token in Figma and re-spec when it lands. |
+| FAQ card | background | fixed-dark surface — no token yet; raw `#1B1B18` (= `--ct-color-grey-05` value). The card sits on the fixed-dark band via `--ct-bkgd-ai-input`, so it cannot use `--ct-bkgd-02` (which flips). Add a `--ct-bkgd-ai-02` token in Figma and re-spec when it lands. |
 | FAQ card | border-radius | `--ct-spacing-20` |
 | FAQ card kicker | color | `--ct-brand` |
 | FAQ card kicker | font (apply all 5) | `--ct-text-body-small-*` |
@@ -1531,7 +1531,7 @@ intro/identity        ┌──────────────────�
                       └────────────────────────────┘
 
 active/call-guard     ┌────────────────────────────┐
-                      │  Calls Blocked              │   ← label (h3 sans, capitalize)
+                      │  Calls Blocked              │   ← label (h4 sans, capitalize)
                       │  324                        │   ← number (display-1, 72px)
                       │  ┌──────────────────────┐  │
                       │  │ ▆▆ ▆ ▆ ▆ ▆ ▆ ▆ ▆     │  │   ← 9-bar bar chart card
@@ -1544,7 +1544,7 @@ active/call-guard     ┌──────────────────�
 
 active/data-removal   ┌────────────────────────────┐
                       │  Total Removed   ╭────────╮ │
-                      │                  │•Next…  │ │   ← label (h3) + Status pill
+                      │                  │•Next…  │ │   ← label (h4) + Status pill
                       │  276             ╰────────╯ │   ← number (display-1)
                       │                            │
                       │  Email   ▰▰▰▰▰▰         24 │   ← 5-row category bar list
@@ -1583,7 +1583,7 @@ scanning/data-removal ┌──────────────────�
   - `intro/call-guard` — banner-tinted illustration band + kicker row + 2-line H1 title + full-width Primary CTA.
   - `intro/vpn` — full-bleed dotted world map + top-right `ButtonIconPrimary` (expand glyph) + 2-line H1 title + Primary CTA tinted with `--ct-monitoring-container-02`.
   - `intro/identity` — full-bleed dark gradient + screen-blended photo overlay + lighten-blended autoplay video + 2-line H1 title (cream) + cream Primary CTA. Hero requires `data-theme="dark"` context (SKILL.md §5.1).
-- **`active/*`** — three sub-variants. All share an *active* face: stat header (H3 label + Display-1 number) + visualization or detail.
+- **`active/*`** — three sub-variants. All share an *active* face: stat header (H4 label + Display-1 number) + visualization or detail.
   - `active/call-guard` — Bar chart card (9 raw-px bars) + Segment control (Week / Month / Year).
   - `active/data-removal` — Header pairs Display-1 with a `Status` pill (Component 3 `status/card`); body is a 5-row category bar list + a stacked-area time-series chart.
   - `active/vpn` — Map fills the top; bottom is a white detail card with a Connected timer row, a Service row (label + `Avatar_Flags` instance), and a "Disconnect" Primary CTA.
@@ -1596,8 +1596,8 @@ scanning/data-removal ┌──────────────────�
 | `intro/call-guard` (default) | 393×~525 banner-tinted hero, raster illustration top + kicker row + H1 title + full-width Primary CTA | Onboarding / unconfigured-feature lure for Call Guard |
 | `intro/vpn` | 393×543 cream hero, full-bleed world map (decorative) with 11 dot markers + top-right expand button + H1 title + Primary CTA tinted with `--ct-monitoring-container-02` | Onboarding lure for VPN — brand-purple CTA marks it as a VPN-product moment |
 | `intro/identity` | 393×756 dark-gradient hero, raster photo overlay (screen blend) + autoplay video (lighten blend) + cream H1 title + cream Primary CTA | Onboarding / first-launch hero for the Identity product (requires `data-theme="dark"` per §5.1) |
-| `active/call-guard` | 394×~600 white hero (1px wider than the rest — preserve), H3 label + Display-1 hero number + 9-bar chart card + Segment control | Active Call-Guard state — KPI ("324 / Calls Blocked") with weekly trend |
-| `active/data-removal` | 393×~600 white hero, H3 label + Display-1 number + Status pill + 5-row category bar list + stacked-area chart | Active Data-Removal state — totals + per-category progress + time-series |
+| `active/call-guard` | 394×~600 white hero (1px wider than the rest — preserve), H4 label + Display-1 hero number + 9-bar chart card + Segment control | Active Call-Guard state — KPI ("324 / Calls Blocked") with weekly trend |
+| `active/data-removal` | 393×~600 white hero, H4 label + Display-1 number + Status pill + 5-row category bar list + stacked-area chart | Active Data-Removal state — totals + per-category progress + time-series |
 | `active/vpn` | 393×468 cream hero, top half is a map; bottom half is a detail card with timer + Service+flag + Disconnect Primary CTA | Active VPN connection — location, uptime, and disconnect affordance |
 | `scanning/data-removal` | 393×521 black hero, full-bleed raster photo + `--ct-brand` mix-blend-multiply + autoplay counter video + caption + Status pill (`status/active`) | Scan-in-progress state for Data Removal — replaces "Loading…" with a heroed live state |
 
@@ -1711,7 +1711,7 @@ scanning/data-removal ┌──────────────────�
 | Header block | gap | `--ct-spacing-24` |
 | Label | color | `--ct-text-primary` |
 | Label | text-transform | `capitalize` |
-| Label | font (apply all 5) | `--ct-text-h3-*` |
+| Label | font (apply all 5) | `--ct-text-h4-*` |
 | Number | color | `--ct-text-primary` |
 | Number | font (apply all 5) | `--ct-text-display-1-*` |
 | Chart card | padding | `--ct-spacing-20` |
@@ -1741,7 +1741,7 @@ scanning/data-removal ┌──────────────────�
 | Title block (left) | gap | `--ct-spacing-24` |
 | Label | color | `--ct-text-primary` |
 | Label | text-transform | `capitalize` |
-| Label | font (apply all 5) | `--ct-text-h3-*` |
+| Label | font (apply all 5) | `--ct-text-h4-*` |
 | Number | color | `--ct-text-primary` |
 | Number | font (apply all 5) | `--ct-text-display-1-*` |
 | Status pill | spec | defers to [Component 3 — Label](#3-label) `status/card` ("Next scan Oct 12") |
@@ -1787,7 +1787,7 @@ scanning/data-removal ┌──────────────────�
 
 | Slot | Property | Token |
 | --- | --- | --- |
-| Container | background | _TBD_ — raw `#000`; no `--ct-bkgd-*` resolves to pure black (light `--ct-bkgd-01` = cream, dark `--ct-bkgd-01` = `grey-05` ≠ pure black). Do not substitute `--ct-color-black` (a primitive — components consume semantic tokens only per SKILL.md §4.4) |
+| Container | background | _TBD_ — raw `#000`; no `--ct-bkgd-*` resolves to pure black (light `--ct-bkgd-01` = cream, dark `--ct-bkgd-01` = `grey-06` ≠ pure black). Do not substitute `--ct-color-black` (a primitive — components consume semantic tokens only per SKILL.md §4.4) |
 | Photo | spec | raw raster, illustration — do not tokenize |
 | Orange overlay | background | `--ct-brand` |
 | Orange overlay | mix-blend-mode | `multiply` (raw — illustration) |
