@@ -543,7 +543,7 @@ States of the same feature are placed **together** so the evolution is visible.
 - **The "+ Create new X" Secondary button is the per-group footer CTA** (cross-cutting #4). When the category has rows, it remains as the last item in the group (create-another). When empty, it IS the only thing in the group.
 - **The single populated row uses List Item §6 `contact` variant** — Brand Logo avatar + title (entity name) + meta (category descriptor) + plain-text trailing (the actual phone number). Not `progress` (Activities / Monitoring) or `event` (Guard).
 - **Identity — activated is structurally a sparse Identity — 1 year** — same 5-category spine, same per-group "+ Create" footer, no hero in either. The difference between activated and 1-year is row density, not structure.
-- **Section title casing is inconsistent in the Figma master** ("phone numbers" lowercase vs "Emails" / "Cards" / "Passwords" / "Accounts" title case). Section Header §7 applies CSS `capitalize`, so all should be sourced lowercase per SKILL.md §6.5 — flag the Figma drift on the title-case entries.
+- **Section title casing is inconsistent in the Figma master** ("phone numbers" lowercase vs "Emails" / "Cards" / "Passwords" / "Accounts" title case). Section Header §7 applies CSS `capitalize`, so all should be sourced lowercase per SKILL.md §6.4 — flag the Figma drift on the title-case entries.
 
 **Refs**: → `components.md`
 
@@ -601,7 +601,7 @@ States of the same feature are placed **together** so the evolution is visible.
 - **Per-group structure varies by row count.** Populated groups: rows → "+ Create new X" Secondary button → Footer `card-section` "See all". Empty groups (Cards, Passwords): just "+ Create new X" with no `card-section` footer (cross-cutting #4 — nothing to navigate to). The "+ Create new" button doubles as group footer when empty and as create-another row when populated.
 - **The `contact` List Item variant adapts per category** — Brand Logo avatars for branded entities (Hinge, Doordash, Target, Twitch, Amazon, Craigslist), `Default_Identity/Authenticator` icon avatar for non-branded fake emails (Newsletter, Free Wifi, DHL Delivery). Same component, leading-slot type swap per §6's `image: boolean` toggle.
 - **Accounts rows are single-line (no meta) with trailing category text** — different from Phone Numbers / Emails (which have a category meta line). The trailing slot here is content-driven plain text per §6, rendering "Shopping" / "Entertainment" / "Shopping" instead of the URL/handle.
-- **Section title casing remains inconsistent in the Figma master** ("Inbox" / "phone numbers" / "Emails" / "Cards" / "Passwords" / "Accounts"). Section Header §7 applies CSS `capitalize` — source naturally lowercase per SKILL.md §6.5.
+- **Section title casing remains inconsistent in the Figma master** ("Inbox" / "phone numbers" / "Emails" / "Cards" / "Passwords" / "Accounts"). Section Header §7 applies CSS `capitalize` — source naturally lowercase per SKILL.md §6.4.
 - **Closes with `Footer / faq` (feature-tinted Identity), no `Footer / impact`.** Same closer choice as day 1 / activated.
 
 **Refs**: → `components.md`
