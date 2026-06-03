@@ -350,7 +350,7 @@ Stat       ╭──────────────╮
 | Body | color | `--ct-banner-text-secondary` |
 | Body | font (apply all 5) | `--ct-text-body-*` |
 
-> _Source the eyebrow string in natural case (`"what happens next"`); CSS handles uppercase. This mirrors SKILL.md §6.5's "CSS owns casing" principle — Banner eyebrow uses `uppercase` rather than `capitalize` because it's a kicker pattern, not a section title._
+> _Source the eyebrow string in natural case (`"what happens next"`); CSS handles uppercase. This mirrors SKILL.md §6.4's "CSS owns casing" principle — Banner eyebrow uses `uppercase` rather than `capitalize` because it's a kicker pattern, not a section title._
 
 **Don't.**
 - Don't add a trailing chevron, close X, or action button. Banner has no trailing slot — if dismissal is needed, the parent surface owns it (SKILL.md §9.3 spirit).
@@ -701,7 +701,7 @@ action      ┌─────────────────────�
 | Title | text-transform | `capitalize` |
 | Title | font (apply all 5) | `--ct-text-h4-*` |
 
-> _Source the title string in natural case (`"scan history"`); CSS handles the capitalization (SKILL.md §6.5). Figma renders the title at line-height 1 / letter-spacing 0.1px, while `--ct-text-h4-*` is line-height 1.2 / letter-spacing -0.003em — known token-export drift; reference the H4 token as the only 20px sans token, and resolve the drift in Figma._
+> _Source the title string in natural case (`"scan history"`); CSS handles the capitalization (SKILL.md §6.4). Figma renders the title at line-height 1 / letter-spacing 0.1px, while `--ct-text-h4-*` is line-height 1.2 / letter-spacing -0.003em — known token-export drift; reference the H4 token as the only 20px sans token, and resolve the drift in Figma._
 
 *Trailing (`dropdown`)* — see [Component 5 — Control](#5-control) Tokens / Dropdown.
 
@@ -714,7 +714,7 @@ action      ┌─────────────────────�
 
 **Don't.**
 - Don't add a leading icon, avatar, or chevron to the title slot. Section Header has one leading slot — title only (SKILL.md §9.3 spirit).
-- Don't hand-type the title in Title Case (`"Scan History"`) or upper case (`"SCAN HISTORY"`). Source naturally and let CSS `capitalize` do the work (SKILL.md §6.5).
+- Don't hand-type the title in Title Case (`"Scan History"`) or upper case (`"SCAN HISTORY"`). Source naturally and let CSS `capitalize` do the work (SKILL.md §6.4).
 - Don't put an icon in the `action` trailing slot. Action is text-only — if a chevron is needed, the variant is `dropdown`, not `action`.
 - Don't draw a hairline (`--ct-divider`) above or below the header. The row sits on the same `--ct-bkgd-02` surface as the section beneath it; separation comes from the cream gap above the section, not from a line on the header (SKILL.md §9.2).
 - Don't substitute `--ct-bkgd-01` for the container background. The header shares the white sheet with the rows it labels — a cream container would re-introduce the band-style separation the system avoids.
@@ -924,7 +924,7 @@ faq           ┌─────────────────────
 - Don't extend the inline-Simula treatment from `impact` to other phrases ("170 thousand users", "join the waitlist", etc.). The slot is sanctioned for the one impact-number callout that ships with this band; new editorial Simula phrases require a Figma update first (SKILL.md §2.3, §2.4).
 - Don't substitute `--ct-bkgd-02` for the FAQ card surface or `--ct-text-primary` for the FAQ headline / Section Header title in the `faq` band. Those tokens flip with theme; the band does not. The result looks correct in dark theme and inverts to white-on-cream in light theme (SKILL.md §5.2).
 - Don't add a `chevron.right` to the `card-section` text-link or to the FAQ card. The link is the affordance on `card-section`; the trailing 48×48 icon-button on the FAQ card is the only sanctioned trailing affordance, and it carries an `arrow_right`, not a chevron (SKILL.md §9.3).
-- Don't render the Section Header title in title case (`"Frequently Asked Questions"`) or upper case (`"FREQUENTLY ASKED QUESTIONS"`). Source the string naturally (`"frequently asked questions"`) and let the Section Header's `capitalize` rule do the work (SKILL.md §6.5).
+- Don't render the Section Header title in title case (`"Frequently Asked Questions"`) or upper case (`"FREQUENTLY ASKED QUESTIONS"`). Source the string naturally (`"frequently asked questions"`) and let the Section Header's `capitalize` rule do the work (SKILL.md §6.4).
 - Don't replace the `impact` CTA pill with a primary CTA, a text link, or an icon button. The variant ships with `--ct-cta-secondary-container` for a reason — the pill sits on `--ct-bkgd-01`, where a primary container (`--ct-cta-primary-container` = near-black) would over-weight the band against the editorial copy.
 
 **Figma.** [Playlist — Toolkit](https://www.figma.com/design/k0n0CNGfk4ie9Vb74byl9v/Playlist-%E2%80%94-Toolkit?node-id=17826-13511) · Page `17826:13511` · Variant masters: card-section `16053:8037`, impact `16196:2887`, faq `17826:15487`
@@ -1885,8 +1885,8 @@ scanning/data-removal ┌──────────────────�
 > _The Components sheet uses `--ct-bkgd-02`, which flips with theme. Under `data-theme="light"` it resolves to white and the dark-mode aesthetic (orange blob bloom, cream Simula, fixed-dark notification) breaks. The hero must be wrapped in `data-theme="dark"` so `--ct-bkgd-02`, `--ct-text-primary`, and `--ct-text-secondary` resolve to their dark-theme values. The outer floor (`--ct-bkgd-ai-input`) and the inner notification card both use AI tokens, which are pinned dark per SKILL.md §5.2 and do not flip._
 
 **Don't.**
-- Don't use Simula on the AI notification labels — Simula is scoped to the Kit headline only in this hero, even though §14 is one of the few components where Simula is sanctioned. One Simula moment per hero (SKILL.md §6.4).
-- Don't extend the Simula headline to a third or fourth slot "to match the editorial voice." Adding a second Simula moment kills the contrast it exists to create (SKILL.md §6.4).
+- Don't use Simula on the AI notification labels — Simula is scoped to the Kit headline only in this hero, even though §14 is one of the few components where Simula is sanctioned. One Simula moment per hero (SKILL.md §6.3).
+- Don't extend the Simula headline to a third or fourth slot "to match the editorial voice." Adding a second Simula moment kills the contrast it exists to create (SKILL.md §6.3).
 - Don't render this hero under `data-theme="light"` and hard-code dark hex values to compensate. The hero must sit in `data-theme="dark"` so `--ct-bkgd-02` and `--ct-text-*` flip naturally (SKILL.md §5.1, §5.4).
 - Don't tokenize the backdrop-blur tint (`rgba(255, 255, 255, 0.04)`) as `--ct-color-white-05` or any `--ct-bkgd-*` token. It's a raw illustration value tuned against the orange blob behind it — see SKILL.md §2.1 / §4.4.
 - Don't replace the guard avatar with a generic icon (e.g. `bell`, `info`, `chat`). The animated guard is the AI's visual signature and the recognition anchor for the Kit moment (SKILL.md §9.5).
@@ -1948,7 +1948,7 @@ scanning/data-removal ┌──────────────────�
 > _Unlike §14 Hero / Kit Briefing — where the whole hero sits in `data-theme="dark"` so its `--ct-bkgd-02` sheet flips dark — this hero's outer surface is cream (`--ct-bkgd-01`) and must remain on `data-theme="light"`. The fixed-dark notification card therefore needs a local `data-theme="dark"` wrapper around the card itself so its `--ct-text-primary` and `--ct-text-secondary` resolve cream over the fixed-dark fill, while the surrounding cream surface stays unchanged. The card background (`--ct-bkgd-ai-input`) is pinned dark per SKILL.md §5.2 and does not flip._
 
 **Don't.**
-- Don't add a Simula headline above the card "to match §14." The absence of a headline is the whole point of this variant — it's the no-headline sibling. If a headline is needed, reach for §14 Hero / Kit Briefing instead (SKILL.md §6.4, §7.1).
+- Don't add a Simula headline above the card "to match §14." The absence of a headline is the whole point of this variant — it's the no-headline sibling. If a headline is needed, reach for §14 Hero / Kit Briefing instead (SKILL.md §6.3, §7.1).
 - Don't apply `--ct-text-ai-*` to either label. Figma exports `--ct-text-primary` / `--ct-text-secondary` here (mirroring §14); the cream resolution comes from wrapping the card in local `data-theme="dark"`, not from the AI text family (SKILL.md §5.2).
 - Don't render the card directly on a `data-theme="light"` surface without a local `data-theme="dark"` wrapper. Without it, `--ct-text-primary` resolves near-black on the fixed-dark card and the labels disappear (SKILL.md §5.1, §5.4).
 - Don't repaint the celebration avatar's green circle by binding `--ct-status-success-solid` to a CSS fill. The fill is baked into the SVG asset; theme-aware re-color requires re-export from Figma (same caveat as §1 icon strokes and §14 Guard avatar — SKILL.md §2.1).

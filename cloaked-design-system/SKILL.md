@@ -93,8 +93,8 @@ All Cloaked tokens use the `--ct-` prefix (Cloaked Toolkit). The next segment en
 | `--ct-bkgd-*` | Background surfaces | `tokens/themes.css` |
 | `--ct-text-primary` / `--ct-text-secondary` | Body / label text color | `tokens/themes.css` |
 | `--ct-text-ai-*` | Text on **fixed-dark** surfaces (AI input, FAQ band) — does **not** flip with theme | `tokens/themes.css` |
-| `--ct-text-<style>-{family\|weight\|size\|line-height\|letter-spacing}` | Typography. `<style>` ∈ `display-1`, `display-2`, `h1`, `h2`, `h3`, `h4`, `h1-serif`, `h2-serif`, `body`, `body-small`, `link` | `tokens/typography.css` |
-| `--ct-font-{sans\|mono\|serif}` | Font-family fallback chains | `tokens/typography.css` |
+| `--ct-text-<style>-{family\|weight\|size\|line-height\|letter-spacing}` | Typography. `<style>` ∈ `display-1`, `display-2`, `h1`, `h2`, `h3`, `h4`, `h1-serif`, `h2-serif`, `body`, `body-small`, `label`, `link` | `tokens/typography.css` |
+| `--ct-font-{sans\|serif}` | Font-family fallback chains | `tokens/typography.css` |
 | `--ct-cta-{primary\|secondary}-{text\|container}` | CTA button color slots | `tokens/themes.css` |
 | `--ct-status-{success\|fail}-{solid\|subtle}` | Status colors (semantic) | `tokens/themes.css` |
 | `--ct-banner-*` | Banner colors | `tokens/themes.css` |
@@ -154,7 +154,8 @@ The available styles are listed in `tokens/typography.css`. The role of each:
 | `h1` (32px) / `h2` (24px) / `h3` (24px) / `h4` (20px) | Section / sub-section titles — SF Pro. `h3` and `h2` share 24px but differ in family/spacing |
 | `h1-serif` (32px) / `h2-serif` (24px) | **Simula only.** Page titles, FAQ headlines. See §2.4 |
 | `body` (16px) / `body-small` (14px) | Body copy, labels |
-| `link` (10px) | SF Mono — small monospace meta text |
+| `label` (13px) | All-caps eyebrow / meta labels — SF Pro, applied with `text-transform: uppercase` |
+| `link` (12px) | Small meta / link text — SF Pro |
 
 ### 4.3 Opacity
 
@@ -234,16 +235,13 @@ That's the whole list. No other slot uses Simula.
 - Section titles (`--ct-text-h4-*`, Title Case).
 - Hero numbers — `--ct-text-display-1-*` (72px), `--ct-text-display-2-*` (48px), `--ct-text-h1-*` (32px). **Even very large numbers stay sans.**
 - Buttons, list rows, KPI strips, status pills.
+- Small meta text — `--ct-text-link-*` (12px) for link / meta lines, `--ct-text-label-*` (13px) for all-caps eyebrow labels (apply `text-transform: uppercase`).
 
-### 6.3 Use SF Mono for
+### 6.3 Rule of thumb
 
-- `--ct-text-link-*` only. Small (10px) meta text — link previews, monospace tags. Not for code blocks in product UI.
+If unsure, sans. Simula is the rare moment, not the default. A screen with Simula in three places has lost its editorial impact — fix it by demoting two of them to SF Pro. SF Mono is **not** used in this system; the `link` style is SF Pro despite the name.
 
-### 6.4 Rule of thumb
-
-If unsure, sans. Simula is the rare moment, not the default. A screen with Simula in three places has lost its editorial impact — fix it by demoting two of them to SF Pro.
-
-### 6.5 Section title casing
+### 6.4 Section title casing
 
 Section titles render in Title Case via CSS `text-transform: capitalize`. **Source strings must be written naturally** — `"recent locations"`, not `"RECENT LOCATIONS"` or `"Recent Locations"`. Don't hand-type the case; let CSS do it.
 
