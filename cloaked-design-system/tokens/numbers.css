@@ -1,9 +1,11 @@
 /* Cloaked Toolkit — Number tokens (Spacing + Opacity)
- * Source of truth: Figma Variables "Numbers" collection.
- * Do not hand-edit; regenerate from Figma export. */
+ * Source of truth: Figma Variables export (Spacing.json).
+ * Do not hand-edit; regenerate from the JSON token files. */
 
 :root {
   /* Spacing */
+  --ct-spacing-0: 0px;
+  --ct-spacing-2: 2px;
   --ct-spacing-4: 4px;
   --ct-spacing-8: 8px;
   --ct-spacing-12: 12px;

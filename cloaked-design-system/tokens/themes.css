@@ -1,111 +1,186 @@
-/* Cloaked Toolkit — Theme tokens (Light + Dark)
- * Source of truth: Figma Variables "Theme" collection.
- * Do not hand-edit; regenerate from Figma export. */
+/* Cloaked Toolkit — Theme tokens (Light + Dark + AI)
+ * Source of truth: Figma Variables export (Theme/*.tokens.json).
+ * Do not hand-edit; regenerate from the JSON token files. */
 
 [data-theme="light"] {
-  /* Accent */
+  /* Global */
   --ct-brand: var(--ct-color-brand);
-
-  /* Background */
   --ct-bkgd-01: var(--ct-color-grey-01);
   --ct-bkgd-02: var(--ct-color-white);
-
-  /* Text */
-  --ct-text-primary: var(--ct-color-grey-06);
-  --ct-text-secondary: var(--ct-color-grey-03);
-
-  /* Divider */
-  --ct-divider: var(--ct-color-black-15);
+  --ct-text-primary: var(--ct-color-grey-07);
+  --ct-text-secondary: var(--ct-color-grey-04);
 
   /* AI */
   --ct-text-ai-primary: var(--ct-color-grey-01);
-  --ct-text-ai-secondary: var(--ct-color-grey-02);
+  --ct-text-ai-secondary: var(--ct-color-grey-04);
   --ct-bkgd-ai-input: var(--ct-color-black);
 
+  /* Divider */
+  --ct-divider: var(--ct-color-grey-02);
+
   /* Banner */
-  --ct-banner-text-primary: var(--ct-color-grey-06);
-  --ct-banner-text-secondary: var(--ct-color-grey-03);
-  --ct-banner-container: var(--ct-color-grey-02);
+  --ct-banner-text-primary: var(--ct-color-grey-07);
+  --ct-banner-text-secondary: var(--ct-color-grey-04);
+  --ct-banner-container: var(--ct-color-grey-01);
 
-  /* CTA / Primary */
-  --ct-cta-primary-text: var(--ct-color-white);
-  --ct-cta-primary-container: var(--ct-color-black);
-
-  /* CTA / Secondary */
-  --ct-cta-secondary-text: var(--ct-color-grey-06);
-  --ct-cta-secondary-container: var(--ct-color-black-15);
-
-  /* Status */
-  --ct-status-success-solid: var(--ct-color-green-01);
-  --ct-status-success-subtle: var(--ct-color-green-02);
-  --ct-status-fail-solid: var(--ct-color-red-01);
-  --ct-status-fail-subtle: var(--ct-color-red-02);
+  /* Button */
+  --ct-button-label-content: var(--ct-status-success-solid);
+  --ct-button-primary-text: var(--ct-color-white);
+  --ct-button-primary-container: var(--ct-color-black);
+  --ct-button-secondary-text: var(--ct-color-grey-07);
+  --ct-button-secondary-container: var(--ct-color-grey-01);
 
   /* Graph */
-  --ct-graph-background: var(--ct-color-black-05);
+  --ct-graph-background: var(--ct-color-grey-01);
+  --ct-graph-divider: var(--ct-color-grey-02);
 
-  /* Category_TBD */
-  --ct-monitoring: #6B2AB6;
-  --ct-monitoring-container-01: #411D50;
-  --ct-monitoring-container-02: #291132;
-  --ct-guard: #D78E20;
-  --ct-guard-container-01: #996820;
-  --ct-guard-container-02: #5B3B0D;
-  --ct-identity: #379AAD;
-  --ct-identity-container-01: #193047;
-  --ct-identity-container-02: #0E1F31;
+  /* Input field */
+  --ct-input-container: var(--ct-color-grey-01);
+
+  /* Selection */
+  --ct-selection-off-container: var(--ct-color-grey-02);
+  --ct-selection-on-indicator: var(--ct-color-white);
+  --ct-selection-on-container: var(--ct-color-black);
+
+  /* Toggle */
+  --ct-toggle-off-indicator: var(--ct-color-white);
+  --ct-toggle-off-container: var(--ct-color-grey-03);
+  --ct-toggle-on-indicator: var(--ct-color-white);
+  --ct-toggle-on-container: var(--ct-color-green);
+
+  /* Label */
+  --ct-label-content: var(--ct-color-black);
+  --ct-label-container: var(--ct-color-grey-01);
+  --ct-label-indicator-off: var(--ct-color-black);
+  --ct-label-indicator-on: var(--ct-color-green);
+
+  /* Status */
+  --ct-status-success-solid: var(--ct-color-green);
+  --ct-status-success-subtle: var(--ct-color-green-10);
+  --ct-status-fail-solid: var(--ct-color-red);
+  --ct-status-fail-subtle: var(--ct-color-red-10);
+  --ct-status-medium-solid: var(--ct-color-orange);
+  --ct-status-medium-subtle: var(--ct-color-orange-10);
 }
 
 [data-theme="dark"] {
-  /* Accent */
+  /* Global */
   --ct-brand: var(--ct-color-brand);
-
-  /* Background */
-  --ct-bkgd-01: var(--ct-color-grey-06);
-  --ct-bkgd-02: var(--ct-color-grey-05);
-
-  /* Text */
+  --ct-bkgd-01: var(--ct-color-grey-07);
+  --ct-bkgd-02: var(--ct-color-grey-06);
   --ct-text-primary: var(--ct-color-grey-01);
-  --ct-text-secondary: var(--ct-color-grey-03);
-
-  /* Divider */
-  --ct-divider: var(--ct-color-white-15);
+  --ct-text-secondary: var(--ct-color-white-60);
 
   /* AI */
   --ct-text-ai-primary: var(--ct-color-grey-01);
-  --ct-text-ai-secondary: var(--ct-color-grey-02);
+  --ct-text-ai-secondary: var(--ct-color-grey-04);
   --ct-bkgd-ai-input: var(--ct-color-black);
+
+  /* Divider */
+  --ct-divider: var(--ct-color-white-10);
 
   /* Banner */
   --ct-banner-text-primary: var(--ct-color-grey-01);
   --ct-banner-text-secondary: var(--ct-color-grey-02);
-  --ct-banner-container: var(--ct-color-grey-06);
+  --ct-banner-container: var(--ct-color-grey-07);
 
-  /* CTA / Primary */
-  --ct-cta-primary-text: var(--ct-color-grey-06);
-  --ct-cta-primary-container: var(--ct-color-grey-01);
-
-  /* CTA / Secondary */
-  --ct-cta-secondary-text: var(--ct-color-grey-01);
-  --ct-cta-secondary-container: var(--ct-color-white-15);
-
-  /* Status */
-  --ct-status-success-solid: var(--ct-color-green-01);
-  --ct-status-success-subtle: var(--ct-color-green-02);
-  --ct-status-fail-solid: var(--ct-color-red-01);
-  --ct-status-fail-subtle: var(--ct-color-red-02);
+  /* Button */
+  --ct-button-label-content: var(--ct-color-white);
+  --ct-button-primary-text: var(--ct-color-grey-07);
+  --ct-button-primary-container: var(--ct-color-white);
+  --ct-button-secondary-text: var(--ct-color-grey-01);
+  --ct-button-secondary-container: var(--ct-color-white-5);
 
   /* Graph */
-  --ct-graph-background: var(--ct-color-white-05);
+  --ct-graph-background: var(--ct-color-white-10);
+  --ct-graph-divider: var(--ct-color-grey-05);
 
-  /* Category_TBD */
-  --ct-monitoring: #6B2AB6;
-  --ct-monitoring-container-01: #411D50;
-  --ct-monitoring-container-02: #291132;
-  --ct-guard: #D78E20;
-  --ct-guard-container-01: #996820;
-  --ct-guard-container-02: #5B3B0D;
-  --ct-identity: #379AAD;
-  --ct-identity-container-01: #193047;
-  --ct-identity-container-02: #0E1F31;
+  /* Input field */
+  --ct-input-container: var(--ct-color-grey-05);
+
+  /* Selection */
+  --ct-selection-off-container: var(--ct-color-white-15);
+  --ct-selection-on-indicator: var(--ct-color-black);
+  --ct-selection-on-container: var(--ct-color-white);
+
+  /* Toggle */
+  --ct-toggle-off-indicator: var(--ct-color-white);
+  --ct-toggle-off-container: var(--ct-color-white-15);
+  --ct-toggle-on-indicator: var(--ct-color-white);
+  --ct-toggle-on-container: var(--ct-color-green);
+
+  /* Label */
+  --ct-label-content: var(--ct-color-white);
+  --ct-label-container: var(--ct-color-grey-05);
+  --ct-label-indicator-off: var(--ct-color-white);
+  --ct-label-indicator-on: var(--ct-color-green);
+
+  /* Status */
+  --ct-status-success-solid: var(--ct-color-white);
+  --ct-status-success-subtle: var(--ct-color-green);
+  --ct-status-fail-solid: var(--ct-color-white);
+  --ct-status-fail-subtle: var(--ct-color-red);
+  --ct-status-medium-solid: var(--ct-color-white);
+  --ct-status-medium-subtle: var(--ct-color-orange);
+}
+
+[data-theme="ai"] {
+  /* Global */
+  --ct-brand: var(--ct-color-brand);
+  --ct-bkgd-01: var(--ct-color-black);
+  --ct-bkgd-02: var(--ct-color-grey-06);
+  --ct-text-primary: var(--ct-color-grey-01);
+  --ct-text-secondary: var(--ct-color-white-60);
+
+  /* AI */
+  --ct-text-ai-primary: var(--ct-color-grey-01);
+  --ct-text-ai-secondary: var(--ct-color-grey-04);
+  --ct-bkgd-ai-input: var(--ct-color-black);
+
+  /* Divider */
+  --ct-divider: var(--ct-color-white-60);
+
+  /* Banner */
+  --ct-banner-text-primary: var(--ct-color-grey-01);
+  --ct-banner-text-secondary: var(--ct-color-grey-02);
+  --ct-banner-container: var(--ct-color-grey-07);
+
+  /* Button */
+  --ct-button-label-content: var(--ct-color-white);
+  --ct-button-primary-text: var(--ct-color-grey-07);
+  --ct-button-primary-container: var(--ct-color-white);
+  --ct-button-secondary-text: var(--ct-color-grey-01);
+  --ct-button-secondary-container: var(--ct-color-white-5);
+
+  /* Graph */
+  --ct-graph-background: var(--ct-color-white-10);
+  --ct-graph-divider: var(--ct-color-grey-05);
+
+  /* Input field */
+  --ct-input-container: var(--ct-color-grey-05);
+
+  /* Selection */
+  --ct-selection-off-container: var(--ct-color-white-15);
+  --ct-selection-on-indicator: var(--ct-color-black);
+  --ct-selection-on-container: var(--ct-color-white);
+
+  /* Toggle */
+  --ct-toggle-off-indicator: var(--ct-color-white);
+  --ct-toggle-off-container: var(--ct-color-white-15);
+  --ct-toggle-on-indicator: var(--ct-color-white);
+  --ct-toggle-on-container: var(--ct-color-green);
+
+  /* Label */
+  --ct-label-content: var(--ct-color-white);
+  --ct-label-container: var(--ct-color-grey-05);
+  --ct-label-indicator-off: var(--ct-color-white);
+  --ct-label-indicator-on: var(--ct-color-green);
+
+  /* Status */
+  --ct-status-success-solid: var(--ct-color-white);
+  --ct-status-success-subtle: var(--ct-color-green);
+  --ct-status-fail-solid: var(--ct-color-white);
+  --ct-status-fail-subtle: var(--ct-color-red);
+  --ct-status-medium-solid: var(--ct-color-white);
+  --ct-status-medium-subtle: var(--ct-color-orange);
 }

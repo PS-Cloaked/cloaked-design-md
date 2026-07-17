@@ -2,24 +2,11 @@
  * Source of truth: Figma Text Styles.
  * Do not hand-edit; regenerate from Figma export. */
 
-@font-face {
-  font-family: "Simula";
-  src: url("../fonts/Simula-Book.otf") format("opentype");
-  font-weight: 400;
-  font-style: normal;
-}
-
-@font-face {
-  font-family: "Simula";
-  src: url("../fonts/Simula-Italic.otf") format("opentype");
-  font-weight: 400;
-  font-style: italic;
-}
-
 :root {
   /* Font families */
-  --ct-font-sans: -apple-system, BlinkMacSystemFont, "SF Pro", system-ui, sans-serif;
-  --ct-font-serif: "Simula", Georgia, serif;
+  --ct-font-sans: -apple-system, BlinkMacSystemFont, "SF Pro", "SF Pro Display", system-ui, sans-serif;
+  --ct-font-mono: ui-monospace, "SF Mono", Menlo, monospace;
+  --ct-font-serif: "New York", ui-serif, Georgia, "Times New Roman", serif;
 
   /* Display 1 */
   --ct-text-display-1-family: var(--ct-font-sans);
@@ -33,35 +20,21 @@
   --ct-text-display-2-weight: 400;
   --ct-text-display-2-size: 48px;
   --ct-text-display-2-line-height: 1.1;
-  --ct-text-display-2-letter-spacing: -0.002em;
-
-  /* H1 Serif */
-  --ct-text-h1-serif-family: var(--ct-font-serif);
-  --ct-text-h1-serif-weight: 400;
-  --ct-text-h1-serif-size: 32px;
-  --ct-text-h1-serif-line-height: 1;
-  --ct-text-h1-serif-letter-spacing: 0.005em;
-
-  /* H2 Serif */
-  --ct-text-h2-serif-family: var(--ct-font-serif);
-  --ct-text-h2-serif-weight: 400;
-  --ct-text-h2-serif-size: 24px;
-  --ct-text-h2-serif-line-height: 1;
-  --ct-text-h2-serif-letter-spacing: 0.005em;
+  --ct-text-display-2-letter-spacing: -0.02em;
 
   /* H1 */
   --ct-text-h1-family: var(--ct-font-sans);
   --ct-text-h1-weight: 400;
   --ct-text-h1-size: 32px;
-  --ct-text-h1-line-height: 1.15;
-  --ct-text-h1-letter-spacing: -0.01em;
+  --ct-text-h1-line-height: 1.1;
+  --ct-text-h1-letter-spacing: 0.005em;
 
   /* H2 */
   --ct-text-h2-family: var(--ct-font-sans);
   --ct-text-h2-weight: 400;
-  --ct-text-h2-size: 24px;
-  --ct-text-h2-line-height: 1.15;
-  --ct-text-h2-letter-spacing: -0.005em;
+  --ct-text-h2-size: 28px;
+  --ct-text-h2-line-height: 1.1;
+  --ct-text-h2-letter-spacing: 0;
 
   /* H3 */
   --ct-text-h3-family: var(--ct-font-sans);
@@ -75,28 +48,36 @@
   --ct-text-h4-weight: 400;
   --ct-text-h4-size: 20px;
   --ct-text-h4-line-height: 1.2;
-  --ct-text-h4-letter-spacing: -0.003em;
+  --ct-text-h4-letter-spacing: 0.005em;
+
+  /* H5 */
+  --ct-text-h5-family: var(--ct-font-sans);
+  --ct-text-h5-weight: 500;
+  --ct-text-h5-size: 16px;
+  --ct-text-h5-line-height: 1.2;
+  --ct-text-h5-letter-spacing: -0.02em;
 
   /* Body */
   --ct-text-body-family: var(--ct-font-sans);
   --ct-text-body-weight: 400;
   --ct-text-body-size: 16px;
-  --ct-text-body-line-height: 1.1;
-  --ct-text-body-letter-spacing: 0;
+  --ct-text-body-line-height: 1.3;
+  --ct-text-body-letter-spacing: -0.02em;
 
   /* Body Small */
   --ct-text-body-small-family: var(--ct-font-sans);
   --ct-text-body-small-weight: 400;
   --ct-text-body-small-size: 14px;
-  --ct-text-body-small-line-height: 1.1;
-  --ct-text-body-small-letter-spacing: 0;
+  --ct-text-body-small-line-height: 1.2;
+  --ct-text-body-small-letter-spacing: -0.02em;
 
-  /* Label — applied with `text-transform: uppercase` on the consuming element */
+  /* Label */
   --ct-text-label-family: var(--ct-font-sans);
   --ct-text-label-weight: 400;
-  --ct-text-label-size: 13px;
+  --ct-text-label-size: 12px;
   --ct-text-label-line-height: 1.3;
   --ct-text-label-letter-spacing: 0.005em;
+  --ct-text-label-text-transform: uppercase;
 
   /* Link */
   --ct-text-link-family: var(--ct-font-sans);
@@ -104,4 +85,46 @@
   --ct-text-link-size: 12px;
   --ct-text-link-line-height: 1.3;
   --ct-text-link-letter-spacing: 0.005em;
+
+  /* Legal */
+  --ct-text-legal-family: var(--ct-font-sans);
+  --ct-text-legal-weight: 400;
+  --ct-text-legal-size: 10px;
+  --ct-text-legal-line-height: 1.3;
+  --ct-text-legal-letter-spacing: 0.005em;
+
+  /* Main Nav Title */
+  --ct-text-main-nav-title-family: var(--ct-font-sans);
+  --ct-text-main-nav-title-weight: 400;
+  --ct-text-main-nav-title-size: 10px;
+  --ct-text-main-nav-title-line-height: 1.3;
+  --ct-text-main-nav-title-letter-spacing: 0.005em;
+
+  /* Serif · Display Number */
+  --ct-text-serif-display-number-family: var(--ct-font-serif);
+  --ct-text-serif-display-number-weight: 400;
+  --ct-text-serif-display-number-size: 100px;
+  --ct-text-serif-display-number-line-height: normal;
+  --ct-text-serif-display-number-letter-spacing: 0;
+
+  /* Serif · H1 */
+  --ct-text-serif-h1-family: var(--ct-font-serif);
+  --ct-text-serif-h1-weight: 400;
+  --ct-text-serif-h1-size: 32px;
+  --ct-text-serif-h1-line-height: 1.1;
+  --ct-text-serif-h1-letter-spacing: -0.02em;
+
+  /* Serif · H2 */
+  --ct-text-serif-h2-family: var(--ct-font-serif);
+  --ct-text-serif-h2-weight: 400;
+  --ct-text-serif-h2-size: 28px;
+  --ct-text-serif-h2-line-height: 1.1;
+  --ct-text-serif-h2-letter-spacing: 0;
+
+  /* Serif · H3 */
+  --ct-text-serif-h3-family: var(--ct-font-serif);
+  --ct-text-serif-h3-weight: 400;
+  --ct-text-serif-h3-size: 24px;
+  --ct-text-serif-h3-line-height: 1.1;
+  --ct-text-serif-h3-letter-spacing: 0.005em;
 }

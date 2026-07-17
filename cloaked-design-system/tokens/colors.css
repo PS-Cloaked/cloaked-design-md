@@ -1,23 +1,54 @@
 /* Cloaked Toolkit — Color primitives
- * Source of truth: Figma Variables "Colors" collection.
- * Do not hand-edit; regenerate from Figma export. */
+ * Source of truth: Figma Variables export (Colors.json).
+ * Do not hand-edit; regenerate from the JSON token files. */
 
 :root {
+  /* Brand */
+  --ct-color-brand: #FF550C;
+
+  /* Neutral */
   --ct-color-white: #FFFFFF;
   --ct-color-grey-01: #F3F1ED;
-  --ct-color-grey-02: #DCD8CF;
-  --ct-color-grey-03: #84827E;
-  --ct-color-grey-04: #232321;
-  --ct-color-grey-05: #1B1B18;
-  --ct-color-grey-06: #141410;
+  --ct-color-grey-02: #E0DDD6;
+  --ct-color-grey-03: #C4C2BC;
+  --ct-color-grey-04: #84827E;
+  --ct-color-grey-05: #232321;
+  --ct-color-grey-06: #1B1B18;
+  --ct-color-grey-07: #141410;
   --ct-color-black: #0B0B0A;
-  --ct-color-brand: #FF550C;
-  --ct-color-green-01: #008924;
-  --ct-color-green-02: #0089241A; /* 10% */
-  --ct-color-red-01: #B83100;
-  --ct-color-red-02: #B831001A; /* 10% */
-  --ct-color-white-05: #FFFFFF0D; /* 5% */
+  --ct-color-white-60: #FFFFFF99; /* 60% */
   --ct-color-white-15: #FFFFFF26; /* 15% */
-  --ct-color-black-05: #0B0B0A0D; /* 5% */
+  --ct-color-white-10: #FFFFFF1A; /* 10% */
+  --ct-color-white-5: #FFFFFF0D; /* 5% */
   --ct-color-black-15: #0B0B0A26; /* 15% */
+  --ct-color-black-10: #0B0B0A1A; /* 10% */
+  --ct-color-black-5: #0B0B0A0D; /* 5% */
+
+  /* Status */
+  --ct-color-green: #008924;
+  --ct-color-green-10: #0089241A; /* 10% */
+  --ct-color-orange: #D07D00;
+  --ct-color-orange-10: #D07D001A; /* 10% */
+  --ct-color-orange-01-2: #FF9900;
+  --ct-color-red: #B83100;
+  --ct-color-red-10: #B831001A; /* 10% */
+
+  /* Data types */
+  --ct-color-data-green-name: #00C876;
+  --ct-color-data-yellow-phone-number: #FFD447;
+  --ct-color-data-rose-email: #E172EB;
+  --ct-color-data-skyblue-address: #0067FF;
+  --ct-color-data-darkblue-family: #003677;
+
+  /* Category */
+  --ct-color-category-insurance: #0D3919;
+  --ct-color-category-purple-monitoring-01: #635EF9;
+  --ct-color-category-purple-monitoring-02: #571CE1;
+  --ct-color-category-purple-monitoring-03: #420098;
+  --ct-color-category-jade-guard-01: #00A8B1;
+  --ct-color-category-jade-guard-02: #006166;
+  --ct-color-category-jade-guard-03: #004141;
+  --ct-color-category-cerise-identity-01: #E1306E;
+  --ct-color-category-cerise-identity-02: #920F3D;
+  --ct-color-category-cerise-identity-03: #5E0732;
 }
